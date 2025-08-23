@@ -1,12 +1,15 @@
 import { Link } from "@heroui/link";
 
 import { Navbar } from "@/components/navbar";
+import { useTranslation } from "@/lib/i18n-context";
 
 export default function DefaultLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { t } = useTranslation();
+
   return (
     <div className="relative flex flex-col h-screen">
       <Navbar />
@@ -20,7 +23,7 @@ export default function DefaultLayout({
           href="https://heroui.com"
           title="heroui.com homepage"
         >
-          <span className="text-default-600">Powered by</span>
+          <span className="text-default-600">{t('pages.home.poweredBy')}</span>
           <p className="text-primary">HeroUI</p>
         </Link>
       </footer>

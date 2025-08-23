@@ -2,6 +2,7 @@ import type { NavigateOptions } from "react-router-dom";
 
 import { HeroUIProvider } from "@heroui/system";
 import { useHref, useNavigate } from "react-router-dom";
+import { I18nProvider } from "@/lib/i18n-context";
 
 declare module "@react-types/shared" {
   interface RouterConfig {
@@ -13,8 +14,10 @@ export function Provider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
   return (
-    <HeroUIProvider navigate={navigate} useHref={useHref}>
-      {children}
-    </HeroUIProvider>
+    <I18nProvider>
+      <HeroUIProvider navigate={navigate} useHref={useHref}>
+        {children}
+      </HeroUIProvider>
+    </I18nProvider>
   );
 }

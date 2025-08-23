@@ -16,6 +16,8 @@ import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useTranslation } from "@/lib/i18n-context";
 import {
   TwitterIcon,
   GithubIcon,
@@ -26,9 +28,11 @@ import {
 import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
+  const { t } = useTranslation();
+
   const searchInput = (
     <Input
-      aria-label="Search"
+      aria-label={t('components.navbar.searchPlaceholder')}
       classNames={{
         inputWrapper: "bg-default-100",
         input: "text-sm",
@@ -39,7 +43,7 @@ export const Navbar = () => {
         </Kbd>
       }
       labelPlacement="outside"
-      placeholder="Search..."
+      placeholder={t('components.navbar.searchPlaceholder')}
       startContent={
         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
@@ -71,7 +75,7 @@ export const Navbar = () => {
                 color="foreground"
                 href={item.href}
               >
-                {item.label}
+                {t(`common.${item.label.toLowerCase()}` as any)}
               </Link>
             </NavbarItem>
           ))}
@@ -93,6 +97,7 @@ export const Navbar = () => {
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
+          <LanguageSwitcher />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">
@@ -104,7 +109,7 @@ export const Navbar = () => {
             startContent={<HeartFilledIcon className="text-danger" />}
             variant="flat"
           >
-            Sponsor
+            {t('common.sponsor')}
           </Button>
         </NavbarItem>
       </NavbarContent>
@@ -114,6 +119,7 @@ export const Navbar = () => {
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
+        <LanguageSwitcher />
         <NavbarMenuToggle />
       </NavbarContent>
 
@@ -133,7 +139,7 @@ export const Navbar = () => {
                 href="#"
                 size="lg"
               >
-                {item.label}
+                {t(`common.${item.label.toLowerCase().replace(/\s+/g, '').replace('&', '')}` as any)}
               </Link>
             </NavbarMenuItem>
           ))}

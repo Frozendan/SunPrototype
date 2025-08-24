@@ -1,12 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useCallback } from 'react';
 import type { Language, TranslationKeyPath, I18nContextType } from '@/types/i18n';
-import { 
-  getTranslation, 
-  getStoredLanguage, 
-  storeLanguage, 
+import {
+  getTranslation,
   translations,
-  DEFAULT_LANGUAGE 
 } from '@/lib/i18n';
+import { useSettingsStore } from '@/stores/settings-store';
 
 // Create the i18n context
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -16,22 +14,13 @@ interface I18nProviderProps {
 }
 
 /**
- * I18n Provider component that manages language state and provides translation functions
+ * I18n Provider component that provides translation functions
+ * Language state is managed by the Settings Store
  */
 export function I18nProvider({ children }: I18nProviderProps) {
-  const [language, setLanguageState] = useState<Language>(DEFAULT_LANGUAGE);
-
-  // Initialize language from storage on mount
-  useEffect(() => {
-    const storedLanguage = getStoredLanguage();
-    setLanguageState(storedLanguage);
-  }, []);
-
-  // Update language and persist to storage
-  const setLanguage = useCallback((newLanguage: Language) => {
-    setLanguageState(newLanguage);
-    storeLanguage(newLanguage);
-  }, []);
+  // Get language from Settings Store instead of managing our own state
+  const language = useSettingsStore((state) => state.language);
+  const setLanguage = useSettingsStore((state) => state.setLanguage);
 
   // Translation function
   const t = useCallback((key: TranslationKeyPath): string => {

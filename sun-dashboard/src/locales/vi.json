@@ -97,6 +97,47 @@
     "employeeAccount": "Tài khoản nhân viên",
     "or": "HOẶC"
   },
+  "apps": {
+    "news": {
+      "name": "Tin tức",
+      "description": "Cập nhật tin tức và bài viết mới nhất"
+    },
+    "taskManagement": {
+      "name": "Quản lý công việc",
+      "description": "Quản lý công việc và dự án hiệu quả"
+    },
+    "timeManagement": {
+      "name": "Quản lý thời gian",
+      "description": "Theo dõi và quản lý thời gian hiệu quả"
+    }
+  },
+  "navigation": {
+    "news": {
+      "dashboard": "Bảng tin tức",
+      "articles": "Bài viết",
+      "categories": "Danh mục",
+      "trending": "Xu hướng",
+      "bookmarks": "Đánh dấu",
+      "settings": "Cài đặt tin tức"
+    },
+    "taskManagement": {
+      "dashboard": "Bảng công việc",
+      "projects": "Dự án",
+      "tasks": "Công việc",
+      "team": "Nhóm",
+      "calendar": "Lịch",
+      "reports": "Báo cáo",
+      "settings": "Cài đặt công việc"
+    },
+    "timeManagement": {
+      "dashboard": "Bảng thời gian",
+      "tracker": "Theo dõi thời gian",
+      "reports": "Báo cáo thời gian",
+      "projects": "Dự án",
+      "analytics": "Phân tích",
+      "settings": "Cài đặt thời gian"
+    }
+  },
   "stores": {
     "users": {
       "title": "Người dùng",

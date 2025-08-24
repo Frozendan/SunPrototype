@@ -10,6 +10,11 @@ import LoginPage from "@/pages/login";
 import DashboardPage from "@/pages/dashboard";
 import ProtectedRoute from "@/components/protected-route";
 
+// App-specific dashboard pages
+import NewsDashboardPage from "@/pages/apps/news/dashboard";
+import TasksDashboardPage from "@/pages/apps/tasks/dashboard";
+import TimeDashboardPage from "@/pages/apps/time/dashboard";
+
 function App() {
   return (
     <Routes>
@@ -27,6 +32,30 @@ function App() {
           </ProtectedRoute>
         }
         path="/dashboard"
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <NewsDashboardPage />
+          </ProtectedRoute>
+        }
+        path="/dashboard/news"
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <TasksDashboardPage />
+          </ProtectedRoute>
+        }
+        path="/dashboard/tasks"
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <TimeDashboardPage />
+          </ProtectedRoute>
+        }
+        path="/dashboard/time"
       />
     </Routes>
   );

@@ -97,6 +97,47 @@
     "employeeAccount": "Employee Account",
     "or": "OR"
   },
+  "apps": {
+    "news": {
+      "name": "News",
+      "description": "Stay updated with latest news and articles"
+    },
+    "taskManagement": {
+      "name": "Task Management",
+      "description": "Manage your tasks and projects efficiently"
+    },
+    "timeManagement": {
+      "name": "Time Management",
+      "description": "Track and manage your time effectively"
+    }
+  },
+  "navigation": {
+    "news": {
+      "dashboard": "News Dashboard",
+      "articles": "Articles",
+      "categories": "Categories",
+      "trending": "Trending",
+      "bookmarks": "Bookmarks",
+      "settings": "News Settings"
+    },
+    "taskManagement": {
+      "dashboard": "Task Dashboard",
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "team": "Team",
+      "calendar": "Calendar",
+      "reports": "Reports",
+      "settings": "Task Settings"
+    },
+    "timeManagement": {
+      "dashboard": "Time Dashboard",
+      "tracker": "Time Tracker",
+      "reports": "Time Reports",
+      "projects": "Projects",
+      "analytics": "Analytics",
+      "settings": "Time Settings"
+    }
+  },
   "stores": {
     "users": {
       "title": "Users",

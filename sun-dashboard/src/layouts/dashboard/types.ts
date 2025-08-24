@@ -51,3 +51,18 @@ export type DashboardUser = {
   avatar: string;
   email: string;
 };
+
+export type AppType = 'news' | 'taskManagement' | 'timeManagement';
+
+export type App = {
+  id: AppType;
+  name: string;
+  description: string;
+  icon: string;
+  iconColor: string;
+  route: string;
+};
+
+export type AppNavigationItems = {
+  [K in AppType]: SidebarItem[];
+};

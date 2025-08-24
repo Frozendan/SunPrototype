@@ -161,9 +161,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         />
 
         {/* Main Content */}
-        <main className="flex-1 overflow-hidden p-4">
+        <main className="flex-1 overflow-hidden p-4 pl-0 pt-0">
           <motion.div
-            className="h-full w-full bg-content1 rounded-lg overflow-auto"
+            className="h-full w-full border border-default-100 dark:bg-content1 rounded-xl overflow-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{

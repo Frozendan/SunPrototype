@@ -79,7 +79,7 @@ export default function DashboardNavbar({ onMenuToggle, isSidebarOpen, isCompact
       maxWidth="full"
     >
       {/* Left side - Menu toggle and breadcrumbs */}
-      <NavbarContent className="flex-1" justify="start">
+      <NavbarContent className="flex-1 -ml-6" justify="start">
         <NavbarItem className="lg:hidden">
           <Button
             isIconOnly
@@ -101,13 +101,13 @@ export default function DashboardNavbar({ onMenuToggle, isSidebarOpen, isCompact
             <Button
               isIconOnly
               size="sm"
-              variant="bordered"
+              variant="light"
               onPress={onToggleCompact}
               aria-label={isCompact ? "Expand sidebar" : "Collapse sidebar"}
             >
               <Icon
                 icon="solar:sidebar-minimalistic-outline"
-                width={16}
+                width={18}
               />
             </Button>
           )}

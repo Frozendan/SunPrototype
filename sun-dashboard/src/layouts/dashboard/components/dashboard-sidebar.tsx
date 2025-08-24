@@ -199,104 +199,15 @@ export default function DashboardSidebar({ className, isCompact = false }: Dashb
   }
 
   return (
-    <div className={`border-divider relative flex h-full flex-1 flex-col py-6 px-3 transition-all duration-300 ${
+    <div className={`border-divider relative flex h-full flex-1 flex-col py-4 px-3.5 transition-all duration-300 ${
       isCompact ? 'w-20' : 'w-72'
     } ${className}`}>
       <div className="flex items-center justify-between">
         <div className={`flex items-center gap-2 px-2 ${isCompact ? 'justify-center w-full' : ''}`}>
           <div className="flex items-center justify-center">
-            <SunIcon className="text-foreground" size={20} />
+            <SunIcon className="text-foreground" size={isCompact ? 20 : 26} />
           </div>
-          {!isCompact && <span className="text-small font-bold uppercase">Sun Group</span>}
-        </div>
-        <div className="flex items-center justify-end">
-          {/* User Menu */}
-          {!isCompact && (
-            <Dropdown showArrow placement="bottom-start">
-              <DropdownTrigger>
-                <Button disableRipple isIconOnly className="-mr-1" radius="full" variant="light">
-                  <Avatar
-                    className="h-6 w-6 cursor-pointer"
-                    name={user.name}
-                    src={user.avatar}
-                  />
-                </Button>
-              </DropdownTrigger>
-            <DropdownMenu aria-label="User menu" disabledKeys={["profile"]}>
-              <DropdownSection showDivider aria-label="Profile & Actions">
-                <DropdownItem
-                  key="profile"
-                  isReadOnly
-                  className="h-14 gap-2 opacity-100"
-                  textValue="Signed in as"
-                >
-                  <User
-                    avatarProps={{
-                      size: "sm",
-                      imgProps: {
-                        className: "transition-none",
-                      },
-                      src: user.avatar,
-                    }}
-                    classNames={{
-                      name: "text-default-600",
-                      description: "text-default-500",
-                    }}
-                    description={user.role}
-                    name={user.name}
-                  />
-                </DropdownItem>
-                <DropdownItem key="dashboard" onPress={() => navigate("/dashboard")}>
-                  {t('common.dashboard')}
-                </DropdownItem>
-                <DropdownItem key="settings">
-                  {t('common.settings')}
-                </DropdownItem>
-                <DropdownItem
-                  key="new_project"
-                  endContent={<Icon className="text-large" icon="lucide:plus" />}
-                >
-                  New Project
-                </DropdownItem>
-              </DropdownSection>
-
-              <DropdownSection showDivider aria-label="Preferences">
-                <DropdownItem key="quick_search" shortcut="⌘K">
-                  Quick search
-                </DropdownItem>
-              </DropdownSection>
-
-              <DropdownSection aria-label="Help & Feedback">
-                <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-                <DropdownItem key="logout" onPress={handleLogout}>
-                  {t('auth.logout')}
-                </DropdownItem>
-              </DropdownSection>
-            </DropdownMenu>
-          </Dropdown>
-          )}
-
-          {/* Notifications */}
-          {!isCompact && (
-            <Popover offset={12} placement="bottom-start">
-              <PopoverTrigger>
-                <Button
-                  disableRipple
-                  isIconOnly
-                  className="overflow-visible"
-                  radius="full"
-                  variant="light"
-                >
-                  <Badge color="danger" content="5" showOutline={false} size="md">
-                    <Icon className="text-default-500" icon="solar:bell-linear" width={22} />
-                  </Badge>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="max-w-[90vw] p-0 sm:max-w-[380px]">
-                <NotificationsCard className="w-full shadow-none" />
-              </PopoverContent>
-            </Popover>
-          )}
+          {!isCompact && <span className="text-small font-bold uppercase text-primary">Sun Group</span>}
         </div>
       </div>
 
@@ -429,62 +340,62 @@ export default function DashboardSidebar({ className, isCompact = false }: Dashb
         )}
       </ScrollShadow>
 
-      {!isCompact && (
-        <Dropdown placement="top">
-          <DropdownTrigger>
-            <Button className="mb-4 h-16 items-center justify-between" variant="light">
-              <User
-                avatarProps={{
-                  size: "sm",
-                  isBordered: false,
-                  src: user.avatar,
-                }}
-                className="justify-start transition-transform"
-                description={user.role}
-                name={user.name}
-              />
-              <Icon className="text-default-400" icon="lucide:chevrons-up-down" width={16} />
-            </Button>
-          </DropdownTrigger>
-          <DropdownMenu
-            aria-label="Account switcher"
-            variant="flat"
-            onAction={(key) => console.log(`selected user ${key}`)}
-          >
-            {mockUsers.map((mockUser) => (
-              <DropdownItem key={mockUser.id} textValue={mockUser.name}>
-                <div className="flex items-center gap-x-3">
-                  <Avatar
-                    alt={mockUser.name}
-                    classNames={{
-                      base: "shrink-0",
-                      img: "transition-none",
-                    }}
-                    size="sm"
-                    src={mockUser.avatar}
-                  />
-                  <div className="flex flex-col">
-                    <p className="text-small text-default-600 font-medium">{mockUser.name}</p>
-                    <p className="text-tiny text-default-400">{mockUser.email}</p>
-                  </div>
-                </div>
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown>
-      )}
-
-      {/* Compact mode user avatar */}
-      {isCompact && (
-        <div className="mb-4 flex justify-center">
-          <Avatar
-            className="h-8 w-8"
-            name={user.name}
-            src={user.avatar}
-            size="sm"
-          />
-        </div>
-      )}
+      {/*{!isCompact && (*/}
+      {/*  <Dropdown placement="top">*/}
+      {/*    <DropdownTrigger>*/}
+      {/*      <Button className="mb-4 h-16 items-center justify-between" variant="light">*/}
+      {/*        <User*/}
+      {/*          avatarProps={{*/}
+      {/*            size: "sm",*/}
+      {/*            isBordered: false,*/}
+      {/*            src: user.avatar,*/}
+      {/*          }}*/}
+      {/*          className="justify-start transition-transform"*/}
+      {/*          description={user.role}*/}
+      {/*          name={user.name}*/}
+      {/*        />*/}
+      {/*        <Icon className="text-default-400" icon="lucide:chevrons-up-down" width={16} />*/}
+      {/*      </Button>*/}
+      {/*    </DropdownTrigger>*/}
+      {/*    <DropdownMenu*/}
+      {/*      aria-label="Account switcher"*/}
+      {/*      variant="flat"*/}
+      {/*      onAction={(key) => console.log(`selected user ${key}`)}*/}
+      {/*    >*/}
+      {/*      {mockUsers.map((mockUser) => (*/}
+      {/*        <DropdownItem key={mockUser.id} textValue={mockUser.name}>*/}
+      {/*          <div className="flex items-center gap-x-3">*/}
+      {/*            <Avatar*/}
+      {/*              alt={mockUser.name}*/}
+      {/*              classNames={{*/}
+      {/*                base: "shrink-0",*/}
+      {/*                img: "transition-none",*/}
+      {/*              }}*/}
+      {/*              size="sm"*/}
+      {/*              src={mockUser.avatar}*/}
+      {/*            />*/}
+      {/*            <div className="flex flex-col">*/}
+      {/*              <p className="text-small text-default-600 font-medium">{mockUser.name}</p>*/}
+      {/*              <p className="text-tiny text-default-400">{mockUser.email}</p>*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+      {/*        </DropdownItem>*/}
+      {/*      ))}*/}
+      {/*    </DropdownMenu>*/}
+      {/*  </Dropdown>*/}
+      {/*)}*/}
+      
+      {/*/!* Compact mode user avatar *!/*/}
+      {/*{isCompact && (*/}
+      {/*  <div className="mb-4 flex justify-center">*/}
+      {/*    <Avatar*/}
+      {/*      className="h-8 w-8"*/}
+      {/*      name={user.name}*/}
+      {/*      src={user.avatar}*/}
+      {/*      size="sm"*/}
+      {/*    />*/}
+      {/*  </div>*/}
+      {/*)}*/}
     </div>
   );
 }

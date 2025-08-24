@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody } from "@heroui/react";
+import {Card, CardBody, Divider, Spacer} from "@heroui/react";
 import { motion } from "framer-motion";
 import { EditableTitle } from "@/components/ui/editable-title";
 import { EditableTextArea } from "@/components/ui/editable-textarea";
@@ -26,7 +26,7 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
   return (
     <motion.div variants={itemVariants} className="h-full pb-3 lg:col-span-2">
       <Card className="flex flex-col">
-        <CardBody className="space-y-6 overflow-y-auto flex-1" role="region" aria-labelledby="task-details-heading">
+        <CardBody className="overflow-y-auto flex-1" role="region" aria-labelledby="task-details-heading">
           {/* Editable Title */}
           <EditableTitle
             value={formData.title}
@@ -36,6 +36,7 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
             errorMessage={errors.title}
           />
 
+           
           {/* Tags */}
           <div className="space-y-2">
             <TagInput
@@ -48,6 +49,7 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
               }}
             />
           </div>
+            <Spacer y={6} />
 
           {/* Description */}
           <EditableTextArea
@@ -60,6 +62,8 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
             minRows={8}
           />
 
+            <Spacer y={3} />
+
           {/* Expected Results */}
           <EditableTextArea
             label={t("navigation.taskManagement.expectedResults")}
@@ -70,6 +74,11 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
             errorMessage={errors.expectedResults}
             minRows={6}
           />
+
+            <Spacer y={3} />
+            <Divider />
+            <Spacer y={3} />
+
 
           {/* Attachments */}
           <FileUpload

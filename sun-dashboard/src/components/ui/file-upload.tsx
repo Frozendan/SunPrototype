@@ -99,7 +99,7 @@ export function FileUpload({
       {/* Header with label and upload button */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <label className="block text-sm font-medium text-foreground">
+          <label className="block text-md font-bold text-foreground">
             {t("navigation.taskManagement.attachments")}
           </label>
           {files.length > 0 && (

@@ -13,6 +13,7 @@ import { useTranslation } from "@/lib/i18n-context";
 
 import AppSwitcher from "./app-switcher";
 import SidebarListItems from "./sidebar-list-items";
+import CreateButton from "./create-button";
 import type { AppType } from "../types";
 
 
@@ -101,6 +102,13 @@ export default function DashboardSidebar({ className, isCompact = false }: Dashb
             onAppChange={handleAppChange}
             isCompact={isCompact}
           />
+          <CreateButton isCompact={isCompact} />
+        </div>
+      )}
+
+      {!isCompact && (
+        <div className="px-2 py-4">
+          <CreateButton isCompact={isCompact} />
         </div>
       )}
 

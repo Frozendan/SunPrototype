@@ -203,7 +203,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         />
 
         {/* Main Content */}
-        <main className={`flex-1 overflow-hidden p-4 pt-0 ${isMainDashboard ? 'pl-4' : 'pl-0'}`}>
+        <main className={`flex-1 overflow-hidden px-4 py-0 ${isMainDashboard ? 'pl-4' : 'pl-0'}`}>
           <motion.div
             className="h-full w-full border border-default-100 dark:bg-content1 rounded-xl"
             initial={{ opacity: 0, y: 20 }}

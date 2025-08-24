@@ -78,19 +78,16 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
       title: t('navigation.taskManagement.dashboard'),
     },
     {
-      key: "projects",
-      href: "/task-management/projects",
-      icon: "solar:widget-2-outline",
-      title: t('navigation.taskManagement.projects'),
-      endContent: (
-        <Icon className="text-default-400" icon="solar:add-circle-line-duotone" width={24} />
-      ),
-    },
-    {
       key: "tasks",
       href: "/task-management/tasks",
       icon: "solar:checklist-minimalistic-outline",
       title: t('navigation.taskManagement.tasks'),
+    },
+    {
+      key: "projects",
+      href: "/task-management/projects",
+      icon: "solar:widget-2-outline",
+      title: t('navigation.taskManagement.projects'),
       endContent: (
         <Icon className="text-default-400" icon="solar:add-circle-line-duotone" width={24} />
       ),

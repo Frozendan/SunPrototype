@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner";
 
 import IndexPage from "@/pages/index";
 import DocsPage from "@/pages/docs";
@@ -15,9 +16,16 @@ import NewsDashboardPage from "@/pages/apps/news/dashboard";
 import TasksDashboardPage from "@/pages/apps/tasks/dashboard";
 import TimeDashboardPage from "@/pages/apps/time/dashboard";
 
+// Task Management pages
+import CreateTaskPage from "@/pages/apps/task-management/create";
+import TaskListPage from "@/pages/apps/task-management/tasks";
+import CreateDocumentPage from "@/pages/apps/document-management/create";
+
 function App() {
   return (
-    <Routes>
+    <>
+      <Toaster position="top-right" richColors />
+      <Routes>
       <Route element={<IndexPage />} path="/" />
       <Route element={<DocsPage />} path="/docs" />
       <Route element={<PricingPage />} path="/pricing" />
@@ -54,6 +62,30 @@ function App() {
         }
         path="/task-management/dashboard"
       />
+      <Route
+        element={
+          <ProtectedRoute>
+            <CreateTaskPage />
+          </ProtectedRoute>
+        }
+        path="/task-management/create-task"
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <CreateDocumentPage />
+          </ProtectedRoute>
+        }
+        path="/task-management/create-document"
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <TaskListPage />
+          </ProtectedRoute>
+        }
+        path="/task-management/tasks"
+      />
 
       {/* Time Management App Routes */}
       <Route
@@ -65,6 +97,7 @@ function App() {
         path="/time-management/dashboard"
       />
     </Routes>
+    </>
   );
 }
 

@@ -184,3 +184,67 @@ export const SearchIcon = (props: IconSvgProps) => (
     />
   </svg>
 );
+
+// Legacy AcmeIcon - kept for backward compatibility
+export const AcmeIcon: React.FC<IconSvgProps> = ({
+  size = 36,
+  height,
+  ...props
+}) => (
+  <svg
+    fill="none"
+    height={size || height}
+    viewBox="0 0 32 32"
+    width={size || height}
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+// New Sun Group Logo Icon using image with fallback
+export const SunGroupIcon: React.FC<IconSvgProps> = ({
+  size = 36,
+  width,
+  height,
+  className = "",
+  ...props
+}) => {
+  const [imageError, setImageError] = React.useState(false);
+
+  if (imageError) {
+    // Fallback placeholder when image is not found
+    return (
+      <div
+        className={`inline-flex items-center justify-center bg-gradient-to-br from-sun-gold-400 to-sun-gold-600 rounded-lg shadow-sm ${className}`}
+        style={{
+          width: size || width,
+          height: size || height,
+        }}
+        {...props}
+      >
+        <div className="text-white font-bold text-center leading-none">
+          <div style={{ fontSize: (size || 36) * 0.25 }}>SUN</div>
+          <div style={{ fontSize: (size || 36) * 0.15 }} className="opacity-90">GROUP</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src="/images/sun-group-logo.png"
+      alt="Sun Group"
+      width={size || width}
+      height={size || height}
+      className={`object-contain ${className}`}
+      onError={() => setImageError(true)}
+      {...props}
+    />
+  );
+};

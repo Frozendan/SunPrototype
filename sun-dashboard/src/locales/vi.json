@@ -74,6 +74,29 @@
       "system": "Hệ thống"
     }
   },
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "email": "Địa chỉ Email",
+    "password": "Mật khẩu",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "forgotPassword": "Quên mật khẩu?",
+    "signUp": "Đăng ký",
+    "continueWithGoogle": "Tiếp tục với Google",
+    "continueWithGithub": "Tiếp tục với Github",
+    "needAccount": "Cần tạo tài khoản?",
+    "enterEmail": "Nhập email của bạn",
+    "enterPassword": "Nhập mật khẩu của bạn",
+    "loggingIn": "Đang đăng nhập...",
+    "loginError": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập.",
+    "invalidCredentials": "Email hoặc mật khẩu không đúng",
+    "welcomeBack": "Chào mừng trở lại!",
+    "loginSuccess": "Đăng nhập thành công",
+    "demoCredentials": "Thông tin đăng nhập demo",
+    "adminAccount": "Tài khoản quản trị",
+    "employeeAccount": "Tài khoản nhân viên",
+    "or": "HOẶC"
+  },
   "stores": {
     "users": {
       "title": "Người dùng",

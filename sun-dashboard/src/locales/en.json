@@ -74,6 +74,29 @@
       "system": "System"
     }
   },
+  "auth": {
+    "login": "Log In",
+    "logout": "Log Out",
+    "email": "Email Address",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signUp": "Sign Up",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGithub": "Continue with Github",
+    "needAccount": "Need to create an account?",
+    "enterEmail": "Enter your email",
+    "enterPassword": "Enter your password",
+    "loggingIn": "Logging in...",
+    "loginError": "Login failed. Please check your credentials.",
+    "invalidCredentials": "Invalid email or password",
+    "welcomeBack": "Welcome back!",
+    "loginSuccess": "Login successful",
+    "demoCredentials": "Demo Credentials",
+    "adminAccount": "Admin Account",
+    "employeeAccount": "Employee Account",
+    "or": "OR"
+  },
   "stores": {
     "users": {
       "title": "Users",

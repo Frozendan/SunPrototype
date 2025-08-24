@@ -6,6 +6,8 @@ import PricingPage from "@/pages/pricing";
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
 import DemoPage from "@/pages/demo";
+import LoginPage from "@/pages/login";
+import DashboardPage from "@/pages/dashboard";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
       <Route element={<BlogPage />} path="/blog" />
       <Route element={<AboutPage />} path="/about" />
       <Route element={<DemoPage />} path="/demo" />
+      <Route element={<LoginPage />} path="/login" />
+      <Route element={<DashboardPage />} path="/dashboard" />
     </Routes>
   );
 }

@@ -2,6 +2,7 @@ import { Button } from "@heroui/button";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
+import { Avatar, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
@@ -13,22 +14,30 @@ import {
 } from "@heroui/navbar";
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
+import { useNavigate } from "react-router-dom";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTranslation } from "@/lib/i18n-context";
+import { useAuth } from "@/hooks/use-auth";
 import {
   TwitterIcon,
   GithubIcon,
   DiscordIcon,
-  HeartFilledIcon,
   SearchIcon,
 } from "@/components/icons";
-import { Logo } from "@/components/icons";
+import { SunGroupIcon } from "@/components/icons";
 
 export const Navbar = () => {
   const { t } = useTranslation();
+  const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   const searchInput = (
     <Input
@@ -56,12 +65,15 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <Link
-            className="flex justify-start items-center gap-1"
+            className="flex justify-start items-center gap-3"
             color="foreground"
             href="/"
           >
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <SunGroupIcon size={40} className="drop-shadow-sm" />
+            <div className="flex flex-col">
+              <p className="font-bold text-inherit text-xl leading-none">SUN</p>
+              <p className="font-semibold text-sun-gold-600 text-sm leading-none">GROUP</p>
+            </div>
           </Link>
         </NavbarBrand>
         <div className="hidden lg:flex gap-4 justify-start ml-2">
@@ -101,16 +113,43 @@ export const Navbar = () => {
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
-            variant="flat"
-          >
-            {t('common.sponsor')}
-          </Button>
+          {isAuthenticated ? (
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Avatar
+                  as="button"
+                  className="transition-transform"
+                  src={user?.avatar}
+                  name={user?.name}
+                  size="sm"
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Profile Actions" variant="flat">
+                <DropdownItem key="profile" className="h-14 gap-2">
+                  <p className="font-semibold">{user?.name}</p>
+                  <p className="text-sm text-default-500">{user?.email}</p>
+                </DropdownItem>
+                <DropdownItem key="dashboard" onPress={() => navigate("/dashboard")}>
+                  {t('common.dashboard')}
+                </DropdownItem>
+                <DropdownItem key="settings">
+                  {t('common.settings')}
+                </DropdownItem>
+                <DropdownItem key="logout" color="danger" onPress={handleLogout}>
+                  {t('auth.logout')}
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          ) : (
+            <Button
+              as={Link}
+              className="text-sm font-normal text-default-600 bg-default-100"
+              href="/login"
+              variant="flat"
+            >
+              {t('auth.login')}
+            </Button>
+          )}
         </NavbarItem>
       </NavbarContent>
 

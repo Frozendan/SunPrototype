@@ -61,6 +61,29 @@ export interface TranslationKeys {
       description: string;
     };
   };
+  auth: {
+    login: string;
+    logout: string;
+    email: string;
+    password: string;
+    rememberMe: string;
+    forgotPassword: string;
+    signUp: string;
+    continueWithGoogle: string;
+    continueWithGithub: string;
+    needAccount: string;
+    enterEmail: string;
+    enterPassword: string;
+    loggingIn: string;
+    loginError: string;
+    invalidCredentials: string;
+    welcomeBack: string;
+    loginSuccess: string;
+    demoCredentials: string;
+    adminAccount: string;
+    employeeAccount: string;
+    or: string;
+  };
   components: {
     navbar: {
       searchPlaceholder: string;
@@ -114,8 +137,9 @@ export interface TranslationKeys {
 }
 
 // Helper type for nested key paths
-export type TranslationKeyPath = 
+export type TranslationKeyPath =
   | `common.${keyof TranslationKeys['common']}`
+  | `auth.${keyof TranslationKeys['auth']}`
   | `pages.home.${keyof TranslationKeys['pages']['home']}`
   | `pages.docs.${keyof TranslationKeys['pages']['docs']}`
   | `pages.pricing.${keyof TranslationKeys['pages']['pricing']}`

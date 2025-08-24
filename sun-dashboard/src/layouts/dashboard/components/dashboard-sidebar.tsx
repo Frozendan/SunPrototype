@@ -5,7 +5,7 @@ import {
   ScrollShadow,
   Spacer,
 } from "@heroui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { SunIcon } from "@/components/sun-logo";
 import { useAuth } from "@/hooks/use-auth";
@@ -26,14 +26,17 @@ export default function DashboardSidebar({ className, isCompact = false }: Dashb
   const { user } = useAuth();
   const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Determine current app based on URL
   const getCurrentApp = (): AppType => {
     const path = location.pathname;
-    if (path.startsWith('/dashboard/news')) return 'news';
-    if (path.startsWith('/dashboard/tasks')) return 'taskManagement';
-    if (path.startsWith('/dashboard/time')) return 'timeManagement';
-    return 'taskManagement'; // Default app
+    if (path === '/dashboard') return 'myDashboard';
+    if (path.startsWith('/news')) return 'news';
+    if (path.startsWith('/task-management')) return 'taskManagement';
+    if (path.startsWith('/time-management')) return 'timeManagement';
+    // If on main dashboard, default to myDashboard for sidebar display
+    return 'myDashboard';
   };
 
   const [currentApp, setCurrentApp] = useState<AppType>(getCurrentApp());
@@ -50,6 +53,10 @@ export default function DashboardSidebar({ className, isCompact = false }: Dashb
   const handleSidebarSelect = (key: string) => {
     // Navigation is handled by the href in sidebar items
     console.log(`Selected sidebar item: ${key}`);
+  };
+
+  const handleLogoClick = () => {
+    navigate('/dashboard');
   };
 
 
@@ -69,9 +76,13 @@ export default function DashboardSidebar({ className, isCompact = false }: Dashb
       {!isCompact && (
         <div className="flex w-full gap-2">
             <div className={`flex items-center gap-2 px-2 ${isCompact ? 'justify-center py-1 w-full' : ''}`}>
-                <div className="flex items-center justify-center">
+                <button
+                  className="flex items-center justify-center hover:opacity-80 transition-opacity"
+                  onClick={handleLogoClick}
+                  aria-label="Go to main dashboard"
+                >
                     <SunIcon className="text-foreground" size={isCompact ? 20 : 26} />
-                </div>
+                </button>
             </div>
             <div className="flex-1">
                 <AppSwitcher

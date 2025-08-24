@@ -19,20 +19,33 @@ import {
 import { Icon } from "@iconify/react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { SunIcon } from "@/components/sun-logo";
 import { useAuth } from "@/hooks/use-auth";
 import { useTranslation } from "@/lib/i18n-context";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { SunIcon } from "@/components/sun-logo";
+import AppSwitcher from "./app-switcher";
+import type { AppType } from "../types";
 
 interface DashboardNavbarProps {
   onMenuToggle?: () => void;
   isSidebarOpen?: boolean;
   isCompact?: boolean;
   onToggleCompact?: () => void;
+  showLogoAndAppSwitcher?: boolean;
+  currentApp?: string;
+  onAppChange?: (appId: string) => void;
 }
 
-export default function DashboardNavbar({ onMenuToggle, isSidebarOpen, isCompact, onToggleCompact }: DashboardNavbarProps) {
+export default function DashboardNavbar({
+  onMenuToggle,
+  isSidebarOpen,
+  isCompact,
+  onToggleCompact,
+  showLogoAndAppSwitcher = false,
+  currentApp,
+  onAppChange
+}: DashboardNavbarProps) {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -78,40 +91,68 @@ export default function DashboardNavbar({ onMenuToggle, isSidebarOpen, isCompact
       height="64px"
       maxWidth="full"
     >
-      {/* Left side - Menu toggle and breadcrumbs */}
+      {/* Left side - Logo/App Switcher or Menu toggle and breadcrumbs */}
       <NavbarContent className="flex-1 -ml-6" justify="start">
-        <NavbarItem className="lg:hidden">
-          <Button
-            isIconOnly
-            size="sm"
-            variant="light"
-            onPress={onMenuToggle}
-            aria-label="Toggle sidebar"
-          >
-            <Icon
-              icon={isSidebarOpen ? "solar:hamburger-menu-linear" : "solar:hamburger-menu-linear"}
-              width={20}
-            />
-          </Button>
-        </NavbarItem>
+        {showLogoAndAppSwitcher ? (
+          <>
+            {/* Logo */}
+            <NavbarItem>
+              <button
+                className="flex items-center gap-3 hover:opacity-80 transition-opacity ml-3"
+                onClick={() => navigate('/dashboard')}
+                aria-label="Go to main dashboard"
+              >
+                <SunIcon className="text-foreground" size={26} />
+              </button>
+            </NavbarItem>
 
-        {/* Desktop Sidebar Toggle */}
-        <NavbarItem className="hidden lg:flex">
-          {onToggleCompact && (
-            <Button
-              isIconOnly
-              size="sm"
-              variant="light"
-              onPress={onToggleCompact}
-              aria-label={isCompact ? "Expand sidebar" : "Collapse sidebar"}
-            >
-              <Icon
-                icon="solar:sidebar-minimalistic-outline"
-                width={18}
-              />
-            </Button>
-          )}
-        </NavbarItem>
+            {/* App Switcher */}
+            <NavbarItem className="hidden md:flex">
+              <div className="w-64">
+                <AppSwitcher
+                  currentApp={currentApp as AppType}
+                  onAppChange={onAppChange!}
+                  isCompact={false}
+                />
+              </div>
+            </NavbarItem>
+          </>
+        ) : (
+          <>
+            <NavbarItem className="lg:hidden">
+              <Button
+                isIconOnly
+                size="sm"
+                variant="light"
+                onPress={onMenuToggle}
+                aria-label="Toggle sidebar"
+              >
+                <Icon
+                  icon={isSidebarOpen ? "solar:hamburger-menu-linear" : "solar:hamburger-menu-linear"}
+                  width={20}
+                />
+              </Button>
+            </NavbarItem>
+
+            {/* Desktop Sidebar Toggle */}
+            <NavbarItem className="hidden lg:flex">
+              {onToggleCompact && (
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  onPress={onToggleCompact}
+                  aria-label={isCompact ? "Expand sidebar" : "Collapse sidebar"}
+                >
+                  <Icon
+                    icon="solar:sidebar-minimalistic-outline"
+                    width={18}
+                  />
+                </Button>
+              )}
+            </NavbarItem>
+          </>
+        )}
         
         <NavbarItem className="hidden sm:flex">
           <Breadcrumbs

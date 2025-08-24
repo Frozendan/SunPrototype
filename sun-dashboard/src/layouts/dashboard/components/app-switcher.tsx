@@ -22,12 +22,20 @@ interface AppSwitcherProps {
 
 const apps: App[] = [
   {
+    id: "myDashboard",
+    name: "apps.myDashboard.name",
+    description: "apps.myDashboard.description",
+    icon: "solar:home-2-bold",
+    iconColor: "text-orange-500",
+    route: "/dashboard",
+  },
+  {
     id: "news",
     name: "apps.news.name",
     description: "apps.news.description",
     icon: "solar:document-text-bold",
     iconColor: "text-blue-500",
-    route: "/dashboard/news",
+    route: "/news/dashboard",
   },
   {
     id: "taskManagement",
@@ -35,7 +43,7 @@ const apps: App[] = [
     description: "apps.taskManagement.description",
     icon: "solar:checklist-minimalistic-bold",
     iconColor: "text-green-500",
-    route: "/dashboard/tasks",
+    route: "/task-management/dashboard",
   },
   {
     id: "timeManagement",
@@ -43,7 +51,7 @@ const apps: App[] = [
     description: "apps.timeManagement.description",
     icon: "solar:clock-circle-bold",
     iconColor: "text-purple-500",
-    route: "/dashboard/time",
+    route: "/time-management/dashboard",
   },
 ];
 
@@ -64,6 +72,8 @@ export default function AppSwitcher({ currentApp, onAppChange, isCompact = false
   // Get background color based on app icon color with dark mode support
   const getBackgroundColor = (iconColor: string) => {
     switch (iconColor) {
+      case "text-orange-500":
+        return "bg-orange-100 hover:bg-orange-200 dark:bg-orange-900/30 dark:hover:bg-orange-800/40";
       case "text-blue-500":
         return "bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/30 dark:hover:bg-blue-800/40";
       case "text-green-500":

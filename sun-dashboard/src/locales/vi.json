@@ -98,6 +98,10 @@
     "or": "HOẶC"
   },
   "apps": {
+    "myDashboard": {
+      "name": "Bảng điều khiển của tôi",
+      "description": "Trang chủ và tổng quan hệ thống"
+    },
     "news": {
       "name": "Tin tức",
       "description": "Cập nhật tin tức và bài viết mới nhất"

@@ -52,7 +52,7 @@ export type DashboardUser = {
   email: string;
 };
 
-export type AppType = 'news' | 'taskManagement' | 'timeManagement';
+export type AppType = 'myDashboard' | 'news' | 'taskManagement' | 'timeManagement';
 
 export type App = {
   id: AppType;

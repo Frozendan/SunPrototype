@@ -16,16 +16,24 @@ interface SidebarListItemsProps {
 
 // Define navigation items for each app
 const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => ({
+  myDashboard: [
+    {
+      key: "my-dashboard",
+      href: "/dashboard",
+      icon: "solar:home-2-linear",
+      title: t('common.dashboard'),
+    },
+  ],
   news: [
     {
       key: "news-dashboard",
-      href: "/dashboard/news",
+      href: "/news/dashboard",
       icon: "solar:home-2-linear",
       title: t('navigation.news.dashboard'),
     },
     {
       key: "articles",
-      href: "/dashboard/news/articles",
+      href: "/news/articles",
       icon: "solar:document-text-outline",
       title: t('navigation.news.articles'),
       endContent: (
@@ -34,13 +42,13 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
     },
     {
       key: "categories",
-      href: "/dashboard/news/categories",
+      href: "/news/categories",
       icon: "solar:folder-outline",
       title: t('navigation.news.categories'),
     },
     {
       key: "trending",
-      href: "/dashboard/news/trending",
+      href: "/news/trending",
       icon: "solar:fire-outline",
       title: t('navigation.news.trending'),
       endContent: (
@@ -51,13 +59,13 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
     },
     {
       key: "bookmarks",
-      href: "/dashboard/news/bookmarks",
+      href: "/news/bookmarks",
       icon: "solar:bookmark-outline",
       title: t('navigation.news.bookmarks'),
     },
     {
       key: "news-settings",
-      href: "/dashboard/news/settings",
+      href: "/news/settings",
       icon: "solar:settings-outline",
       title: t('navigation.news.settings'),
     },
@@ -65,13 +73,13 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
   taskManagement: [
     {
       key: "task-dashboard",
-      href: "/dashboard/tasks",
+      href: "/task-management/dashboard",
       icon: "solar:home-2-linear",
       title: t('navigation.taskManagement.dashboard'),
     },
     {
       key: "projects",
-      href: "/dashboard/tasks/projects",
+      href: "/task-management/projects",
       icon: "solar:widget-2-outline",
       title: t('navigation.taskManagement.projects'),
       endContent: (
@@ -80,7 +88,7 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
     },
     {
       key: "tasks",
-      href: "/dashboard/tasks/list",
+      href: "/task-management/tasks",
       icon: "solar:checklist-minimalistic-outline",
       title: t('navigation.taskManagement.tasks'),
       endContent: (
@@ -89,25 +97,25 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
     },
     {
       key: "team",
-      href: "/dashboard/tasks/team",
+      href: "/task-management/team",
       icon: "solar:users-group-two-rounded-outline",
       title: t('navigation.taskManagement.team'),
     },
     {
       key: "calendar",
-      href: "/dashboard/tasks/calendar",
+      href: "/task-management/calendar",
       icon: "solar:calendar-outline",
       title: t('navigation.taskManagement.calendar'),
     },
     {
       key: "task-reports",
-      href: "/dashboard/tasks/reports",
+      href: "/task-management/reports",
       icon: "solar:chart-outline",
       title: t('navigation.taskManagement.reports'),
     },
     {
       key: "task-settings",
-      href: "/dashboard/tasks/settings",
+      href: "/task-management/settings",
       icon: "solar:settings-outline",
       title: t('navigation.taskManagement.settings'),
     },
@@ -115,13 +123,13 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
   timeManagement: [
     {
       key: "time-dashboard",
-      href: "/dashboard/time",
+      href: "/time-management/dashboard",
       icon: "solar:home-2-linear",
       title: t('navigation.timeManagement.dashboard'),
     },
     {
       key: "tracker",
-      href: "/dashboard/time/tracker",
+      href: "/time-management/tracker",
       icon: "solar:clock-circle-outline",
       title: t('navigation.timeManagement.tracker'),
       endContent: (
@@ -132,25 +140,25 @@ const getAppNavigationItems = (t: (key: any) => string): AppNavigationItems => (
     },
     {
       key: "time-reports",
-      href: "/dashboard/time/reports",
+      href: "/time-management/reports",
       icon: "solar:chart-outline",
       title: t('navigation.timeManagement.reports'),
     },
     {
       key: "time-projects",
-      href: "/dashboard/time/projects",
+      href: "/time-management/projects",
       icon: "solar:widget-2-outline",
       title: t('navigation.timeManagement.projects'),
     },
     {
       key: "analytics",
-      href: "/dashboard/time/analytics",
+      href: "/time-management/analytics",
       icon: "solar:graph-outline",
       title: t('navigation.timeManagement.analytics'),
     },
     {
       key: "time-settings",
-      href: "/dashboard/time/settings",
+      href: "/time-management/settings",
       icon: "solar:settings-outline",
       title: t('navigation.timeManagement.settings'),
     },

@@ -25,6 +25,7 @@ function App() {
       <Route element={<AboutPage />} path="/about" />
       <Route element={<DemoPage />} path="/demo" />
       <Route element={<LoginPage />} path="/login" />
+      {/* Main Dashboard Route */}
       <Route
         element={
           <ProtectedRoute>
@@ -33,29 +34,35 @@ function App() {
         }
         path="/dashboard"
       />
+
+      {/* News App Routes */}
       <Route
         element={
           <ProtectedRoute>
             <NewsDashboardPage />
           </ProtectedRoute>
         }
-        path="/dashboard/news"
+        path="/news/dashboard"
       />
+
+      {/* Task Management App Routes */}
       <Route
         element={
           <ProtectedRoute>
             <TasksDashboardPage />
           </ProtectedRoute>
         }
-        path="/dashboard/tasks"
+        path="/task-management/dashboard"
       />
+
+      {/* Time Management App Routes */}
       <Route
         element={
           <ProtectedRoute>
             <TimeDashboardPage />
           </ProtectedRoute>
         }
-        path="/dashboard/time"
+        path="/time-management/dashboard"
       />
     </Routes>
   );

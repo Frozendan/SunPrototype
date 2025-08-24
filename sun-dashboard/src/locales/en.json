@@ -98,6 +98,10 @@
     "or": "OR"
   },
   "apps": {
+    "myDashboard": {
+      "name": "My Dashboard",
+      "description": "Home page and system overview"
+    },
     "news": {
       "name": "News",
       "description": "Stay updated with latest news and articles"

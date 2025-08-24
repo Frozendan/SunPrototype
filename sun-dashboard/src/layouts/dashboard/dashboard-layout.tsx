@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { useAuth } from "@/hooks/use-auth";
 import { useSettingsStore, settingsSelectors } from "@/stores/settings-store";
 
 import DashboardSidebar from "./components/dashboard-sidebar";
 import DashboardNavbar from "./components/dashboard-navbar";
+import {ScrollShadow} from "@heroui/react";
+import type { AppType } from "./types";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -17,12 +19,39 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const { user, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   // Use settings store for persistent compact state
   const isCompact = useSettingsStore(settingsSelectors.sidebarCollapsed);
   const toggleSidebar = useSettingsStore((state) => state.toggleSidebar);
+
+  // Check if we're on the main dashboard route
+  const isMainDashboard = location.pathname === '/dashboard';
+
+  // Determine current app based on URL
+  const getCurrentApp = (): AppType => {
+    const path = location.pathname;
+    if (path === '/dashboard') return 'myDashboard';
+    if (path.startsWith('/news')) return 'news';
+    if (path.startsWith('/task-management')) return 'taskManagement';
+    if (path.startsWith('/time-management')) return 'timeManagement';
+    return 'myDashboard'; // Default app for main dashboard
+  };
+
+  const currentApp = getCurrentApp();
+
+  // Handle app change
+  const handleAppChange = (appId: AppType) => {
+    const routes = {
+      myDashboard: '/dashboard',
+      news: '/news/dashboard',
+      taskManagement: '/task-management/dashboard',
+      timeManagement: '/time-management/dashboard',
+    };
+    navigate(routes[appId]);
+  };
 
   // Check if user is authenticated
   useEffect(() => {
@@ -115,44 +144,50 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:flex-shrink-0">
-        <DashboardSidebar
-          isCompact={isCompact}
-        />
-      </aside>
-
-      {/* Mobile Sidebar Overlay */}
-      <AnimatePresence>
-        {isMobile && isSidebarOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-            variants={overlayVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
-            onClick={handleOverlayClick}
+      {/* Desktop Sidebar - Hidden on main dashboard */}
+      {!isMainDashboard && (
+        <aside className="hidden lg:flex lg:flex-shrink-0">
+          <DashboardSidebar
+            isCompact={isCompact}
           />
-        )}
-      </AnimatePresence>
+        </aside>
+      )}
 
-      {/* Mobile Sidebar */}
-      <AnimatePresence>
-        {isMobile && (
-          <motion.aside
-            className="fixed inset-y-0 left-0 z-50 lg:hidden"
-            variants={sidebarVariants}
-            initial="closed"
-            animate={isSidebarOpen ? "open" : "closed"}
-            exit="closed"
-          >
-            <DashboardSidebar
-              className="h-full bg-background shadow-lg"
-              isCompact={false}
+      {/* Mobile Sidebar Overlay - Hidden on main dashboard */}
+      {!isMainDashboard && (
+        <AnimatePresence>
+          {isMobile && isSidebarOpen && (
+            <motion.div
+              className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+              variants={overlayVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              onClick={handleOverlayClick}
             />
-          </motion.aside>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      )}
+
+      {/* Mobile Sidebar - Hidden on main dashboard */}
+      {!isMainDashboard && (
+        <AnimatePresence>
+          {isMobile && (
+            <motion.aside
+              className="fixed inset-y-0 left-0 z-50 lg:hidden"
+              variants={sidebarVariants}
+              initial="closed"
+              animate={isSidebarOpen ? "open" : "closed"}
+              exit="closed"
+            >
+              <DashboardSidebar
+                className="h-full bg-background shadow-lg"
+                isCompact={false}
+              />
+            </motion.aside>
+          )}
+        </AnimatePresence>
+      )}
 
       {/* Main Content Area */}
       <div className="flex flex-1 flex-col overflow-hidden">
@@ -161,13 +196,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           onMenuToggle={handleSidebarToggle}
           isSidebarOpen={isSidebarOpen}
           isCompact={isCompact}
-          onToggleCompact={handleCompactToggle}
+          onToggleCompact={!isMainDashboard ? handleCompactToggle : undefined}
+          showLogoAndAppSwitcher={isMainDashboard}
+          currentApp={currentApp}
+          onAppChange={handleAppChange}
         />
 
         {/* Main Content */}
-        <main className="flex-1 overflow-hidden p-4 pl-0 pt-0">
+        <main className={`flex-1 overflow-hidden p-4 pt-0 ${isMainDashboard ? 'pl-4' : 'pl-0'}`}>
           <motion.div
-            className="h-full w-full border border-default-100 dark:bg-content1 rounded-xl overflow-auto"
+            className="h-full w-full border border-default-100 dark:bg-content1 rounded-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -175,9 +213,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               ease: "easeOut",
             }}
           >
-            <div className="p-6">
-              {children}
-            </div>
+              <ScrollShadow className="w-full h-full">
+                  {children}
+              </ScrollShadow>
           </motion.div>
         </main>
       </div>

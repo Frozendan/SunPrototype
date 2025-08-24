@@ -8,6 +8,7 @@ import AboutPage from "@/pages/about";
 import DemoPage from "@/pages/demo";
 import LoginPage from "@/pages/login";
 import DashboardPage from "@/pages/dashboard";
+import ProtectedRoute from "@/components/protected-route";
 
 function App() {
   return (
@@ -19,7 +20,14 @@ function App() {
       <Route element={<AboutPage />} path="/about" />
       <Route element={<DemoPage />} path="/demo" />
       <Route element={<LoginPage />} path="/login" />
-      <Route element={<DashboardPage />} path="/dashboard" />
+      <Route
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+        path="/dashboard"
+      />
     </Routes>
   );
 }

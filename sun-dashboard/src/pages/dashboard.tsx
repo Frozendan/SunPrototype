@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { title } from "@/components/primitives";
 import { useTranslation } from "@/lib/i18n-context";
 import { useAuth } from "@/hooks/use-auth";
-import DefaultLayout from "@/layouts/default";
+import { DashboardLayout } from "@/layouts/dashboard";
 
 export default function DashboardPage() {
   const { t } = useTranslation();
@@ -48,9 +48,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <DefaultLayout>
-      <motion.section 
-        className="flex flex-col items-center justify-center gap-4 py-8 md:py-10"
+    <DashboardLayout>
+      <motion.section
+        className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-6"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -179,6 +179,6 @@ export default function DashboardPage() {
           </Card>
         </motion.div>
       </motion.section>
-    </DefaultLayout>
+    </DashboardLayout>
   );
 }

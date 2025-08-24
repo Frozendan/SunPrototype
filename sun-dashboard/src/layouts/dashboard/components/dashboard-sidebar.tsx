@@ -203,11 +203,11 @@ export default function DashboardSidebar({ className, isCompact = false }: Dashb
       isCompact ? 'w-20' : 'w-72'
     } ${className}`}>
       <div className="flex items-center justify-between">
-        <div className={`flex items-center gap-2 px-2 ${isCompact ? 'justify-center w-full' : ''}`}>
+        <div className={`flex items-center gap-2 px-2 ${isCompact ? 'justify-center py-1 w-full' : ''}`}>
           <div className="flex items-center justify-center">
             <SunIcon className="text-foreground" size={isCompact ? 20 : 26} />
           </div>
-          {!isCompact && <span className="text-small font-bold uppercase text-primary">Sun Group</span>}
+          {!isCompact && <span className="text-small font-bold uppercase transition text-primary">Sun Group</span>}
         </div>
       </div>
 

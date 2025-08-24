@@ -1,6 +1,6 @@
 "use client";
 
-import { Switch, Select, SelectItem, Input, DatePicker } from "@heroui/react";
+import {Switch, Select, SelectItem, Input, DatePicker, Spacer} from "@heroui/react";
 import { parseDate } from "@internationalized/date";
 import { FormSection } from "@/components/ui/form-section";
 import type { TaskFormData, TaskFormErrors, UpdateFieldFunction } from "@/types/task-form";
@@ -34,12 +34,15 @@ export function RecurringTaskSection({ formData, errors, updateField }: Recurrin
         />
       </div>
 
+        <Spacer y={3} />
+
       {/* Recurring Settings */}
       {formData.isRecurring && (
-        <>
+        <div className={"space-y-2"}>
           {/* Recurring Type */}
           <Select
             label="Loại định kỳ"
+            labelPlacement="outside"
             placeholder="Chọn loại định kỳ"
             selectedKeys={formData.recurringType ? [formData.recurringType] : []}
             onSelectionChange={(keys) => {
@@ -55,11 +58,12 @@ export function RecurringTaskSection({ formData, errors, updateField }: Recurrin
               <SelectItem key={type.key}>{type.label}</SelectItem>
             ))}
           </Select>
-
+            <Spacer y={3} />
           {/* Recurring Interval */}
           <Input
             type="number"
             label="Khoảng cách"
+            labelPlacement="outside"
             placeholder="Nhập khoảng cách"
             value={formData.recurringInterval.toString()}
             onValueChange={(value) => updateField("recurringInterval", parseInt(value) || 1)}
@@ -78,6 +82,7 @@ export function RecurringTaskSection({ formData, errors, updateField }: Recurrin
           {/* Recurring End Date */}
           <DatePicker
             label="Ngày kết thúc định kỳ"
+            labelPlacement="outside"
             value={formData.recurringEndDate ? parseDate(formData.recurringEndDate) : undefined}
             onChange={(date) => updateField("recurringEndDate", date?.toString() || "")}
             variant="bordered"
@@ -86,7 +91,7 @@ export function RecurringTaskSection({ formData, errors, updateField }: Recurrin
             showMonthAndYearPickers
             description="Để trống nếu muốn lặp vô thời hạn"
           />
-        </>
+        </div>
       )}
     </FormSection>
   );

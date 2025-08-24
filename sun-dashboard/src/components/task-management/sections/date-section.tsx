@@ -17,6 +17,7 @@ export function DateSection({ formData, errors, updateField }: DateSectionProps)
       {/* Assignment Date */}
       <DatePicker
         label="Ngày giao việc"
+        labelPlacement="outside"
         value={formData.assignmentDate ? parseDate(formData.assignmentDate) : today(getLocalTimeZone())}
         onChange={(date) => updateField("assignmentDate", date?.toString() || "")}
         variant="bordered"
@@ -29,6 +30,7 @@ export function DateSection({ formData, errors, updateField }: DateSectionProps)
       {/* Expected End Date */}
       <DatePicker
         label="Ngày dự kiến hoàn thành"
+        labelPlacement="outside"
         value={formData.expectedEndDate ? parseDate(formData.expectedEndDate) : undefined}
         onChange={(date) => updateField("expectedEndDate", date?.toString() || "")}
         variant="bordered"
@@ -41,9 +43,11 @@ export function DateSection({ formData, errors, updateField }: DateSectionProps)
       {/* Required Deadline */}
       <DatePicker
         label="Hạn hoàn thành bắt buộc"
+        labelPlacement="outside"
         value={formData.requiredDeadline ? parseDate(formData.requiredDeadline) : undefined}
         onChange={(date) => updateField("requiredDeadline", date?.toString() || "")}
         variant="bordered"
+        isRequired
         isInvalid={!!errors.requiredDeadline}
         errorMessage={errors.requiredDeadline}
         showMonthAndYearPickers

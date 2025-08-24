@@ -51,6 +51,7 @@ export function BasicInformationSection({
       {/* Unit */}
       <Autocomplete
         label="Đơn vị"
+        labelPlacement="outside"
         placeholder="Chọn đơn vị"
         selectedKey={formData.unitId}
         onSelectionChange={(key) => updateField("unitId", key as string)}
@@ -105,6 +106,7 @@ export function BasicInformationSection({
       {/* Collaborating Unit */}
       <Autocomplete
         label="Đơn vị phối hợp"
+        labelPlacement="outside"
         placeholder="Chọn đơn vị phối hợp"
         selectedKey={formData.collaboratingUnitId}
         onSelectionChange={(key) => updateField("collaboratingUnitId", key as string)}
@@ -120,6 +122,7 @@ export function BasicInformationSection({
       {/* Assignment Reference */}
       <Autocomplete
         label="Căn cứ giao việc"
+        labelPlacement="outside"
         placeholder="Chọn căn cứ giao việc"
         selectedKey={formData.assignmentReferenceId}
         onSelectionChange={(key) => updateField("assignmentReferenceId", key as string)}

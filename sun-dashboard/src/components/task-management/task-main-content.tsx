@@ -35,6 +35,7 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
             isInvalid={!!errors.title}
             errorMessage={errors.title}
           />
+            <Spacer y={2} />
 
            
           {/* Tags */}

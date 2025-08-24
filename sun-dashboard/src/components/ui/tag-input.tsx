@@ -184,11 +184,12 @@ export function TagInput({
       <div ref={inputRef}>
         {!isInputVisible ? (
           <Button
-            variant="bordered"
+            variant="solid"
             size="sm"
+            radius="full"
+            color={"secondary"}
             onPress={handleAddTag}
-            startContent={<Icon icon="solar:add-circle-linear" width={16} />}
-            className="text-default-600 border-dashed"
+            startContent={<Icon icon="solar:tag-bold" width={16} />}
           >
             Add Tag
           </Button>

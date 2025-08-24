@@ -97,6 +97,9 @@
     "employeeAccount": "Employee Account",
     "or": "OR"
   },
+  "dashboard": {
+    "appShortcuts": "App Shortcuts"
+  },
   "apps": {
     "myDashboard": {
       "name": "My Dashboard",
@@ -104,14 +107,17 @@
     },
     "news": {
       "name": "News",
+      "shortName": "News",
       "description": "Stay updated with latest news and articles"
     },
     "taskManagement": {
       "name": "Task Management",
+      "shortName": "Tasks",
       "description": "Manage your tasks and projects efficiently"
     },
     "timeManagement": {
       "name": "Time Management",
+      "shortName": "Time",
       "description": "Track and manage your time effectively"
     }
   },

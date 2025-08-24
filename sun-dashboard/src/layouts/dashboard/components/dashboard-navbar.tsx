@@ -154,28 +154,28 @@ export default function DashboardNavbar({
           </>
         )}
         
-        <NavbarItem className="hidden sm:flex">
-          <Breadcrumbs
-            classNames={{
-              list: "gap-2",
-            }}
-            itemClasses={{
-              item: "text-small",
-              separator: "text-default-400",
-            }}
-            variant="solid"
-          >
-            {breadcrumbs.map((breadcrumb, index) => (
-              <BreadcrumbItem
-                key={breadcrumb.key}
-                isCurrent={index === breadcrumbs.length - 1}
-                onPress={() => navigate(breadcrumb.href)}
-              >
-                {breadcrumb.label}
-              </BreadcrumbItem>
-            ))}
-          </Breadcrumbs>
-        </NavbarItem>
+        {/*<NavbarItem className="hidden sm:flex">*/}
+        {/*  <Breadcrumbs*/}
+        {/*    classNames={{*/}
+        {/*      list: "gap-2",*/}
+        {/*    }}*/}
+        {/*    itemClasses={{*/}
+        {/*      item: "text-small",*/}
+        {/*      separator: "text-default-400",*/}
+        {/*    }}*/}
+        {/*    variant="solid"*/}
+        {/*  >*/}
+        {/*    {breadcrumbs.map((breadcrumb, index) => (*/}
+        {/*      <BreadcrumbItem*/}
+        {/*        key={breadcrumb.key}*/}
+        {/*        isCurrent={index === breadcrumbs.length - 1}*/}
+        {/*        onPress={() => navigate(breadcrumb.href)}*/}
+        {/*      >*/}
+        {/*        {breadcrumb.label}*/}
+        {/*      </BreadcrumbItem>*/}
+        {/*    ))}*/}
+        {/*  </Breadcrumbs>*/}
+        {/*</NavbarItem>*/}
       </NavbarContent>
 
       {/* Center - Search (optional, can be added later) */}

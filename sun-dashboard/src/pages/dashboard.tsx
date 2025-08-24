@@ -6,6 +6,7 @@ import { title } from "@/components/primitives";
 import { useTranslation } from "@/lib/i18n-context";
 import { useAuth } from "@/hooks/use-auth";
 import { DashboardLayout } from "@/layouts/dashboard";
+import AppShortcuts from "@/components/app-shortcuts";
 
 export default function DashboardPage() {
   const { t } = useTranslation();
@@ -151,8 +152,16 @@ export default function DashboardPage() {
           </Card>
         </motion.div>
 
+        {/* App Shortcuts */}
+        <motion.div
+          className="w-full max-w-4xl mt-8"
+          variants={itemVariants}
+        >
+          <AppShortcuts />
+        </motion.div>
+
         {/* Demo Information */}
-        <motion.div 
+        <motion.div
           className="w-full max-w-4xl mt-8"
           variants={itemVariants}
         >

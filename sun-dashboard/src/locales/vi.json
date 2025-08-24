@@ -97,6 +97,9 @@
     "employeeAccount": "Tài khoản nhân viên",
     "or": "HOẶC"
   },
+  "dashboard": {
+    "appShortcuts": "Lối tắt ứng dụng"
+  },
   "apps": {
     "myDashboard": {
       "name": "Bảng điều khiển của tôi",
@@ -104,14 +107,17 @@
     },
     "news": {
       "name": "Tin tức",
+      "shortName": "Tin tức",
       "description": "Cập nhật tin tức và bài viết mới nhất"
     },
     "taskManagement": {
       "name": "Quản lý công việc",
+      "shortName": "Công việc",
       "description": "Quản lý công việc và dự án hiệu quả"
     },
     "timeManagement": {
       "name": "Quản lý thời gian",
+      "shortName": "Thời gian",
       "description": "Theo dõi và quản lý thời gian hiệu quả"
     }
   },

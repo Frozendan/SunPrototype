@@ -1,8 +1,11 @@
 "use client";
 
-import { Card, CardBody, Textarea } from "@heroui/react";
+import { Card, CardBody } from "@heroui/react";
 import { motion } from "framer-motion";
 import { EditableTitle } from "@/components/ui/editable-title";
+import { EditableTextArea } from "@/components/ui/editable-textarea";
+import { TagInput } from "@/components/ui/tag-input";
+import { FileUpload } from "@/components/ui/file-upload";
 import { useTranslation } from "@/lib/i18n-context";
 import type { TaskFormData, TaskFormErrors, UpdateFieldFunction } from "@/types/task-form";
 
@@ -25,25 +28,55 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
       <Card className="flex flex-col">
         <CardBody className="space-y-6 overflow-y-auto flex-1" role="region" aria-labelledby="task-details-heading">
           {/* Editable Title */}
+          <EditableTitle
+            value={formData.title}
+            onChange={(value) => updateField("title", value)}
+            placeholder={t("navigation.taskManagement.enterTaskTitle")}
+            isInvalid={!!errors.title}
+            errorMessage={errors.title}
+          />
+
+          {/* Tags */}
           <div className="space-y-2">
-            <EditableTitle
-              value={formData.title}
-              onChange={(value) => updateField("title", value)}
-              placeholder="Enter task title"
-              isInvalid={!!errors.title}
-              errorMessage={errors.title}
+            <TagInput
+              selectedTagIds={formData.labelIds}
+              onChange={(tagIds) => updateField("labelIds", tagIds)}
+              isInvalid={!!errors.labelIds}
+              errorMessage={errors.labelIds}
+              onTagCreate={(tag) => {
+                console.log('New tag created:', tag);
+              }}
             />
           </div>
 
           {/* Description */}
-          <Textarea
+          <EditableTextArea
             label={t("navigation.taskManagement.taskDescription")}
-            placeholder="Describe what needs to be done..."
             value={formData.description}
-            onValueChange={(value) => updateField("description", value)}
+            onChange={(value) => updateField("description", value)}
+            placeholder={t("navigation.taskManagement.describeTask")}
+            isInvalid={!!errors.description}
+            errorMessage={errors.description}
+            minRows={8}
+          />
+
+          {/* Expected Results */}
+          <EditableTextArea
+            label={t("navigation.taskManagement.expectedResults")}
+            value={formData.expectedResults}
+            onChange={(value) => updateField("expectedResults", value)}
+            placeholder={t("navigation.taskManagement.describeExpectedResults")}
+            isInvalid={!!errors.expectedResults}
+            errorMessage={errors.expectedResults}
             minRows={6}
-            variant="bordered"
-            aria-label="Task description"
+          />
+
+          {/* Attachments */}
+          <FileUpload
+            files={formData.attachments}
+            onChange={(files) => updateField("attachments", files)}
+            isInvalid={!!errors.attachments}
+            errorMessage={errors.attachments}
           />
         </CardBody>
       </Card>

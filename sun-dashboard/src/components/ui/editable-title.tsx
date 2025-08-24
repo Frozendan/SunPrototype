@@ -79,11 +79,9 @@ export function EditableTitle({
       {!isEditing ? (
         <motion.div
           onClick={handleEdit}
-          className={`text-3xl font-bold cursor-pointer hover:bg-default-100 rounded-lg px-3 py-2 transition-colors ${
+          className={`text-2xl font-bold cursor-pointer hover:bg-default-100 rounded-lg px-2 -mx-2 py-2 transition-colors ${
             isInvalid ? 'text-danger' : 'text-foreground'
           } ${!value ? 'text-default-400' : ''}`}
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
         >
           {value || placeholder}
         </motion.div>

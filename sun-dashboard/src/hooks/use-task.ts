@@ -264,13 +264,11 @@ export function useTaskForm(initialData?: Partial<Task>) {
   const [formData, setFormData] = useState<TaskFormData>({
     title: initialData?.title || '',
     description: initialData?.description || '',
+    expectedResults: '',
+    attachments: [],
     priority: initialData?.priority || 'medium' as const,
     assigneeId: initialData?.assignee?.id || '',
     labelIds: initialData?.labels?.map(label => label.id) || [],
-    dueDate: initialData?.dueDate ? initialData.dueDate.toISOString().split('T')[0] : '',
-    estimatedHours: initialData?.estimatedHours?.toString() || '',
-    projectId: '',
-    // New fields from the image
     unitId: '',
     collaboratingUnitId: '',
     assignmentReferenceId: '',

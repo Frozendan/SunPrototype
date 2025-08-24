@@ -61,13 +61,27 @@ export default function AppSwitcher({ currentApp, onAppChange, isCompact = false
     }
   };
 
+  // Get background color based on app icon color with dark mode support
+  const getBackgroundColor = (iconColor: string) => {
+    switch (iconColor) {
+      case "text-blue-500":
+        return "bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/30 dark:hover:bg-blue-800/40";
+      case "text-green-500":
+        return "bg-green-100 hover:bg-green-200 dark:bg-green-900/30 dark:hover:bg-green-800/40";
+      case "text-purple-500":
+        return "bg-purple-100 hover:bg-purple-200 dark:bg-purple-900/30 dark:hover:bg-purple-800/40";
+      default:
+        return "bg-default-100 hover:bg-default-200 dark:bg-default-800/30 dark:hover:bg-default-700/40";
+    }
+  };
+
   if (isCompact) {
     return (
       <Dropdown placement="right-start">
         <DropdownTrigger>
           <Button
             isIconOnly
-            className="h-11 w-11 min-w-11 bg-transparent hover:bg-default-100"
+            className={`h-11 w-11 min-w-11 ${getBackgroundColor(currentAppData?.iconColor || "text-default-500")}`}
             variant="light"
             aria-label="Switch application"
           >

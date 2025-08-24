@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/hooks/use-auth";
+import { useSettingsStore, settingsSelectors } from "@/stores/settings-store";
 
 import DashboardSidebar from "./components/dashboard-sidebar";
 import DashboardNavbar from "./components/dashboard-navbar";
@@ -18,7 +19,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isCompact, setIsCompact] = useState(false);
+
+  // Use settings store for persistent compact state
+  const isCompact = useSettingsStore(settingsSelectors.sidebarCollapsed);
+  const toggleSidebar = useSettingsStore((state) => state.toggleSidebar);
 
   // Check if user is authenticated
   useEffect(() => {
@@ -48,7 +52,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   // Handle compact toggle
   const handleCompactToggle = () => {
-    setIsCompact(!isCompact);
+    toggleSidebar();
   };
 
   // Close sidebar when clicking outside on mobile

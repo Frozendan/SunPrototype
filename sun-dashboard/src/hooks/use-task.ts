@@ -7,6 +7,7 @@ import type {
   UseTaskReturn,
   TaskAssignee,
 } from '@/types/task';
+import type { TaskFormData } from '@/types/task-form';
 
 export function useTask(taskId: string): UseTaskReturn {
   const [task, setTask] = useState<Task | null>(null);
@@ -260,7 +261,7 @@ export function useTask(taskId: string): UseTaskReturn {
 
 // Hook for managing task form state
 export function useTaskForm(initialData?: Partial<Task>) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<TaskFormData>({
     title: initialData?.title || '',
     description: initialData?.description || '',
     priority: initialData?.priority || 'medium' as const,
@@ -278,6 +279,10 @@ export function useTaskForm(initialData?: Partial<Task>) {
     expectedEndDate: '',
     requiredDeadline: '',
     isRecurring: false,
+    recurringType: '',
+    recurringInterval: 1,
+    recurringEndDate: '',
+    isLeadershipDirection: false,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -323,6 +328,10 @@ export function useTaskForm(initialData?: Partial<Task>) {
       expectedEndDate: '',
       requiredDeadline: '',
       isRecurring: false,
+      recurringType: '',
+      recurringInterval: 1,
+      recurringEndDate: '',
+      isLeadershipDirection: false,
     });
     setErrors({});
   }, []);

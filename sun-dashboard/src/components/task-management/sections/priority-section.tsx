@@ -29,10 +29,11 @@ export function PrioritySection({ formData, updateField }: PrioritySectionProps)
   const showLeadershipDirection = formData.assigneeId && !isCurrentUser(formData.assigneeId);
 
   return (
-    <FormSection title="Mức độ ưu tiên">
+    <FormSection>
       {/* Priority */}
       <div className="space-y-3">
-        <label className="text-sm font-medium text-default-700">Mức độ ưu tiên</label>
+         <label className="text-sm font-medium text-default-700">Mức độ quan trọng</label>
+          
         <ButtonGroup variant="bordered" className="w-full">
           {priorityOptions.map((option) => (
             <Button

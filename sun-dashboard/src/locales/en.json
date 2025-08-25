@@ -171,6 +171,22 @@
         "confirmClearDraft": "Remove saved draft?",
         "exampleFileName": "task-import-template.csv"
       },
+      "sections": {
+        "generalInformation": "General Information",
+        "basicInformation": "Basic Information",
+        "priorityImportance": "Priority & Importance",
+        "scheduleTiming": "Schedule & Timing",
+        "removeGeneralInformation": "Remove General Information"
+      },
+      "generalInfo": {
+        "functionalGroup": "Functional Group",
+        "topic": "Topic",
+        "taskType": "Task Type",
+        "topicRequired": "Topic is required",
+        "selectFunctionalGroup": "Select functional group",
+        "selectTopic": "Select topic",
+        "selectTaskType": "Select task type"
+      },
       "expectedResults": "Expected Results",
       "attachments": "Attachments",
       "noAttachmentsYet": "No attachments yet",

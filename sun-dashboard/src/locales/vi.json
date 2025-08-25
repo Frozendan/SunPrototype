@@ -171,6 +171,22 @@
         "confirmClearDraft": "Xóa bản nháp đã lưu?",
         "exampleFileName": "mau-nhap-cong-viec.csv"
       },
+      "sections": {
+        "generalInformation": "Thông tin chung",
+        "basicInformation": "Thông tin cơ bản",
+        "priorityImportance": "Mức độ ưu tiên",
+        "scheduleTiming": "Lịch trình & Thời gian",
+        "removeGeneralInformation": "Xóa thông tin chung"
+      },
+      "generalInfo": {
+        "functionalGroup": "Nhóm chức năng",
+        "topic": "Chủ đề",
+        "taskType": "Loại công việc",
+        "topicRequired": "Chủ đề là bắt buộc",
+        "selectFunctionalGroup": "Chọn nhóm chức năng",
+        "selectTopic": "Chọn chủ đề",
+        "selectTaskType": "Chọn loại công việc"
+      },
       "expectedResults": "Kết quả cần đạt được",
       "attachments": "Tệp đính kèm",
       "noAttachmentsYet": "Chưa có tệp đính kèm",

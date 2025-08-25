@@ -1,6 +1,7 @@
 "use client";
 
 import {Card, CardBody, Divider, Spacer} from "@heroui/react";
+import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import { EditableTitle } from "@/components/ui/editable-title";
 import { EditableTextArea } from "@/components/ui/editable-textarea";
@@ -25,7 +26,7 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
 
   return (
     <motion.div variants={itemVariants} className="h-full pb-3 lg:col-span-2">
-      <Card className="flex flex-col">
+      <Card className="shadow-none flex flex-col">
         <CardBody className="overflow-y-auto flex-1" role="region" aria-labelledby="task-details-heading">
           {/* Editable Title */}
           <EditableTitle
@@ -35,9 +36,8 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
             isInvalid={!!errors.title}
             errorMessage={errors.title}
           />
-            <Spacer y={2} />
+          <Spacer y={2} />
 
-           
           {/* Tags */}
           <div className="space-y-2">
             <TagInput
@@ -50,7 +50,7 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
               }}
             />
           </div>
-            <Spacer y={6} />
+          <Spacer y={6} />
 
           {/* Description */}
           <EditableTextArea
@@ -63,7 +63,7 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
             minRows={8}
           />
 
-            <Spacer y={3} />
+          <Spacer y={3} />
 
           {/* Expected Results */}
           <EditableTextArea
@@ -76,10 +76,9 @@ export function TaskMainContent({ formData, errors, updateField }: TaskMainConte
             minRows={6}
           />
 
-            <Spacer y={3} />
-            <Divider />
-            <Spacer y={3} />
-
+          <Spacer y={3} />
+          <Divider />
+          <Spacer y={3} />
 
           {/* Attachments */}
           <FileUpload

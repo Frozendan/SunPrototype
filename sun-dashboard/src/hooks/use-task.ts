@@ -281,6 +281,10 @@ export function useTaskForm(initialData?: Partial<Task>) {
     recurringInterval: 1,
     recurringEndDate: '',
     isLeadershipDirection: false,
+    // General Information fields
+    functionalGroupId: '',
+    topicId: '',
+    taskTypeId: '',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -298,6 +302,13 @@ export function useTaskForm(initialData?: Partial<Task>) {
 
     if (!formData.title.trim()) {
       newErrors.title = 'Title is required';
+    }
+
+    // Validate topic if general information is being used
+    if (formData.functionalGroupId || formData.taskTypeId) {
+      if (!formData.topicId.trim()) {
+        newErrors.topicId = 'Topic is required when using general information';
+      }
     }
 
     if (formData.estimatedHours && isNaN(Number(formData.estimatedHours))) {

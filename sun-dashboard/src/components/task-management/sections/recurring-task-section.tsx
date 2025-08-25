@@ -20,7 +20,7 @@ export function RecurringTaskSection({ formData, errors, updateField }: Recurrin
   ];
 
   return (
-    <FormSection title="Công việc định kỳ">
+    <FormSection>
       {/* Recurring Toggle */}
       <div className="flex items-center justify-between">
         <div>

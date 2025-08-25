@@ -86,7 +86,7 @@ export function EditableTextArea({
     <div ref={containerRef} className={`relative ${className}`}>
       {/* Label */}
       {label && (
-        <label className="block text-md font-bold text-foreground mb-2">
+        <label className="block text-sm font-bold text-foreground mb-2">
           {label}
         </label>
       )}

@@ -1,4 +1,4 @@
-import type { MockUnit, MockAssignee, MockAssignmentReference, MockLabel } from "@/types/task-form";
+import type { MockUnit, MockAssignee, MockAssignmentReference, MockLabel, MockFunctionalGroup, MockTopic, MockTaskType } from "@/types/task-form";
 
 export const mockUnits: MockUnit[] = [
   { id: "1", name: "Phòng Công nghệ thông tin" },
@@ -45,3 +45,54 @@ export const getUserUnitMapping = (assigneeId: string): string => {
 export const isCurrentUser = (assigneeId: string): boolean => {
   return assigneeId === "current-user";
 };
+
+export const mockFunctionalGroups: MockFunctionalGroup[] = [
+  { id: "1", name: "Phát triển phần mềm", description: "Software development related tasks" },
+  { id: "2", name: "Quản lý dự án", description: "Project management activities" },
+  { id: "3", name: "Kiểm thử chất lượng", description: "Quality assurance and testing" },
+  { id: "4", name: "Bảo mật hệ thống", description: "System security and compliance" },
+  { id: "5", name: "Hỗ trợ kỹ thuật", description: "Technical support and maintenance" },
+];
+
+export const mockTopics: MockTopic[] = [
+  // Software Development topics
+  { id: "1", name: "Frontend Development", functionalGroupId: "1" },
+  { id: "2", name: "Backend Development", functionalGroupId: "1" },
+  { id: "3", name: "Mobile Development", functionalGroupId: "1" },
+  { id: "4", name: "Database Design", functionalGroupId: "1" },
+
+  // Project Management topics
+  { id: "5", name: "Sprint Planning", functionalGroupId: "2" },
+  { id: "6", name: "Resource Allocation", functionalGroupId: "2" },
+  { id: "7", name: "Risk Management", functionalGroupId: "2" },
+  { id: "8", name: "Stakeholder Communication", functionalGroupId: "2" },
+
+  // Quality Assurance topics
+  { id: "9", name: "Unit Testing", functionalGroupId: "3" },
+  { id: "10", name: "Integration Testing", functionalGroupId: "3" },
+  { id: "11", name: "Performance Testing", functionalGroupId: "3" },
+  { id: "12", name: "User Acceptance Testing", functionalGroupId: "3" },
+
+  // System Security topics
+  { id: "13", name: "Vulnerability Assessment", functionalGroupId: "4" },
+  { id: "14", name: "Access Control", functionalGroupId: "4" },
+  { id: "15", name: "Data Protection", functionalGroupId: "4" },
+  { id: "16", name: "Compliance Audit", functionalGroupId: "4" },
+
+  // Technical Support topics
+  { id: "17", name: "Bug Fixes", functionalGroupId: "5" },
+  { id: "18", name: "System Maintenance", functionalGroupId: "5" },
+  { id: "19", name: "User Training", functionalGroupId: "5" },
+  { id: "20", name: "Documentation", functionalGroupId: "5" },
+];
+
+export const mockTaskTypes: MockTaskType[] = [
+  { id: "1", name: "Development", description: "Development and coding tasks" },
+  { id: "2", name: "Research", description: "Research and analysis tasks" },
+  { id: "3", name: "Meeting", description: "Meetings and discussions" },
+  { id: "4", name: "Review", description: "Code review and documentation review" },
+  { id: "5", name: "Testing", description: "Testing and quality assurance" },
+  { id: "6", name: "Deployment", description: "Deployment and release tasks" },
+  { id: "7", name: "Maintenance", description: "System maintenance and support" },
+  { id: "8", name: "Training", description: "Training and knowledge sharing" },
+];

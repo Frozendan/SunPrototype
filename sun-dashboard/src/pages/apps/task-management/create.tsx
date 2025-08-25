@@ -16,13 +16,10 @@ import { TaskMainContent } from "@/components/task-management/task-main-content"
 import { TaskDetailsSidebar } from "@/components/task-management/task-details-sidebar";
 import { DraftRestoreDialog, ImportConfirmDialog, ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { convertImportedDataToFormData } from "@/lib/task-import-export";
+import { mockUnits, mockAssignees, mockAssignmentReferences, mockFunctionalGroups, mockTopics, mockTaskTypes } from "@/data/mock-task-data";
 import type { TaskPriority, CreateTaskRequest } from "@/types/task";
-import type { TaskFormData, MockUnit, MockAssignee, MockAssignmentReference } from "@/types/task-form";
+import type { TaskFormData } from "@/types/task-form";
 import type { ImportedTaskData } from "@/lib/task-import-export";
-
-
-
-import { mockUnits, mockAssignees, mockAssignmentReferences } from "@/data/mock-task-data";
 
 export default function CreateTaskPage() {
   const { t } = useTranslation();
@@ -236,6 +233,9 @@ export default function CreateTaskPage() {
                 mockUnits={mockUnits}
                 mockAssignees={mockAssignees}
                 mockAssignmentReferences={mockAssignmentReferences}
+                mockFunctionalGroups={mockFunctionalGroups}
+                mockTopics={mockTopics}
+                mockTaskTypes={mockTaskTypes}
               />
             </div>
 

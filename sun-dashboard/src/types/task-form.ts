@@ -36,6 +36,10 @@ export interface TaskFormData {
   recurringInterval: number;
   recurringEndDate: string;
   isLeadershipDirection: boolean;
+  // General Information fields
+  functionalGroupId: string;
+  topicId: string;
+  taskTypeId: string;
 }
 
 export interface TaskFormErrors {
@@ -56,6 +60,10 @@ export interface TaskFormErrors {
   recurringType?: string;
   recurringInterval?: string;
   recurringEndDate?: string;
+  // General Information errors
+  functionalGroupId?: string;
+  topicId?: string;
+  taskTypeId?: string;
 }
 
 export type UpdateFieldFunction = (field: keyof TaskFormData, value: any) => void;
@@ -81,5 +89,24 @@ export interface MockLabel {
   id: string;
   name: string;
   color: string;
+  description?: string;
+}
+
+export interface MockFunctionalGroup {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+export interface MockTopic {
+  id: string;
+  name: string;
+  functionalGroupId?: string;
+  description?: string;
+}
+
+export interface MockTaskType {
+  id: string;
+  name: string;
   description?: string;
 }

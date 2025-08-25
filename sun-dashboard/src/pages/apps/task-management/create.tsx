@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
@@ -10,11 +10,15 @@ import { useTranslation } from "@/lib/i18n-context";
 import { useTasks } from "@/hooks/use-tasks";
 import { useTaskForm } from "@/hooks/use-task";
 import { useAuth } from "@/hooks/use-auth";
+import { useTaskDraft, useDraftRestoration } from "@/hooks/use-task-draft";
 import { CreateTaskHeader } from "@/components/task-management/create-task-header";
 import { TaskMainContent } from "@/components/task-management/task-main-content";
 import { TaskDetailsSidebar } from "@/components/task-management/task-details-sidebar";
+import { DraftRestoreDialog, ImportConfirmDialog, ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { convertImportedDataToFormData } from "@/lib/task-import-export";
 import type { TaskPriority, CreateTaskRequest } from "@/types/task";
 import type { TaskFormData, MockUnit, MockAssignee, MockAssignmentReference } from "@/types/task-form";
+import type { ImportedTaskData } from "@/lib/task-import-export";
 
 
 
@@ -28,6 +32,41 @@ export default function CreateTaskPage() {
   const { formData, errors, updateField, validateForm, resetForm } = useTaskForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const [isImporting, setIsImporting] = useState(false);
+  const [showImportConfirm, setShowImportConfirm] = useState(false);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [pendingImportData, setPendingImportData] = useState<ImportedTaskData[]>([]);
+
+  // Draft management
+  const updateFormData = (data: Partial<TaskFormData>) => {
+    Object.entries(data).forEach(([key, value]) => {
+      updateField(key as keyof TaskFormData, value);
+    });
+  };
+
+  const {
+    isDraftSaving,
+    hasDraftChanges,
+    saveDraft,
+    restoreDraft,
+    clearDraft,
+    hasDraft,
+    getDraftAge,
+    hasContent
+  } = useTaskDraft(formData, updateFormData);
+
+  const {
+    showRestoreDialog,
+    draftToRestore,
+    checkForDraft,
+    acceptRestore,
+    rejectRestore
+  } = useDraftRestoration();
+
+  // Check for existing draft on mount
+  useEffect(() => {
+    checkForDraft();
+  }, [checkForDraft]);
 
   const handleSubmit = async () => {
     if (!validateForm()) {
@@ -69,7 +108,74 @@ export default function CreateTaskPage() {
     }
   };
 
+  // Handle import from file
+  const handleImportFile = async (importedData: ImportedTaskData[]) => {
+    if (importedData.length === 0) {
+      toast.error(t("navigation.taskManagement.actionBar.importError"));
+      return;
+    }
+
+    // Check if form has existing data
+    const hasExistingData = hasContent;
+
+    if (hasExistingData) {
+      setPendingImportData(importedData);
+      setShowImportConfirm(true);
+    } else {
+      await processImport(importedData);
+    }
+  };
+
+  const processImport = async (importedData: ImportedTaskData[]) => {
+    setIsImporting(true);
+    try {
+      // For now, just import the first task
+      const firstTask = importedData[0];
+      const convertedData = convertImportedDataToFormData(firstTask);
+      updateFormData(convertedData);
+
+      toast.success(t("navigation.taskManagement.actionBar.importSuccess"));
+      setShowImportConfirm(false);
+      setPendingImportData([]);
+    } catch (error) {
+      console.error('Import processing failed:', error);
+      toast.error(t("navigation.taskManagement.actionBar.importError"));
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  // Handle draft save
+  const handleSaveDraft = async () => {
+    try {
+      await saveDraft();
+      toast.success(t("navigation.taskManagement.actionBar.draftSaved"));
+    } catch (error) {
+      console.error('Draft save failed:', error);
+      toast.error("Failed to save draft");
+    }
+  };
+
+  // Handle draft restore
+  const handleRestoreDraft = () => {
+    const restored = restoreDraft();
+    if (restored) {
+      toast.success(t("navigation.taskManagement.actionBar.draftLoaded"));
+    }
+    acceptRestore();
+  };
+
+  // Handle cancel with confirmation if there are unsaved changes
   const handleCancel = () => {
+    if (hasContent || hasDraftChanges) {
+      setShowCancelConfirm(true);
+    } else {
+      navigate("/task-management/dashboard");
+    }
+  };
+
+  const confirmCancel = () => {
+    clearDraft();
     navigate("/task-management/dashboard");
   };
 
@@ -99,6 +205,11 @@ export default function CreateTaskPage() {
           onCancel={handleCancel}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
+          onImportFile={handleImportFile}
+          onSaveDraft={handleSaveDraft}
+          isDraftSaving={isDraftSaving}
+          hasDraftChanges={hasDraftChanges}
+          isImporting={isImporting}
         />
 
         {/* Scrollable Content */}
@@ -131,6 +242,38 @@ export default function CreateTaskPage() {
           </div>
         </motion.div>
       </div>
+
+      {/* Confirmation Dialogs */}
+      <DraftRestoreDialog
+        isOpen={showRestoreDialog}
+        onClose={rejectRestore}
+        onRestore={handleRestoreDraft}
+        onDiscard={rejectRestore}
+        draftAge={getDraftAge()}
+      />
+
+      <ImportConfirmDialog
+        isOpen={showImportConfirm}
+        onClose={() => {
+          setShowImportConfirm(false);
+          setPendingImportData([]);
+        }}
+        onConfirm={() => processImport(pendingImportData)}
+        importCount={pendingImportData.length}
+        hasExistingData={hasContent}
+        isLoading={isImporting}
+      />
+
+      <ConfirmationDialog
+        isOpen={showCancelConfirm}
+        onClose={() => setShowCancelConfirm(false)}
+        onConfirm={confirmCancel}
+        title="Unsaved Changes"
+        message={t("navigation.taskManagement.actionBar.confirmCancel")}
+        confirmText="Leave"
+        isDangerous={true}
+        icon="solar:danger-triangle-bold"
+      />
     </DashboardLayout>
   );
 }

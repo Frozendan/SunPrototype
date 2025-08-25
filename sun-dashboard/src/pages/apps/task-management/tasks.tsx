@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import {
   Card,
   CardBody,
-  CardHeader,
   Button,
   Input,
   Select,
@@ -21,23 +20,51 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
+  DropdownSection,
   Pagination,
   Spinner,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import { ArrowDown, Minus, ArrowUp, ChevronsUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import DashboardLayout from "@/layouts/dashboard/dashboard-layout";
 import { useTranslation } from "@/lib/i18n-context";
 import { useTasks } from "@/hooks/use-tasks";
-import type { TaskFilter, TaskSort, TaskPriority, TaskStatus } from "@/types/task";
+import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { useToast } from "@/components/toast";
+import type { TaskFilter, TaskSort, TaskPriority, TaskStatus, TaskType, DeadlineStatus } from "@/types/task";
 
 const priorityConfig = {
-  low: { color: "default", icon: "solar:arrow-down-linear" },
-  medium: { color: "warning", icon: "solar:minus-linear" },
-  high: { color: "danger", icon: "solar:arrow-up-linear" },
-  urgent: { color: "danger", icon: "solar:double-alt-arrow-up-bold" },
+  low: {
+    color: "default",
+    icon: ArrowDown,
+    iconColor: "text-blue-600",
+    bgColor: "bg-blue-50",
+    label: "Low"
+  },
+  medium: {
+    color: "warning",
+    icon: Minus,
+    iconColor: "text-gray-600",
+    bgColor: "bg-gray-50",
+    label: "Medium"
+  },
+  high: {
+    color: "danger",
+    icon: ArrowUp,
+    iconColor: "text-orange-600",
+    bgColor: "bg-orange-50",
+    label: "High"
+  },
+  urgent: {
+    color: "danger",
+    icon: ChevronsUp,
+    iconColor: "text-red-600",
+    bgColor: "bg-red-50",
+    label: "Urgent"
+  },
 };
 
 const statusConfig = {
@@ -45,16 +72,45 @@ const statusConfig = {
   inProgress: { color: "primary", label: "In Progress" },
   done: { color: "success", label: "Done" },
   cancelled: { color: "danger", label: "Cancelled" },
+  pendingReceipt: { color: "warning", label: "Pending Receipt" },
+  redo: { color: "secondary", label: "Redo" },
+  pendingConfirmation: { color: "warning", label: "Pending Confirmation" },
+  completed: { color: "success", label: "Completed" },
+  approved: { color: "success", label: "Approved" },
+  archiveRecord: { color: "default", label: "Archive Record" },
+  rejected: { color: "danger", label: "Rejected" },
+  notApproved: { color: "danger", label: "Not Approved" },
+  cancelledAfterApproval: { color: "danger", label: "Cancelled After Approval" },
+  paused: { color: "warning", label: "Paused" },
+  terminated: { color: "danger", label: "Terminated" },
+  draft: { color: "default", label: "Draft" },
+};
+
+const taskTypeConfig = {
+  assignment: { label: "Assignment" },
+  supportService: { label: "Support Service" },
+  document: { label: "Document/Record" },
+};
+
+const deadlineStatusConfig = {
+  all: { label: "All" },
+  overdue: { label: "Overdue" },
+  notOverdue: { label: "Not Overdue" },
 };
 
 export default function TaskListPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  
+  const { showToast } = useToast();
+
   const [filter, setFilter] = useState<TaskFilter>({});
   const [sort, setSort] = useState<TaskSort>({ field: "createdAt", direction: "desc" });
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<"table" | "cards">("table");
+  const [selectedTaskForDelete, setSelectedTaskForDelete] = useState<string | null>(null);
+  const [selectedTaskForApprove, setSelectedTaskForApprove] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isApproving, setIsApproving] = useState(false);
   const limit = 10;
 
   const { tasks, isLoading, error } = useTasks({
@@ -89,6 +145,66 @@ export default function TaskListPage() {
       field: field as any,
       direction: prev.field === field && prev.direction === "asc" ? "desc" : "asc",
     }));
+  };
+
+  const handleDeleteTask = (taskId: string) => {
+    setSelectedTaskForDelete(taskId);
+  };
+
+  const handleApproveTask = (taskId: string) => {
+    setSelectedTaskForApprove(taskId);
+  };
+
+  const confirmDeleteTask = async () => {
+    if (!selectedTaskForDelete) return;
+
+    setIsDeleting(true);
+    try {
+      // In a real app, this would make an API call to delete the task
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+
+      showToast({
+        type: 'success',
+        title: t("navigation.taskManagement.taskDeleted" as any),
+      });
+
+      // Refresh tasks list or remove from local state
+      // For now, we'll just show the success message
+    } catch (error) {
+      showToast({
+        type: 'error',
+        title: t("navigation.taskManagement.deleteTaskFailed" as any),
+      });
+    } finally {
+      setIsDeleting(false);
+      setSelectedTaskForDelete(null);
+    }
+  };
+
+  const confirmApproveTask = async () => {
+    if (!selectedTaskForApprove) return;
+
+    setIsApproving(true);
+    try {
+      // In a real app, this would make an API call to approve the task
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+
+      showToast({
+        type: 'success',
+        title: t("navigation.taskManagement.taskApproved" as any),
+      });
+
+      // Refresh tasks list or update local state
+      // For now, we'll just show the success message
+    } catch (error) {
+      showToast({
+        type: 'error',
+        title: t("navigation.taskManagement.approveTaskFailed" as any),
+      });
+    } finally {
+      setIsApproving(false);
+      setSelectedTaskForApprove(null);
+    }
   };
 
   const containerVariants = {
@@ -194,11 +310,9 @@ export default function TaskListPage() {
                 <TableCell>
                   <div>
                     <p className="font-medium">{task.title}</p>
-                    {task.description && (
-                      <p className="text-small text-default-500 truncate max-w-xs">
-                        {task.description}
-                      </p>
-                    )}
+                    <p className="text-small text-default-500">
+                      {t("navigation.taskManagement.taskId" as any)}: {task.id}
+                    </p>
                   </div>
                 </TableCell>
                 <TableCell>
@@ -207,7 +321,7 @@ export default function TaskListPage() {
                     variant="flat"
                     size="sm"
                   >
-                    {statusConfig[task.status].label}
+                    {t(`navigation.taskManagement.filters.statuses.${task.status}` as any) || statusConfig[task.status].label}
                   </Chip>
                 </TableCell>
                 <TableCell>
@@ -216,10 +330,13 @@ export default function TaskListPage() {
                     variant="flat"
                     size="sm"
                     startContent={
-                      <Icon icon={priorityConfig[task.priority].icon} width={14} />
+                      (() => {
+                        const PriorityIcon = priorityConfig[task.priority].icon;
+                        return <PriorityIcon size={14} className={priorityConfig[task.priority].iconColor} />;
+                      })()
                     }
                   >
-                    {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+                    {t(`navigation.taskManagement.filters.priorities.${task.priority}` as any)}
                   </Chip>
                 </TableCell>
                 <TableCell>
@@ -258,27 +375,34 @@ export default function TaskListPage() {
                       </Button>
                     </DropdownTrigger>
                     <DropdownMenu>
-                      <DropdownItem
-                        key="view"
-                        startContent={<Icon icon="solar:eye-linear" width={16} />}
-                        onPress={() => handleTaskClick(task.id)}
-                      >
-                        View Details
-                      </DropdownItem>
-                      <DropdownItem
-                        key="edit"
-                        startContent={<Icon icon="solar:pen-linear" width={16} />}
-                      >
-                        Edit Task
-                      </DropdownItem>
-                      <DropdownItem
-                        key="delete"
-                        className="text-danger"
-                        color="danger"
-                        startContent={<Icon icon="solar:trash-bin-trash-linear" width={16} />}
-                      >
-                        Delete Task
-                      </DropdownItem>
+                      <DropdownSection showDivider>
+                        <DropdownItem
+                          key="approve"
+                          startContent={<Icon icon="solar:check-circle-linear" width={16} />}
+                          onPress={() => handleApproveTask(task.id)}
+                        >
+                          {t("navigation.taskManagement.approveTask" as any)}
+                        </DropdownItem>
+                          <DropdownItem
+                              key="view"
+                              startContent={<Icon icon="solar:eye-linear" width={16} />}
+                              onPress={() => handleTaskClick(task.id)}
+                          >
+                              Xem công việc
+                          </DropdownItem>
+
+                      </DropdownSection>
+                      <DropdownSection>
+                          <DropdownItem
+                              key="delete"
+                              className="text-danger"
+                              color="danger"
+                              startContent={<Icon icon="solar:trash-bin-trash-linear" width={16} />}
+                              onPress={() => handleDeleteTask(task.id)}
+                          >
+                              {t("navigation.taskManagement.deleteTask" as any)}
+                          </DropdownItem>
+                      </DropdownSection>
                     </DropdownMenu>
                   </Dropdown>
                 </TableCell>
@@ -303,19 +427,42 @@ export default function TaskListPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-foreground">
-                {t("navigation.taskManagement.tasks")}
+                {t("navigation.taskManagement.tasks" as any)}
               </h1>
               <p className="text-default-500">
                 Manage and track all your tasks
               </p>
             </div>
-            <Button
-              color="primary"
-              onPress={handleCreateTask}
-              startContent={<Icon icon="solar:add-circle-outline" width={18} />}
-            >
-              {t("navigation.taskManagement.createTask")}
-            </Button>
+            <div className="flex items-center gap-3">
+              {/* View Mode Toggle */}
+              <div className="flex gap-2">
+                <Button
+                  variant={viewMode === "table" ? "solid" : "light"}
+                  isIconOnly
+                  onPress={() => setViewMode("table")}
+                  aria-label="Table view"
+                >
+                  <Icon icon="solar:list-linear" width={18} />
+                </Button>
+                <Button
+                  variant={viewMode === "cards" ? "solid" : "light"}
+                  isIconOnly
+                  onPress={() => setViewMode("cards")}
+                  aria-label="Cards view"
+                >
+                  <Icon icon="solar:widget-2-linear" width={18} />
+                </Button>
+              </div>
+
+              {/* Create Task Button */}
+              <Button
+                color="primary"
+                onPress={handleCreateTask}
+                startContent={<Icon icon="solar:add-circle-outline" width={18} />}
+              >
+                {t("navigation.taskManagement.createTask" as any)}
+              </Button>
+            </div>
           </div>
         </motion.div>
 
@@ -323,64 +470,135 @@ export default function TaskListPage() {
         <motion.div variants={itemVariants} className="mb-6">
           <Card>
             <CardBody>
-              <div className="flex flex-wrap gap-4 items-end" role="search" aria-label="Task filters">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4" role="search" aria-label="Task filters">
+                {/* Search Input */}
                 <Input
                   placeholder="Search tasks..."
                   value={filter.search || ""}
                   onValueChange={(value) => handleFilterChange("search", value)}
                   startContent={<Icon icon="solar:magnifer-linear" width={18} />}
-                  className="max-w-xs sm:max-w-sm"
                   aria-label="Search tasks"
                 />
-                
+
+                {/* Task Type Filter */}
                 <Select
-                  placeholder="Filter by status"
-                  className="max-w-xs"
-                  selectionMode="multiple"
+                  placeholder={t("navigation.taskManagement.filters.taskType" as any)}
+                  className="w-full"
+                  selectedKeys={filter.taskType ? [filter.taskType] : []}
                   onSelectionChange={(keys) => {
-                    const statuses = Array.from(keys) as TaskStatus[];
-                    handleFilterChange("status", statuses.length ? statuses : undefined);
+                    const taskType = Array.from(keys)[0] as TaskType;
+                    handleFilterChange("taskType", taskType || undefined);
                   }}
                 >
-                  {Object.entries(statusConfig).map(([key, config]) => (
-                    <SelectItem key={key} value={key}>
-                      {config.label}
+                  <SelectItem key="all">
+                    {t("navigation.taskManagement.filters.taskTypes.all" as any)}
+                  </SelectItem>
+                  {Object.entries(taskTypeConfig).map(([key]) => (
+                    <SelectItem key={key}>
+                      {t(`navigation.taskManagement.filters.taskTypes.${key}` as any)}
                     </SelectItem>
                   ))}
                 </Select>
 
+                {/* Status Filter with Multiple Selection */}
                 <Select
-                  placeholder="Filter by priority"
-                  className="max-w-xs"
+                  placeholder={t("navigation.taskManagement.filters.status" as any)}
+                  className="w-full"
+                  selectionMode="multiple"
+                  selectedKeys={filter.status ? filter.status : []}
+                  onSelectionChange={(keys) => {
+                    const keyArray = Array.from(keys);
+
+                    // Handle Toggle Select All
+                    if (keyArray.includes("toggle-select-all")) {
+                      const allStatusKeys = Object.keys(statusConfig) as TaskStatus[];
+                      const currentlySelected = filter.status || [];
+
+                      // If all are selected, deselect all. Otherwise, select all.
+                      if (currentlySelected.length === allStatusKeys.length) {
+                        handleFilterChange("status", undefined);
+                      } else {
+                        handleFilterChange("status", allStatusKeys);
+                      }
+                      return;
+                    }
+
+                    // Normal selection
+                    const statuses = keyArray.filter(key => key !== "toggle-select-all") as TaskStatus[];
+                    handleFilterChange("status", statuses.length ? statuses : undefined);
+                  }}
+                >
+                  {/* Toggle Select All Option */}
+                  {(() => {
+                    const allStatusKeys = Object.keys(statusConfig) as TaskStatus[];
+                    const currentlySelected = filter.status || [];
+                    const isAllSelected = currentlySelected.length === allStatusKeys.length;
+
+                    return (
+                      <SelectItem
+                        key="toggle-select-all"
+                        className={`font-medium ${isAllSelected ? 'text-danger' : 'text-primary'}`}
+                      >
+                        {isAllSelected ? '✗' : '✓'} {isAllSelected
+                          ? t("navigation.taskManagement.filters.deselectAll" as any)
+                          : t("navigation.taskManagement.filters.selectAll" as any)
+                        }
+                      </SelectItem>
+                    );
+                  })()}
+
+                  {/* Divider */}
+                  <SelectItem key="divider" isDisabled className="h-px p-0 m-0">
+                    <div className="w-full border-t border-divider"></div>
+                  </SelectItem>
+
+                  {/* Status Options */}
+                  {Object.entries(statusConfig).map(([key, config]) => (
+                    <SelectItem key={key}>
+                      {t(`navigation.taskManagement.filters.statuses.${key}` as any) || config.label}
+                    </SelectItem>
+                  ))}
+                </Select>
+
+                {/* Priority Filter */}
+                <Select
+                  placeholder={t("navigation.taskManagement.filters.priority" as any)}
+                  className="w-full"
                   selectionMode="multiple"
                   onSelectionChange={(keys) => {
                     const priorities = Array.from(keys) as TaskPriority[];
                     handleFilterChange("priority", priorities.length ? priorities : undefined);
                   }}
                 >
-                  {Object.entries(priorityConfig).map(([key, config]) => (
-                    <SelectItem key={key} value={key}>
-                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                  {Object.entries(priorityConfig).map(([key, config]) => {
+                    const PriorityIcon = config.icon;
+                    return (
+                      <SelectItem
+                        key={key}
+                        startContent={<PriorityIcon size={14} className={config.iconColor} />}
+                      >
+                        {t(`navigation.taskManagement.filters.priorities.${key}` as any)}
+                      </SelectItem>
+                    );
+                  })}
+                </Select>
+
+                {/* Deadline Status Filter */}
+                <Select
+                  placeholder={t("navigation.taskManagement.filters.deadlineStatus" as any)}
+                  className="w-full"
+                  selectedKeys={filter.deadlineStatus ? [filter.deadlineStatus] : []}
+                  onSelectionChange={(keys) => {
+                    const deadlineStatus = Array.from(keys)[0] as DeadlineStatus;
+                    handleFilterChange("deadlineStatus", deadlineStatus || undefined);
+                  }}
+                >
+                  {Object.entries(deadlineStatusConfig).map(([key]) => (
+                    <SelectItem key={key}>
+                      {t(`navigation.taskManagement.filters.deadlineStatuses.${key}` as any)}
                     </SelectItem>
                   ))}
                 </Select>
-
-                <div className="flex gap-2">
-                  <Button
-                    variant={viewMode === "table" ? "solid" : "light"}
-                    isIconOnly
-                    onPress={() => setViewMode("table")}
-                  >
-                    <Icon icon="solar:list-linear" width={18} />
-                  </Button>
-                  <Button
-                    variant={viewMode === "cards" ? "solid" : "light"}
-                    isIconOnly
-                    onPress={() => setViewMode("cards")}
-                  >
-                    <Icon icon="solar:widget-2-linear" width={18} />
-                  </Button>
-                </div>
               </div>
             </CardBody>
           </Card>
@@ -411,6 +629,31 @@ export default function TaskListPage() {
             />
           </motion.div>
         )}
+
+        {/* Confirmation Dialogs */}
+        <ConfirmationDialog
+          isOpen={!!selectedTaskForDelete}
+          onClose={() => setSelectedTaskForDelete(null)}
+          onConfirm={confirmDeleteTask}
+          title={t("navigation.taskManagement.deleteTask" as any)}
+          message={t("navigation.taskManagement.confirmDeleteTask" as any)}
+          confirmText={t("navigation.taskManagement.deleteTask" as any)}
+          isDangerous={true}
+          isLoading={isDeleting}
+        />
+
+        <ConfirmationDialog
+          isOpen={!!selectedTaskForApprove}
+          onClose={() => setSelectedTaskForApprove(null)}
+          onConfirm={confirmApproveTask}
+          title={t("navigation.taskManagement.approveTask" as any)}
+          message={t("navigation.taskManagement.confirmApproveTask" as any)}
+          confirmText={t("navigation.taskManagement.approveTask" as any)}
+          isDangerous={false}
+          isLoading={isApproving}
+          icon="solar:check-circle-bold"
+          iconColor="text-success"
+        />
       </motion.div>
     </DashboardLayout>
   );

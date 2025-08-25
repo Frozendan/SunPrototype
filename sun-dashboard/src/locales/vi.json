@@ -264,7 +264,60 @@
       "monthly": "Hàng tháng",
       "recurringStartDate": "Ngày bắt đầu lặp",
       "recurringEndDate": "Ngày kết thúc lặp",
-      "leadershipDirective": "Chỉ đạo của LĐTĐ"
+      "leadershipDirective": "Chỉ đạo của LĐTĐ",
+      "taskId": "Mã công việc",
+      "deleteTask": "Xóa công việc",
+      "approveTask": "Phê duyệt công việc",
+      "confirmDeleteTask": "Bạn có chắc chắn muốn xóa công việc này?",
+      "confirmApproveTask": "Bạn có chắc chắn muốn phê duyệt công việc này?",
+      "taskDeleted": "Xóa công việc thành công",
+      "taskApproved": "Phê duyệt công việc thành công",
+      "deleteTaskFailed": "Xóa công việc thất bại",
+      "approveTaskFailed": "Phê duyệt công việc thất bại",
+      "filters": {
+        "taskType": "Loại công việc",
+        "status": "Trạng thái",
+        "priority": "Độ ưu tiên",
+        "deadlineStatus": "Tình trạng",
+        "taskTypes": {
+          "all": "Tất cả loại",
+          "assignment": "Giao việc",
+          "supportService": "Dịch vụ hỗ trợ",
+          "document": "Hồ sơ"
+        },
+        "statuses": {
+          "all": "Tất cả",
+          "todo": "Cần làm",
+          "inProgress": "Đang thực hiện",
+          "done": "Hoàn thành",
+          "cancelled": "Hủy",
+          "pendingReceipt": "Chờ tiếp nhận",
+          "redo": "Thực hiện lại",
+          "pendingConfirmation": "Chờ xác nhận",
+          "completed": "Đã hoàn thành",
+          "approved": "Đã duyệt",
+          "archiveRecord": "Lưu trữ hồ sơ",
+          "rejected": "Từ chối",
+          "notApproved": "Không duyệt",
+          "cancelledAfterApproval": "Hủy sau duyệt",
+          "paused": "Tạm dừng",
+          "terminated": "Chấm dứt công việc",
+          "draft": "Bản nháp"
+        },
+        "deadlineStatuses": {
+          "all": "Tất cả",
+          "overdue": "Quá hạn",
+          "notOverdue": "Chưa quá hạn"
+        },
+        "priorities": {
+          "low": "Thấp",
+          "medium": "Trung bình",
+          "high": "Cao",
+          "urgent": "Khẩn cấp"
+        },
+        "selectAll": "Chọn tất cả",
+        "deselectAll": "Bỏ chọn tất cả"
+      }
     },
     "timeManagement": {
       "dashboard": "Bảng thời gian",

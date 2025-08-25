@@ -264,7 +264,60 @@
       "monthly": "Monthly",
       "recurringStartDate": "Recurring Start Date",
       "recurringEndDate": "Recurring End Date",
-      "leadershipDirective": "Leadership Directive"
+      "leadershipDirective": "Leadership Directive",
+      "taskId": "Task ID",
+      "deleteTask": "Delete Task",
+      "approveTask": "Approve Task",
+      "confirmDeleteTask": "Are you sure you want to delete this task?",
+      "confirmApproveTask": "Are you sure you want to approve this task?",
+      "taskDeleted": "Task deleted successfully",
+      "taskApproved": "Task approved successfully",
+      "deleteTaskFailed": "Failed to delete task",
+      "approveTaskFailed": "Failed to approve task",
+      "filters": {
+        "taskType": "Task Type",
+        "status": "Status",
+        "priority": "Priority",
+        "deadlineStatus": "Deadline Status",
+        "taskTypes": {
+          "all": "All Types",
+          "assignment": "Assignment",
+          "supportService": "Support Service",
+          "document": "Document/Record"
+        },
+        "statuses": {
+          "all": "All",
+          "todo": "To Do",
+          "inProgress": "In Progress",
+          "done": "Done",
+          "cancelled": "Cancelled",
+          "pendingReceipt": "Pending Receipt",
+          "redo": "Redo",
+          "pendingConfirmation": "Pending Confirmation",
+          "completed": "Completed",
+          "approved": "Approved",
+          "archiveRecord": "Archive Record",
+          "rejected": "Rejected",
+          "notApproved": "Not Approved",
+          "cancelledAfterApproval": "Cancelled After Approval",
+          "paused": "Paused",
+          "terminated": "Terminated",
+          "draft": "Draft"
+        },
+        "deadlineStatuses": {
+          "all": "All",
+          "overdue": "Overdue",
+          "notOverdue": "Not Overdue"
+        },
+        "priorities": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High",
+          "urgent": "Urgent"
+        },
+        "selectAll": "Select All",
+        "deselectAll": "Deselect All"
+      }
     },
     "timeManagement": {
       "dashboard": "Time Dashboard",

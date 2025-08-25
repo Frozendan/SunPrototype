@@ -162,12 +162,12 @@ export default function AppSwitcher({ currentApp, onAppChange, isCompact = false
         aria-label="Application switcher"
         className="w-96"
         itemClasses={{
-          base: "gap-4 p-4 data-[hover=true]:bg-default-100",
+          base: "gap-4 p-4 data-[hover=true]:bg-transparent",
         }}
         onAction={(key) => handleAppSelect(key as AppType)}
       >
           <DropdownSection title="Switch Application">
-              <DropdownItem key="apps-grid" className="h-auto p-0" isReadOnly>
+              <DropdownItem key="apps-grid" className="h-auto p-0 hover:bg-transparent" isReadOnly>
                   <div className="grid grid-cols-3 gap-3 p-3">
                       {apps.map((app) => (
                           <Card

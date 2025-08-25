@@ -1,7 +1,9 @@
 // Task Management Types and Interfaces
 
 export type TaskPriority = 'low' | 'medium' | 'high' | 'urgent';
-export type TaskStatus = 'todo' | 'inProgress' | 'done' | 'cancelled';
+export type TaskStatus = 'todo' | 'inProgress' | 'done' | 'cancelled' | 'pendingReceipt' | 'redo' | 'pendingConfirmation' | 'completed' | 'approved' | 'archiveRecord' | 'rejected' | 'notApproved' | 'cancelledAfterApproval' | 'paused' | 'terminated' | 'draft';
+export type TaskType = 'assignment' | 'supportService' | 'document';
+export type DeadlineStatus = 'all' | 'overdue' | 'notOverdue';
 
 export interface TaskLabel {
   id: string;
@@ -43,6 +45,7 @@ export interface Task {
   description?: string;
   priority: TaskPriority;
   status: TaskStatus;
+  taskType: TaskType;
   assignee?: TaskAssignee;
   reporter: TaskAssignee;
   labels: TaskLabel[];
@@ -104,6 +107,8 @@ export interface TaskFilter {
   createdDateFrom?: Date;
   createdDateTo?: Date;
   search?: string;
+  taskType?: TaskType;
+  deadlineStatus?: DeadlineStatus;
 }
 
 export interface TaskSort {

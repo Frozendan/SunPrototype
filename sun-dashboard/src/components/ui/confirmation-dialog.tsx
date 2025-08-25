@@ -64,7 +64,7 @@ export function ConfirmationDialog({
           <>
             <ModalHeader className="flex flex-col gap-1">
               <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-lg ${isDangerous ? 'bg-danger-100 dark:bg-danger-900/30' : 'bg-warning-100 dark:bg-warning-900/30'}`}>
+                <div className={`p-2 rounded-lg ${isDangerous ? 'bg-danger-100 dark:bg-danger-900/30' : 'bg-success-100 dark:bg-warning-900/30'}`}>
                   <Icon 
                     icon={icon || defaultIcon} 
                     width={24} 

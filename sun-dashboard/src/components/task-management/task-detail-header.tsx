@@ -14,11 +14,12 @@ import {
     SelectSection,
     Chip
 } from "@heroui/react";
-import { Icon } from "@iconify/react";
+import { MoreHorizontal, Upload, Save, Import, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n-context";
 import { useAuth } from "@/hooks/use-auth";
 import type { TaskStatus } from "@/types/task";
+import { statusConfig, getStatusColor } from "@/lib/task-status-config";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -38,24 +39,7 @@ interface TaskDetailHeaderProps {
   isImporting?: boolean;
 }
 
-const statusConfig = {
-  draft: { color: "default", group: "draft" },
-  todo: { color: "default", group: "inProgress" },
-  inProgress: { color: "primary", group: "inProgress" },
-  redo: { color: "secondary", group: "inProgress" },
-  pendingReceipt: { color: "warning", group: "pending" },
-  pendingConfirmation: { color: "warning", group: "pending" },
-  paused: { color: "warning", group: "pending" },
-  done: { color: "success", group: "completed" },
-  completed: { color: "success", group: "completed" },
-  approved: { color: "success", group: "completed" },
-  archiveRecord: { color: "default", group: "completed" },
-  cancelled: { color: "danger", group: "cancelled" },
-  rejected: { color: "danger", group: "cancelled" },
-  notApproved: { color: "danger", group: "cancelled" },
-  cancelledAfterApproval: { color: "danger", group: "cancelled" },
-  terminated: { color: "danger", group: "cancelled" },
-};
+
 
 export function TaskDetailHeader({
   onSave,
@@ -123,9 +107,7 @@ export function TaskDetailHeader({
     }
   };
 
-  const getStatusColor = (status: TaskStatus) => {
-    return statusConfig[status]?.color || 'default';
-  };
+
 
   const getStatusLabel = (status: TaskStatus) => {
     return t(`navigation.taskManagement.filters.statuses.${status}` as any) || status;
@@ -233,8 +215,8 @@ export function TaskDetailHeader({
                   <Button
                     variant="light"
                     radius="full"
-                    startContent={<Icon icon="solar:import-bold" width={16} />}
-                    endContent={<Icon icon="solar:alt-arrow-down-linear" width={14} />}
+                    startContent={<Import size={16} />}
+                    endContent={<ChevronDown size={14} />}
                     isLoading={isImporting || isProcessingImport}
                   >
                     Import
@@ -243,7 +225,7 @@ export function TaskDetailHeader({
                 <DropdownMenu aria-label="Import actions">
                   <DropdownItem
                     key="import-file"
-                    startContent={<Icon icon="solar:file-upload-bold" width={16} />}
+                    startContent={<Upload size={16} />}
                     onPress={handleFileImport}
                   >
                     Import from File
@@ -263,7 +245,7 @@ export function TaskDetailHeader({
               radius="full"
               onPress={onSave}
               isLoading={isSaving}
-              startContent={!isSaving && <Icon icon="solar:diskette-bold" width={18} />}
+              startContent={!isSaving && <Save size={18} />}
             >
               {t("common.save")}
             </Button>
@@ -278,7 +260,7 @@ export function TaskDetailHeader({
                   <Button
                     variant="light"
                     radius="full"
-                    startContent={<Icon icon="solar:menu-dots-bold" width={16} />}
+                    startContent={<MoreHorizontal size={16} />}
                   >
                     More
                   </Button>
@@ -287,7 +269,7 @@ export function TaskDetailHeader({
                   <DropdownSection title="Import/Export">
                     <DropdownItem
                       key="import-file"
-                      startContent={<Icon icon="solar:file-upload-bold" width={16} />}
+                      startContent={<Upload size={16} />}
                       onPress={handleFileImport}
                     >
                       Import from File
@@ -303,7 +285,7 @@ export function TaskDetailHeader({
               radius="full"
               onPress={onSave}
               isLoading={isSaving}
-              startContent={!isSaving && <Icon icon="solar:diskette-bold" width={18} />}
+              startContent={!isSaving && <Save size={18} />}
             >
               {t("common.save")}
             </Button>
@@ -320,7 +302,7 @@ export function TaskDetailHeader({
                     radius="full"
                     aria-label="More actions"
                   >
-                    <Icon icon="solar:menu-dots-bold" width={20} />
+                    <MoreHorizontal size={20} />
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu aria-label="All actions" className="w-64">
@@ -330,7 +312,7 @@ export function TaskDetailHeader({
                       className="h-12"
                       startContent={
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30">
-                          <Icon className="text-blue-600 dark:text-blue-300" icon="solar:file-upload-bold" width={16} />
+                          <Upload className="text-blue-600 dark:text-blue-300" size={16} />
                         </div>
                       }
                       onPress={handleFileImport}
@@ -351,7 +333,7 @@ export function TaskDetailHeader({
               radius="full"
               onPress={onSave}
               isLoading={isSaving}
-              startContent={!isSaving && <Icon icon="solar:diskette-bold" width={18} />}
+              startContent={!isSaving && <Save size={18} />}
             >
               {t("common.save")}
             </Button>

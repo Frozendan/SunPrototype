@@ -11,7 +11,17 @@ import {
   Tooltip,
   useDisclosure
 } from "@heroui/react";
-import { Icon } from "@iconify/react";
+import {
+  MoreHorizontal,
+  Upload,
+  Save,
+  Import,
+  ChevronDown,
+  ArrowLeft,
+  Download,
+  PlusCircle,
+  XCircle
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n-context";
 import { importTasksFromFile, downloadExampleFile, validateFileType } from "@/lib/task-import-export";
@@ -114,7 +124,7 @@ export function CreateTaskHeader({
             onPress={onCancel}
             aria-label={t("common.cancel")}
           >
-            <Icon icon="solar:arrow-left-linear" width={20} />
+            <ArrowLeft size={20} />
           </Button>
           <div>
             <h1 className="text-2xl font-bold text-foreground">
@@ -137,8 +147,8 @@ export function CreateTaskHeader({
                   <Button
                     variant="light"
                     radius="full"
-                    startContent={<Icon icon="solar:import-bold" width={16} />}
-                    endContent={<Icon icon="solar:alt-arrow-down-linear" width={14} />}
+                    startContent={<Import size={16} />}
+                    endContent={<ChevronDown size={14} />}
                     isLoading={isProcessingImport || isImporting}
                   >
                     Import
@@ -147,14 +157,14 @@ export function CreateTaskHeader({
                 <DropdownMenu aria-label="Import actions">
                   <DropdownItem
                     key="import-file"
-                    startContent={<Icon icon="solar:upload-bold" width={16} />}
+                    startContent={<Upload size={16} />}
                     onPress={handleFileImport}
                   >
                     {t("navigation.taskManagement.actionBar.importFromFile")}
                   </DropdownItem>
                   <DropdownItem
                     key="download-example"
-                    startContent={<Icon icon="solar:download-bold" width={16} />}
+                    startContent={<Download size={16} />}
                     onPress={handleDownloadExample}
                   >
                     {t("navigation.taskManagement.actionBar.downloadExample")}
@@ -178,7 +188,7 @@ export function CreateTaskHeader({
               <Button
                 variant="flat"
                 radius="full"
-                startContent={<Icon icon="solar:diskette-bold" width={16} />}
+                startContent={<Save size={16} />}
                 onPress={handleSaveDraft}
                 isLoading={isDraftSaving}
                 className={hasDraftChanges ? "text-warning" : ""}
@@ -194,7 +204,7 @@ export function CreateTaskHeader({
               radius="full"
               onPress={onSubmit}
               isLoading={isSubmitting}
-              startContent={!isSubmitting && <Icon icon="solar:add-circle-bold" width={18} />}
+              startContent={!isSubmitting && <PlusCircle size={18} />}
             >
               {t("common.create")}
             </Button>
@@ -209,7 +219,7 @@ export function CreateTaskHeader({
                   <Button
                     variant="light"
                     radius="full"
-                    startContent={<Icon icon="solar:menu-dots-bold" width={16} />}
+                    startContent={<MoreHorizontal size={16} />}
                   >
                     More
                   </Button>
@@ -218,14 +228,14 @@ export function CreateTaskHeader({
                   <DropdownSection title="Import/Export">
                     <DropdownItem
                       key="import-file"
-                      startContent={<Icon icon="solar:upload-bold" width={16} />}
+                      startContent={<Upload size={16} />}
                       onPress={handleFileImport}
                     >
                       {t("navigation.taskManagement.actionBar.importFromFile")}
                     </DropdownItem>
                     <DropdownItem
                       key="download-example"
-                      startContent={<Icon icon="solar:download-bold" width={16} />}
+                      startContent={<Download size={16} />}
                       onPress={handleDownloadExample}
                     >
                       {t("navigation.taskManagement.actionBar.downloadExample")}
@@ -244,7 +254,7 @@ export function CreateTaskHeader({
               <Button
                 variant="light"
                 radius="full"
-                startContent={<Icon icon="solar:diskette-bold" width={16} />}
+                startContent={<Save size={16} />}
                 onPress={handleSaveDraft}
                 isLoading={isDraftSaving}
                 className={hasDraftChanges ? "text-warning" : ""}
@@ -258,7 +268,7 @@ export function CreateTaskHeader({
               radius="full"
               onPress={onSubmit}
               isLoading={isSubmitting}
-              startContent={!isSubmitting && <Icon icon="solar:add-circle-bold" width={18} />}
+              startContent={!isSubmitting && <PlusCircle size={18} />}
             >
               {t("common.create")}
             </Button>
@@ -274,7 +284,7 @@ export function CreateTaskHeader({
                   radius="full"
                   aria-label={t("navigation.taskManagement.actionBar.actions")}
                 >
-                  <Icon icon="solar:menu-dots-bold" width={20} />
+                  <MoreHorizontal size={20} />
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="All actions" className="w-64">
@@ -285,7 +295,7 @@ export function CreateTaskHeader({
                       className="h-12"
                       startContent={
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30">
-                          <Icon className="text-blue-600 dark:text-blue-300" icon="solar:upload-bold" width={16} />
+                          <Upload className="text-blue-600 dark:text-blue-300" size={16} />
                         </div>
                       }
                       onPress={handleFileImport}
@@ -300,7 +310,7 @@ export function CreateTaskHeader({
                       className="h-12"
                       startContent={
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/30">
-                          <Icon className="text-emerald-600 dark:text-emerald-300" icon="solar:download-bold" width={16} />
+                          <Download className="text-emerald-600 dark:text-emerald-300" size={16} />
                         </div>
                       }
                       onPress={handleDownloadExample}
@@ -319,7 +329,7 @@ export function CreateTaskHeader({
                       className="h-12"
                       startContent={
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30">
-                          <Icon className="text-amber-600 dark:text-amber-300" icon="solar:diskette-bold" width={16} />
+                          <Save className="text-amber-600 dark:text-amber-300" size={16} />
                         </div>
                       }
                       onPress={handleSaveDraft}
@@ -337,7 +347,7 @@ export function CreateTaskHeader({
                     className="h-12"
                     startContent={
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100 dark:bg-rose-900/30">
-                        <Icon className="text-rose-600 dark:text-rose-300" icon="solar:close-circle-bold" width={16} />
+                        <XCircle className="text-rose-600 dark:text-rose-300" size={16} />
                       </div>
                     }
                     onPress={onCancel}
@@ -355,7 +365,7 @@ export function CreateTaskHeader({
               radius="full"
               onPress={onSubmit}
               isLoading={isSubmitting}
-              startContent={!isSubmitting && <Icon icon="solar:add-circle-bold" width={18} />}
+              startContent={!isSubmitting && <PlusCircle size={18} />}
             >
               {t("common.create")}
             </Button>

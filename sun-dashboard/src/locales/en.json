@@ -274,6 +274,7 @@
       "taskApproved": "Task approved successfully",
       "deleteTaskFailed": "Failed to delete task",
       "approveTaskFailed": "Failed to approve task",
+      "unassigned": "Unassigned",
       "filters": {
         "taskType": "Task Type",
         "status": "Status",

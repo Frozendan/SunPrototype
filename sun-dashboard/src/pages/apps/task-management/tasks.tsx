@@ -28,8 +28,24 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@heroui/react";
-import { Icon } from "@iconify/react";
-import { ArrowDown, Minus, ArrowUp, ChevronsUp } from "lucide-react";
+import {
+  ArrowDown,
+  Minus,
+  ArrowUp,
+  ChevronsUp,
+  MoreHorizontal,
+  CheckCircle,
+  Eye,
+  Trash2,
+  List,
+  Grid3X3,
+  Settings,
+  RotateCcw,
+  PlusCircle,
+  Search,
+  Filter,
+  AlertCircle
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -39,6 +55,8 @@ import { useTasks } from "@/hooks/use-tasks";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { useToast } from "@/components/toast";
 import type { TaskFilter, TaskSort, TaskPriority, TaskStatus, TaskType, DeadlineStatus } from "@/types/task";
+import { KanbanBoard } from "@/components/task-management/kanban/kanban-board";
+import { statusConfig } from "@/lib/task-status-config";
 
 const priorityConfig = {
   low: {
@@ -71,24 +89,7 @@ const priorityConfig = {
   },
 };
 
-const statusConfig = {
-  todo: { color: "default", label: "To Do" },
-  inProgress: { color: "primary", label: "In Progress" },
-  done: { color: "success", label: "Done" },
-  cancelled: { color: "danger", label: "Cancelled" },
-  pendingReceipt: { color: "warning", label: "Pending Receipt" },
-  redo: { color: "secondary", label: "Redo" },
-  pendingConfirmation: { color: "warning", label: "Pending Confirmation" },
-  completed: { color: "success", label: "Completed" },
-  approved: { color: "success", label: "Approved" },
-  archiveRecord: { color: "default", label: "Archive Record" },
-  rejected: { color: "danger", label: "Rejected" },
-  notApproved: { color: "danger", label: "Not Approved" },
-  cancelledAfterApproval: { color: "danger", label: "Cancelled After Approval" },
-  paused: { color: "warning", label: "Paused" },
-  terminated: { color: "danger", label: "Terminated" },
-  draft: { color: "default", label: "Draft" },
-};
+
 
 const taskTypeConfig = {
   assignment: { label: "Assignment", color: "primary" },
@@ -602,21 +603,21 @@ export default function TaskListPage() {
                         variant="light"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Icon icon="solar:menu-dots-bold" width={16} />
+                        <MoreHorizontal size={16} />
                       </Button>
                     </DropdownTrigger>
                     <DropdownMenu>
                       <DropdownSection showDivider>
                         <DropdownItem
                           key="approve"
-                          startContent={<Icon icon="solar:check-circle-linear" width={16} />}
+                          startContent={<CheckCircle size={16} />}
                           onPress={() => handleApproveTask(task.id)}
                         >
                           {t("navigation.taskManagement.approveTask" as any)}
                         </DropdownItem>
                           <DropdownItem
                               key="view"
-                              startContent={<Icon icon="solar:eye-linear" width={16} />}
+                              startContent={<Eye size={16} />}
                               onPress={() => handleTaskClick(task.id)}
                           >
                               Xem công việc
@@ -628,7 +629,7 @@ export default function TaskListPage() {
                               key="delete"
                               className="text-danger"
                               color="danger"
-                              startContent={<Icon icon="solar:trash-bin-trash-linear" width={16} />}
+                              startContent={<Trash2 size={16} />}
                               onPress={() => handleDeleteTask(task.id)}
                           >
                               {t("navigation.taskManagement.deleteTask" as any)}
@@ -646,6 +647,24 @@ export default function TaskListPage() {
       </CardBody>
     </Card>
   );
+
+  const renderKanbanView = () => (
+    <KanbanBoard
+      tasks={tasks}
+      isLoading={isLoading}
+      onTaskClick={handleTaskClick}
+      onTaskStatusChange={handleTaskStatusChange}
+    />
+  );
+
+  const handleTaskStatusChange = (taskId: string, newStatus: TaskStatus) => {
+    // TODO: Implement task status change logic
+    showToast({
+      title: "Status Updated",
+      description: `Task ${taskId} status changed to ${newStatus}`,
+      type: "success"
+    });
+  };
 
   return (
     <DashboardLayout>
@@ -675,7 +694,7 @@ export default function TaskListPage() {
                   onPress={() => setViewMode("table")}
                   aria-label="Table view"
                 >
-                  <Icon icon="solar:list-linear" width={18} />
+                  <List size={18} />
                 </Button>
                 <Button
                   variant={viewMode === "cards" ? "solid" : "light"}
@@ -683,7 +702,7 @@ export default function TaskListPage() {
                   onPress={() => setViewMode("cards")}
                   aria-label="Cards view"
                 >
-                  <Icon icon="solar:widget-2-linear" width={18} />
+                  <Grid3X3 size={18} />
                 </Button>
               </div>
 
@@ -695,7 +714,7 @@ export default function TaskListPage() {
                     isIconOnly
                     aria-label={t("navigation.taskManagement.columnSettings.title" as any)}
                   >
-                    <Icon icon="solar:settings-linear" width={18} />
+                    <Settings size={18} />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-60">
@@ -710,7 +729,7 @@ export default function TaskListPage() {
                         variant="light"
                         onPress={resetColumnsToDefault}
                       >
-                          <Icon icon="solar:refresh-outline" width={18} />
+                          <RotateCcw size={18} />
                       </Button>
                     </div>
                     <div className="space-y-2">
@@ -736,7 +755,7 @@ export default function TaskListPage() {
               <Button
                 color="primary"
                 onPress={handleCreateTask}
-                startContent={<Icon icon="solar:add-circle-outline" width={18} />}
+                startContent={<PlusCircle size={18} />}
               >
                 {t("navigation.taskManagement.createTask" as any)}
               </Button>
@@ -754,7 +773,7 @@ export default function TaskListPage() {
                   radius="lg"
                   value={filter.search || ""}
                   onValueChange={(value) => handleFilterChange("search", value)}
-                  startContent={<Icon icon="solar:magnifer-linear" width={18} />}
+                  startContent={<Search size={18} />}
                   aria-label="Search tasks"
                   className="max-w-md"
                 />
@@ -764,7 +783,7 @@ export default function TaskListPage() {
                   radius="lg"
                   variant={isFilterPanelOpen ? "solid" : "bordered"}
                   color={isFilterPanelOpen ? "primary" : "default"}
-                  startContent={<Icon icon="solar:filter-linear" width={18} />}
+                  startContent={<Filter size={18} />}
                   onPress={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
                   aria-label={t("navigation.taskManagement.filterSettings.title" as any)}
                 >
@@ -952,17 +971,17 @@ export default function TaskListPage() {
           {error ? (
             <Card>
               <CardBody className="text-center py-8">
-                <Icon icon="solar:danger-circle-linear" width={48} className="text-danger mx-auto mb-4" />
+                <AlertCircle size={48} className="text-danger mx-auto mb-4" />
                 <p className="text-danger">{error}</p>
               </CardBody>
             </Card>
           ) : (
-            renderTableView()
+            viewMode === "table" ? renderTableView() : renderKanbanView()
           )}
         </motion.div>
 
         {/* Pagination */}
-        {tasks.length > 0 && (
+        {tasks.length > 0 && viewMode === "table" && (
           <motion.div variants={itemVariants} className="flex justify-center">
             <Pagination
               total={Math.ceil(tasks.length / limit)}

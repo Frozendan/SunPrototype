@@ -274,6 +274,7 @@
       "taskApproved": "Phê duyệt công việc thành công",
       "deleteTaskFailed": "Xóa công việc thất bại",
       "approveTaskFailed": "Phê duyệt công việc thất bại",
+      "unassigned": "Chưa phân công",
       "filters": {
         "taskType": "Loại công việc",
         "status": "Trạng thái",

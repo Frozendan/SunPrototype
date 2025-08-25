@@ -69,7 +69,7 @@ export default function TaskListPage() {
   };
 
   const handleTaskClick = (taskId: string) => {
-    navigate(`/task-management/tasks/${taskId}`);
+    navigate(`/task-management/task/${taskId}`);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent, taskId: string) => {

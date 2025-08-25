@@ -187,6 +187,13 @@
         "selectTopic": "Select topic",
         "selectTaskType": "Select task type"
       },
+      "messages": {
+        "taskUpdated": "Task updated successfully",
+        "updateFailed": "Failed to update task"
+      },
+      "validation": {
+        "pleaseFillRequired": "Please fill in all required fields"
+      },
       "expectedResults": "Expected Results",
       "attachments": "Attachments",
       "noAttachmentsYet": "No attachments yet",

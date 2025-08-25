@@ -18,6 +18,7 @@ import TimeDashboardPage from "@/pages/apps/time/dashboard";
 
 // Task Management pages
 import CreateTaskPage from "@/pages/apps/task-management/create";
+import TaskDetailPage from "@/pages/apps/task-management/task-detail";
 import TaskListPage from "@/pages/apps/task-management/tasks";
 import CreateDocumentPage from "@/pages/apps/document-management/create";
 
@@ -69,6 +70,14 @@ function App() {
           </ProtectedRoute>
         }
         path="/task-management/create-task"
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <TaskDetailPage />
+          </ProtectedRoute>
+        }
+        path="/task-management/task/:id"
       />
       <Route
         element={

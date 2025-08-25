@@ -323,6 +323,8 @@ export function useTaskForm(initialData?: Partial<Task>) {
     setFormData({
       title: '',
       description: '',
+      expectedResults: '',
+      attachments: [],
       priority: 'medium',
       assigneeId: '',
       labelIds: [],
@@ -341,6 +343,9 @@ export function useTaskForm(initialData?: Partial<Task>) {
       recurringInterval: 1,
       recurringEndDate: '',
       isLeadershipDirection: false,
+      functionalGroupId: '',
+      topicId: '',
+      taskTypeId: '',
     });
     setErrors({});
   }, []);
@@ -351,6 +356,7 @@ export function useTaskForm(initialData?: Partial<Task>) {
     updateField,
     validateForm,
     resetForm,
+    setFormData,
     isValid: Object.keys(errors).length === 0 && formData.title.trim() !== '',
   };
 }

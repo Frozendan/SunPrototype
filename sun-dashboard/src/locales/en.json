@@ -279,6 +279,13 @@
         "status": "Status",
         "priority": "Priority",
         "deadlineStatus": "Deadline Status",
+        "statusGroups": {
+          "draft": "Draft",
+          "inProgress": "In Progress",
+          "pending": "Pending",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        },
         "taskTypes": {
           "all": "All Types",
           "assignment": "Assignment",

@@ -2,16 +2,17 @@
 
 import { useState, useRef } from "react";
 import {
-  Button,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  DropdownSection,
-  Tooltip,
-  useDisclosure,
-  Select,
-  SelectItem
+    Button,
+    Dropdown,
+    DropdownTrigger,
+    DropdownMenu,
+    DropdownItem,
+    DropdownSection,
+    useDisclosure,
+    Select,
+    SelectItem,
+    SelectSection,
+    Chip
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
@@ -37,12 +38,24 @@ interface TaskDetailHeaderProps {
   isImporting?: boolean;
 }
 
-const statusOptions = [
-  { key: 'todo', label: 'Todo', color: 'default' },
-  { key: 'inProgress', label: 'In Progress', color: 'primary' },
-  { key: 'done', label: 'Done', color: 'success' },
-  { key: 'cancelled', label: 'Declined', color: 'danger' }
-];
+const statusConfig = {
+  draft: { color: "default", group: "draft" },
+  todo: { color: "default", group: "inProgress" },
+  inProgress: { color: "primary", group: "inProgress" },
+  redo: { color: "secondary", group: "inProgress" },
+  pendingReceipt: { color: "warning", group: "pending" },
+  pendingConfirmation: { color: "warning", group: "pending" },
+  paused: { color: "warning", group: "pending" },
+  done: { color: "success", group: "completed" },
+  completed: { color: "success", group: "completed" },
+  approved: { color: "success", group: "completed" },
+  archiveRecord: { color: "default", group: "completed" },
+  cancelled: { color: "danger", group: "cancelled" },
+  rejected: { color: "danger", group: "cancelled" },
+  notApproved: { color: "danger", group: "cancelled" },
+  cancelledAfterApproval: { color: "danger", group: "cancelled" },
+  terminated: { color: "danger", group: "cancelled" },
+};
 
 export function TaskDetailHeader({
   onSave,
@@ -63,7 +76,29 @@ export function TaskDetailHeader({
   const { isOpen: isActionsOpen, onOpen: onActionsOpen, onClose: onActionsClose } = useDisclosure();
 
   const isAdmin = user?.role === 'admin';
-  const currentStatus = statusOptions.find(option => option.key === taskStatus);
+
+  // Group statuses by color/category
+  const getGroupedStatusOptions = () => {
+    const groups: Record<string, Array<{key: string, label: string, color: string}>> = {
+      draft: [],
+      inProgress: [],
+      pending: [],
+      completed: [],
+      cancelled: []
+    };
+
+    Object.entries(statusConfig).forEach(([key, config]) => {
+      groups[config.group].push({
+        key,
+        label: t(`navigation.taskManagement.filters.statuses.${key}` as any),
+        color: config.color
+      });
+    });
+
+    return groups;
+  };
+
+  const groupedOptions = getGroupedStatusOptions();
 
   // Handle file import
   const handleFileImport = async () => {
@@ -89,13 +124,31 @@ export function TaskDetailHeader({
   };
 
   const getStatusColor = (status: TaskStatus) => {
-    const option = statusOptions.find(opt => opt.key === status);
-    return option?.color || 'default';
+    return statusConfig[status]?.color || 'default';
   };
 
   const getStatusLabel = (status: TaskStatus) => {
-    const option = statusOptions.find(opt => opt.key === status);
-    return option?.label || status;
+    return t(`navigation.taskManagement.filters.statuses.${status}` as any) || status;
+  };
+
+  const getStatusColorClass = (status: TaskStatus) => {
+    const color = getStatusColor(status);
+    switch (color) {
+      case 'default':
+        return 'bg-default-500';
+      case 'primary':
+        return 'bg-primary-500';
+      case 'secondary':
+        return 'bg-secondary-500';
+      case 'success':
+        return 'bg-success-500';
+      case 'warning':
+        return 'bg-warning-500';
+      case 'danger':
+        return 'bg-danger-500';
+      default:
+        return 'bg-default-500';
+    }
   };
 
   return (
@@ -108,27 +161,56 @@ export function TaskDetailHeader({
       <div className="flex items-center justify-between">
         {/* Left side - Title and status */}
         <div className="flex items-center gap-3">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
+          <div className="space-y-1">
               <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+            <div className="flex items-center gap-3 mb-1 flex-wrap w-full">
+                <Chip size="lg" variant="bordered" className="text-default-500 flex-shrink-0">
+                    {description || `Mã công việc: ${taskId}`}
+                </Chip>
               {/* Task Status */}
               {isAdmin && onStatusChange ? (
                 <Select
                   size="sm"
-                  variant="bordered"
+                  radius="full"
+                  variant="flat"
                   selectedKeys={[taskStatus]}
                   onSelectionChange={(keys) => {
                     const selectedStatus = Array.from(keys)[0] as TaskStatus;
                     onStatusChange(selectedStatus);
                   }}
-                  className="w-32"
+                  className="w-60 flex-shrink-0"
                   aria-label="Task Status"
+                  color={getStatusColor(taskStatus) as any}
+                  renderValue={(items) => {
+                    return items.map((item) => (
+                      <div key={item.key} className="flex items-center gap-2 whitespace-nowrap">
+                        <div className={`w-2 h-2 rounded-full bg-${getStatusColor(item.key as TaskStatus)}`} />
+                        <span>{getStatusLabel(item.key as TaskStatus)}</span>
+                      </div>
+                    ));
+                  }}
                 >
-                  {statusOptions.map((option) => (
-                    <SelectItem key={option.key} value={option.key}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                  {Object.entries(groupedOptions)
+                    .filter(([, options]) => options.length > 0)
+                    .map(([groupKey, options]) => (
+                      <SelectSection
+                        key={groupKey}
+                        title={t(`navigation.taskManagement.filters.statusGroups.${groupKey}` as any)}
+                        className="mb-2"
+                      >
+                        {options.map((option) => (
+                          <SelectItem
+                            key={option.key}
+                            className="flex items-center gap-2"
+                            startContent={
+                              <div className={`w-2 h-2 rounded-full bg-${option.color}`} />
+                            }
+                          >
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectSection>
+                    ))}
                 </Select>
               ) : (
                 <div className={`px-3 py-1 rounded-full text-xs font-medium bg-${getStatusColor(taskStatus)}-100 text-${getStatusColor(taskStatus)}-700 dark:bg-${getStatusColor(taskStatus)}-900/30 dark:text-${getStatusColor(taskStatus)}-300`}>
@@ -136,9 +218,7 @@ export function TaskDetailHeader({
                 </div>
               )}
             </div>
-            <p className="text-default-500">
-              {description || `Mã công việc: ${taskId}`}
-            </p>
+
           </div>
         </div>
 

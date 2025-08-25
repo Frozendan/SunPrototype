@@ -279,6 +279,13 @@
         "status": "Trạng thái",
         "priority": "Độ ưu tiên",
         "deadlineStatus": "Tình trạng",
+        "statusGroups": {
+          "draft": "Bản nháp",
+          "inProgress": "Đang thực hiện",
+          "pending": "Chờ xử lý",
+          "completed": "Hoàn thành",
+          "cancelled": "Đã hủy"
+        },
         "taskTypes": {
           "all": "Tất cả loại",
           "assignment": "Giao việc",

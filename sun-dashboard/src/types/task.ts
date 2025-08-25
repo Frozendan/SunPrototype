@@ -57,6 +57,23 @@ export interface Task {
   actualHours?: number;
   projectId?: string;
   parentTaskId?: string; // For subtasks
+  // Extended fields from task detail
+  unitId?: string;
+  collaboratingUnitId?: string;
+  assignmentReferenceId?: string;
+  importanceLevel?: 'normal' | 'important' | 'very-important';
+  assignmentDate?: Date;
+  expectedEndDate?: Date;
+  requiredDeadline?: Date;
+  isRecurring?: boolean;
+  recurringType?: string;
+  recurringInterval?: number;
+  recurringStartDate?: Date | null;
+  recurringEndDate?: Date | null;
+  isLeadershipDirection?: boolean;
+  functionalGroupId?: string;
+  topicId?: string;
+  taskTypeId?: string;
   comments: TaskComment[];
   attachments: TaskAttachment[];
   watchers: TaskAssignee[];

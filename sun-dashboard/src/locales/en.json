@@ -317,6 +317,35 @@
         },
         "selectAll": "Select All",
         "deselectAll": "Deselect All"
+      },
+      "columns": {
+        "title": "Title",
+        "status": "Status",
+        "priority": "Priority",
+        "assignee": "Assignee",
+        "dueDate": "Due Date",
+        "taskType": "Task Type",
+        "unit": "Unit",
+        "importanceLevel": "Importance",
+        "assignmentDate": "Assignment Date",
+        "expectedEndDate": "Expected End",
+        "executingUnit": "Executing Unit",
+        "actions": "Actions"
+      },
+      "columnSettings": {
+        "title": "Column Settings",
+        "showHideColumns": "Show/Hide Columns",
+        "resetToDefault": "Reset to Default"
+      },
+      "filterSettings": {
+        "title": "Filters",
+        "clearAll": "Clear All",
+        "applyFilters": "Apply Filters"
+      },
+      "importanceLevels": {
+        "normal": "Normal",
+        "important": "Important",
+        "very-important": "Very Important"
       }
     },
     "timeManagement": {

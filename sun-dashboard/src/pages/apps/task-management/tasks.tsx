@@ -23,6 +23,10 @@ import {
   DropdownSection,
   Pagination,
   Spinner,
+  Checkbox,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { ArrowDown, Minus, ArrowUp, ChevronsUp } from "lucide-react";
@@ -87,9 +91,9 @@ const statusConfig = {
 };
 
 const taskTypeConfig = {
-  assignment: { label: "Assignment" },
-  supportService: { label: "Support Service" },
-  document: { label: "Document/Record" },
+  assignment: { label: "Assignment", color: "primary" },
+  supportService: { label: "Support Service", color: "secondary" },
+  document: { label: "Document/Record", color: "success" },
 };
 
 const deadlineStatusConfig = {
@@ -111,6 +115,21 @@ export default function TaskListPage() {
   const [selectedTaskForApprove, setSelectedTaskForApprove] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
+
+  // Column visibility configuration
+  const [visibleColumns, setVisibleColumns] = useState({
+    title: true,
+    status: true,
+    taskType: true,
+    assignmentDate: true,
+    dueDate: true,
+    executingUnit: true,
+    priority: true,
+    importanceLevel: true,
+    assignee: true,
+    actions: true,
+  });
+
   const limit = 10;
 
   const { tasks, isLoading, error } = useTasks({
@@ -121,7 +140,7 @@ export default function TaskListPage() {
   });
 
   const handleCreateTask = () => {
-    navigate("/task-management/create");
+    navigate("/task-management/create-task");
   };
 
   const handleTaskClick = (taskId: string) => {
@@ -207,6 +226,119 @@ export default function TaskListPage() {
     }
   };
 
+  // Filter panel state
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+
+  // Column configuration functions
+  const handleColumnToggle = (columnKey: string) => {
+    setVisibleColumns(prev => ({
+      ...prev,
+      [columnKey]: !prev[columnKey as keyof typeof prev]
+    }));
+  };
+
+  const resetColumnsToDefault = () => {
+    setVisibleColumns({
+      title: true,
+      status: true,
+      taskType: true,
+      assignmentDate: true,
+      dueDate: true,
+      executingUnit: true,
+      priority: true,
+      importanceLevel: true,
+      assignee: true,
+      actions: true,
+    });
+  };
+
+  const clearAllFilters = () => {
+    setFilter({
+      search: "",
+      taskType: undefined,
+      status: undefined,
+      priority: undefined,
+      deadlineStatus: undefined,
+    });
+  };
+
+
+
+  // Generate filter chips
+  const getFilterChips = () => {
+    const chips = [];
+
+    // Search chip
+    if (filter.search) {
+      chips.push({
+        key: 'search',
+        label: `Search: "${filter.search}"`,
+        onClose: () => handleFilterChange('search', undefined)
+      });
+    }
+
+    // Task type chip
+    if (filter.taskType && filter.taskType !== 'all') {
+      chips.push({
+        key: 'taskType',
+        label: `Type: ${t(`navigation.taskManagement.filters.taskTypes.${filter.taskType}` as any)}`,
+        onClose: () => handleFilterChange('taskType', undefined)
+      });
+    }
+
+    // Status chips
+    if (filter.status && filter.status.length > 0) {
+      filter.status.forEach(status => {
+        chips.push({
+          key: `status-${status}`,
+          label: `Status: ${t(`navigation.taskManagement.filters.statuses.${status}` as any)}`,
+          onClose: () => {
+            const newStatuses = filter.status?.filter(s => s !== status);
+            handleFilterChange('status', newStatuses?.length ? newStatuses : undefined);
+          }
+        });
+      });
+    }
+
+    // Priority chips
+    if (filter.priority && filter.priority.length > 0) {
+      filter.priority.forEach(priority => {
+        chips.push({
+          key: `priority-${priority}`,
+          label: `Priority: ${t(`navigation.taskManagement.filters.priorities.${priority}` as any)}`,
+          onClose: () => {
+            const newPriorities = filter.priority?.filter(p => p !== priority);
+            handleFilterChange('priority', newPriorities?.length ? newPriorities : undefined);
+          }
+        });
+      });
+    }
+
+    // Deadline status chip
+    if (filter.deadlineStatus) {
+      chips.push({
+        key: 'deadlineStatus',
+        label: `Deadline: ${t(`navigation.taskManagement.filters.deadlineStatuses.${filter.deadlineStatus}` as any)}`,
+        onClose: () => handleFilterChange('deadlineStatus', undefined)
+      });
+    }
+
+    return chips;
+  };
+
+  const columnConfig = [
+    { key: 'title', label: t("navigation.taskManagement.columns.title" as any), required: true },
+    { key: 'status', label: t("navigation.taskManagement.columns.status" as any), required: false },
+    { key: 'taskType', label: t("navigation.taskManagement.columns.taskType" as any), required: false },
+    { key: 'assignmentDate', label: t("navigation.taskManagement.columns.assignmentDate" as any), required: false },
+    { key: 'dueDate', label: t("navigation.taskManagement.columns.dueDate" as any), required: false },
+    { key: 'executingUnit', label: t("navigation.taskManagement.columns.executingUnit" as any), required: false },
+    { key: 'priority', label: t("navigation.taskManagement.columns.priority" as any), required: false },
+    { key: 'importanceLevel', label: t("navigation.taskManagement.columns.importanceLevel" as any), required: false },
+    { key: 'assignee', label: t("navigation.taskManagement.columns.assignee" as any), required: false },
+    { key: 'actions', label: t("navigation.taskManagement.columns.actions" as any), required: true },
+  ];
+
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -243,54 +375,94 @@ export default function TaskListPage() {
           }}
         >
           <TableHeader>
-            <TableColumn
-              key="title"
-              className="cursor-pointer"
-              onClick={() => handleSortChange("title")}
-            >
-              <div className="flex items-center gap-1">
-                Title
-                {sort.field === "title" && (
-                  <Icon
-                    icon={sort.direction === "asc" ? "solar:arrow-up-linear" : "solar:arrow-down-linear"}
-                    width={14}
-                  />
-                )}
-              </div>
-            </TableColumn>
-            <TableColumn key="status">Status</TableColumn>
-            <TableColumn
-              key="priority"
-              className="cursor-pointer"
-              onClick={() => handleSortChange("priority")}
-            >
-              <div className="flex items-center gap-1">
-                Priority
-                {sort.field === "priority" && (
-                  <Icon
-                    icon={sort.direction === "asc" ? "solar:arrow-up-linear" : "solar:arrow-down-linear"}
-                    width={14}
-                  />
-                )}
-              </div>
-            </TableColumn>
-            <TableColumn key="assignee">Assignee</TableColumn>
-            <TableColumn
-              key="dueDate"
-              className="cursor-pointer"
-              onClick={() => handleSortChange("dueDate")}
-            >
-              <div className="flex items-center gap-1">
-                Due Date
-                {sort.field === "dueDate" && (
-                  <Icon
-                    icon={sort.direction === "asc" ? "solar:arrow-up-linear" : "solar:arrow-down-linear"}
-                    width={14}
-                  />
-                )}
-              </div>
-            </TableColumn>
-            <TableColumn key="actions">Actions</TableColumn>
+            {[
+              visibleColumns.title && (
+                <TableColumn
+                  key="title"
+                  className="cursor-pointer"
+                  onClick={() => handleSortChange("title")}
+                >
+                  <div className="flex items-center gap-1">
+                    {t("navigation.taskManagement.columns.title" as any)}
+                    {sort.field === "title" && (
+                      <Icon
+                        icon={sort.direction === "asc" ? "solar:arrow-up-linear" : "solar:arrow-down-linear"}
+                        width={14}
+                      />
+                    )}
+                  </div>
+                </TableColumn>
+              ),
+              visibleColumns.status && (
+                <TableColumn key="status">{t("navigation.taskManagement.columns.status" as any)}</TableColumn>
+              ),
+              visibleColumns.taskType && (
+                <TableColumn key="taskType">{t("navigation.taskManagement.columns.taskType" as any)}</TableColumn>
+              ),
+              visibleColumns.assignmentDate && (
+                <TableColumn
+                  key="assignmentDate"
+                  className="cursor-pointer"
+                  onClick={() => handleSortChange("assignmentDate")}
+                >
+                  <div className="flex items-center gap-1">
+                    {t("navigation.taskManagement.columns.assignmentDate" as any)}
+                    {sort.field === "assignmentDate" && (
+                      <Icon
+                        icon={sort.direction === "asc" ? "solar:arrow-up-linear" : "solar:arrow-down-linear"}
+                        width={14}
+                      />
+                    )}
+                  </div>
+                </TableColumn>
+              ),
+              visibleColumns.dueDate && (
+                <TableColumn
+                  key="dueDate"
+                  className="cursor-pointer"
+                  onClick={() => handleSortChange("dueDate")}
+                >
+                  <div className="flex items-center gap-1">
+                    {t("navigation.taskManagement.columns.dueDate" as any)}
+                    {sort.field === "dueDate" && (
+                      <Icon
+                        icon={sort.direction === "asc" ? "solar:arrow-up-linear" : "solar:arrow-down-linear"}
+                        width={14}
+                      />
+                    )}
+                  </div>
+                </TableColumn>
+              ),
+              visibleColumns.executingUnit && (
+                <TableColumn key="executingUnit">{t("navigation.taskManagement.columns.executingUnit" as any)}</TableColumn>
+              ),
+              visibleColumns.priority && (
+                <TableColumn
+                  key="priority"
+                  className="cursor-pointer"
+                  onClick={() => handleSortChange("priority")}
+                >
+                  <div className="flex items-center gap-1">
+                    {t("navigation.taskManagement.columns.priority" as any)}
+                    {sort.field === "priority" && (
+                      <Icon
+                        icon={sort.direction === "asc" ? "solar:arrow-up-linear" : "solar:arrow-down-linear"}
+                        width={14}
+                      />
+                    )}
+                  </div>
+                </TableColumn>
+              ),
+              visibleColumns.importanceLevel && (
+                <TableColumn key="importanceLevel">{t("navigation.taskManagement.columns.importanceLevel" as any)}</TableColumn>
+              ),
+              visibleColumns.assignee && (
+                <TableColumn key="assignee">{t("navigation.taskManagement.columns.assignee" as any)}</TableColumn>
+              ),
+              visibleColumns.actions && (
+                <TableColumn key="actions">{t("navigation.taskManagement.columns.actions" as any)}</TableColumn>
+              ),
+            ].filter(Boolean)}
           </TableHeader>
           <TableBody
             isLoading={isLoading}
@@ -307,62 +479,121 @@ export default function TaskListPage() {
                 role="button"
                 aria-label={`View task: ${task.title}`}
               >
-                <TableCell>
-                  <div>
-                    <p className="font-medium">{task.title}</p>
-                    <p className="text-small text-default-500">
-                      {t("navigation.taskManagement.taskId" as any)}: {task.id}
-                    </p>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <Chip
-                    color={statusConfig[task.status].color as any}
-                    variant="flat"
-                    size="sm"
-                  >
-                    {t(`navigation.taskManagement.filters.statuses.${task.status}` as any) || statusConfig[task.status].label}
-                  </Chip>
-                </TableCell>
-                <TableCell>
-                  <Chip
-                    color={priorityConfig[task.priority].color as any}
-                    variant="flat"
-                    size="sm"
-                    startContent={
-                      (() => {
-                        const PriorityIcon = priorityConfig[task.priority].icon;
-                        return <PriorityIcon size={14} className={priorityConfig[task.priority].iconColor} />;
-                      })()
-                    }
-                  >
-                    {t(`navigation.taskManagement.filters.priorities.${task.priority}` as any)}
-                  </Chip>
-                </TableCell>
-                <TableCell>
-                  {task.assignee ? (
-                    <div className="flex items-center gap-2">
-                      <Avatar src={task.assignee.avatar} size="sm" />
-                      <span className="text-small">{task.assignee.name}</span>
-                    </div>
-                  ) : (
-                    <span className="text-default-400">Unassigned</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {task.dueDate ? (
-                    <span className={`text-small ${
-                      task.dueDate < new Date() && task.status !== 'done' 
-                        ? 'text-danger' 
-                        : 'text-default-600'
-                    }`}>
-                      {formatDate(task.dueDate)}
-                    </span>
-                  ) : (
-                    <span className="text-default-400">No due date</span>
-                  )}
-                </TableCell>
-                <TableCell>
+                {[
+                  visibleColumns.title && (
+                    <TableCell key="title">
+                      <div>
+                        <p className="font-medium">{task.title}</p>
+                        <p className="text-small text-default-500">
+                          {t("navigation.taskManagement.taskId" as any)}: {task.id}
+                        </p>
+                      </div>
+                    </TableCell>
+                  ),
+                  visibleColumns.status && (
+                    <TableCell key="status">
+                      <Chip
+                        color={statusConfig[task.status].color as any}
+                        variant="light"
+                        size="sm"
+                      >
+                        {t(`navigation.taskManagement.filters.statuses.${task.status}` as any) || statusConfig[task.status].label}
+                      </Chip>
+                    </TableCell>
+                  ),
+                  visibleColumns.taskType && (
+                    <TableCell key="taskType">
+                      <p>
+                        {t(`navigation.taskManagement.filters.taskTypes.${task.taskType}` as any)}
+                      </p>
+                    </TableCell>
+                  ),
+                  visibleColumns.assignmentDate && (
+                    <TableCell key="assignmentDate">
+                      {task.assignmentDate ? (
+                        <span className="text-small text-default-600">
+                          {formatDate(task.assignmentDate)}
+                        </span>
+                      ) : (
+                        <span className="text-default-400">-</span>
+                      )}
+                    </TableCell>
+                  ),
+                  visibleColumns.dueDate && (
+                    <TableCell key="dueDate">
+                      {task.dueDate ? (
+                        <span className={`text-small ${
+                          task.dueDate < new Date() && task.status !== 'done'
+                            ? 'text-danger'
+                            : 'text-default-600'
+                        }`}>
+                          {formatDate(task.dueDate)}
+                        </span>
+                      ) : (
+                        <span className="text-default-400">No due date</span>
+                      )}
+                    </TableCell>
+                  ),
+                  visibleColumns.executingUnit && (
+                    <TableCell key="executingUnit">
+                      {task.unitId ? (
+                        <span className="text-small text-default-600">
+                          {task.unitId === 'unit-1' ? 'Phòng Công nghệ thông tin' :
+                           task.unitId === 'unit-2' ? 'Phòng Nhân sự' :
+                           task.unitId === 'unit-3' ? 'Phòng Kế toán' :
+                           task.unitId}
+                        </span>
+                      ) : (
+                        <span className="text-default-400">-</span>
+                      )}
+                    </TableCell>
+                  ),
+                  visibleColumns.priority && (
+                    <TableCell key="priority">
+                      <Chip
+                        color={priorityConfig[task.priority].color as any}
+                        variant="flat"
+                        size="sm"
+                        startContent={
+                          (() => {
+                            const PriorityIcon = priorityConfig[task.priority].icon;
+                            return <PriorityIcon size={14} className={priorityConfig[task.priority].iconColor} />;
+                          })()
+                        }
+                      >
+                        {t(`navigation.taskManagement.filters.priorities.${task.priority}` as any)}
+                      </Chip>
+                    </TableCell>
+                  ),
+                  visibleColumns.importanceLevel && (
+                    <TableCell key="importanceLevel">
+                      {task.importanceLevel ? (
+                        <Chip
+                          color={task.importanceLevel === 'very-important' ? 'danger' : task.importanceLevel === 'important' ? 'warning' : 'default'}
+                          variant="flat"
+                          size="sm"
+                        >
+                          {t(`navigation.taskManagement.importanceLevels.${task.importanceLevel}` as any)}
+                        </Chip>
+                      ) : (
+                        <span className="text-default-400">-</span>
+                      )}
+                    </TableCell>
+                  ),
+                  visibleColumns.assignee && (
+                    <TableCell key="assignee">
+                      {task.assignee ? (
+                        <div className="flex items-center gap-2">
+                          <Avatar src={task.assignee.avatar} size="sm" />
+                          <span className="text-small">{task.assignee.name}</span>
+                        </div>
+                      ) : (
+                        <span className="text-default-400">Unassigned</span>
+                      )}
+                    </TableCell>
+                  ),
+                  visibleColumns.actions && (
+                    <TableCell key="actions">
                   <Dropdown>
                     <DropdownTrigger>
                       <Button
@@ -405,7 +636,9 @@ export default function TaskListPage() {
                       </DropdownSection>
                     </DropdownMenu>
                   </Dropdown>
-                </TableCell>
+                    </TableCell>
+                  ),
+                ].filter(Boolean)}
               </TableRow>
             ))}
           </TableBody>
@@ -430,7 +663,7 @@ export default function TaskListPage() {
                 {t("navigation.taskManagement.tasks" as any)}
               </h1>
               <p className="text-default-500">
-                Manage and track all your tasks
+                Quản lý và theo dõi danh sách công việc của bạn
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -454,6 +687,51 @@ export default function TaskListPage() {
                 </Button>
               </div>
 
+              {/* Column Settings */}
+              <Popover placement="bottom-end">
+                <PopoverTrigger>
+                  <Button
+                    variant="light"
+                    isIconOnly
+                    aria-label={t("navigation.taskManagement.columnSettings.title" as any)}
+                  >
+                    <Icon icon="solar:settings-linear" width={18} />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-60">
+                  <div className="w-full px-1 py-2">
+                    <div className="w-full flex items-center justify-between mb-3">
+                      <h4 className="text-medium font-semibold">
+                        {t("navigation.taskManagement.columnSettings.title" as any)}
+                      </h4>
+                      <Button
+                        isIconOnly={true}
+                        size="sm"
+                        variant="light"
+                        onPress={resetColumnsToDefault}
+                      >
+                          <Icon icon="solar:refresh-outline" width={18} />
+                      </Button>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-small text-default-500 mb-2">
+                        {t("navigation.taskManagement.columnSettings.showHideColumns" as any)}
+                      </p>
+                      {columnConfig.map((column) => (
+                        <div key={column.key} className="flex items-center justify-between">
+                          <span className="text-small">{column.label}</span>
+                          <Checkbox
+                            isSelected={visibleColumns[column.key as keyof typeof visibleColumns]}
+                            onValueChange={() => handleColumnToggle(column.key)}
+                            isDisabled={column.required}
+                            size="sm"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
               {/* Create Task Button */}
               <Button
                 color="primary"
@@ -466,140 +744,205 @@ export default function TaskListPage() {
           </div>
         </motion.div>
 
-        {/* Filters */}
+        {/* Search and Filter Card */}
         <motion.div variants={itemVariants} className="mb-6">
-          <Card>
-            <CardBody>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4" role="search" aria-label="Task filters">
-                {/* Search Input */}
+          <Card className="w-full">
+            <CardBody className="relative">
+              <div className="flex items-center gap-3 mb-4">
                 <Input
                   placeholder="Search tasks..."
+                  radius="lg"
                   value={filter.search || ""}
                   onValueChange={(value) => handleFilterChange("search", value)}
                   startContent={<Icon icon="solar:magnifer-linear" width={18} />}
                   aria-label="Search tasks"
+                  className="max-w-md"
                 />
 
-                {/* Task Type Filter */}
-                <Select
-                  placeholder={t("navigation.taskManagement.filters.taskType" as any)}
-                  className="w-full"
-                  selectedKeys={filter.taskType ? [filter.taskType] : []}
-                  onSelectionChange={(keys) => {
-                    const taskType = Array.from(keys)[0] as TaskType;
-                    handleFilterChange("taskType", taskType || undefined);
-                  }}
+                {/* Filter Toggle Button */}
+                <Button
+                  radius="lg"
+                  variant={isFilterPanelOpen ? "solid" : "bordered"}
+                  color={isFilterPanelOpen ? "primary" : "default"}
+                  startContent={<Icon icon="solar:filter-linear" width={18} />}
+                  onPress={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+                  aria-label={t("navigation.taskManagement.filterSettings.title" as any)}
                 >
-                  <SelectItem key="all">
-                    {t("navigation.taskManagement.filters.taskTypes.all" as any)}
-                  </SelectItem>
-                  {Object.entries(taskTypeConfig).map(([key]) => (
-                    <SelectItem key={key}>
-                      {t(`navigation.taskManagement.filters.taskTypes.${key}` as any)}
-                    </SelectItem>
-                  ))}
-                </Select>
-
-                {/* Status Filter with Multiple Selection */}
-                <Select
-                  placeholder={t("navigation.taskManagement.filters.status" as any)}
-                  className="w-full"
-                  selectionMode="multiple"
-                  selectedKeys={filter.status ? filter.status : []}
-                  onSelectionChange={(keys) => {
-                    const keyArray = Array.from(keys);
-
-                    // Handle Toggle Select All
-                    if (keyArray.includes("toggle-select-all")) {
-                      const allStatusKeys = Object.keys(statusConfig) as TaskStatus[];
-                      const currentlySelected = filter.status || [];
-
-                      // If all are selected, deselect all. Otherwise, select all.
-                      if (currentlySelected.length === allStatusKeys.length) {
-                        handleFilterChange("status", undefined);
-                      } else {
-                        handleFilterChange("status", allStatusKeys);
-                      }
-                      return;
-                    }
-
-                    // Normal selection
-                    const statuses = keyArray.filter(key => key !== "toggle-select-all") as TaskStatus[];
-                    handleFilterChange("status", statuses.length ? statuses : undefined);
-                  }}
-                >
-                  {/* Toggle Select All Option */}
-                  {(() => {
-                    const allStatusKeys = Object.keys(statusConfig) as TaskStatus[];
-                    const currentlySelected = filter.status || [];
-                    const isAllSelected = currentlySelected.length === allStatusKeys.length;
-
-                    return (
-                      <SelectItem
-                        key="toggle-select-all"
-                        className={`font-medium ${isAllSelected ? 'text-danger' : 'text-primary'}`}
-                      >
-                        {isAllSelected ? '✗' : '✓'} {isAllSelected
-                          ? t("navigation.taskManagement.filters.deselectAll" as any)
-                          : t("navigation.taskManagement.filters.selectAll" as any)
-                        }
-                      </SelectItem>
-                    );
-                  })()}
-
-                  {/* Divider */}
-                  <SelectItem key="divider" isDisabled className="h-px p-0 m-0">
-                    <div className="w-full border-t border-divider"></div>
-                  </SelectItem>
-
-                  {/* Status Options */}
-                  {Object.entries(statusConfig).map(([key, config]) => (
-                    <SelectItem key={key}>
-                      {t(`navigation.taskManagement.filters.statuses.${key}` as any) || config.label}
-                    </SelectItem>
-                  ))}
-                </Select>
-
-                {/* Priority Filter */}
-                <Select
-                  placeholder={t("navigation.taskManagement.filters.priority" as any)}
-                  className="w-full"
-                  selectionMode="multiple"
-                  onSelectionChange={(keys) => {
-                    const priorities = Array.from(keys) as TaskPriority[];
-                    handleFilterChange("priority", priorities.length ? priorities : undefined);
-                  }}
-                >
-                  {Object.entries(priorityConfig).map(([key, config]) => {
-                    const PriorityIcon = config.icon;
-                    return (
-                      <SelectItem
-                        key={key}
-                        startContent={<PriorityIcon size={14} className={config.iconColor} />}
-                      >
-                        {t(`navigation.taskManagement.filters.priorities.${key}` as any)}
-                      </SelectItem>
-                    );
-                  })}
-                </Select>
-
-                {/* Deadline Status Filter */}
-                <Select
-                  placeholder={t("navigation.taskManagement.filters.deadlineStatus" as any)}
-                  className="w-full"
-                  selectedKeys={filter.deadlineStatus ? [filter.deadlineStatus] : []}
-                  onSelectionChange={(keys) => {
-                    const deadlineStatus = Array.from(keys)[0] as DeadlineStatus;
-                    handleFilterChange("deadlineStatus", deadlineStatus || undefined);
-                  }}
-                >
-                  {Object.entries(deadlineStatusConfig).map(([key]) => (
-                    <SelectItem key={key}>
-                      {t(`navigation.taskManagement.filters.deadlineStatuses.${key}` as any)}
-                    </SelectItem>
-                  ))}
-                </Select>
+                  {t("navigation.taskManagement.filterSettings.title" as any)}
+                </Button>
               </div>
+
+              {/* Filter Chips */}
+              {!isFilterPanelOpen && getFilterChips().length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {getFilterChips().map((chip) => (
+                    <Chip
+                      key={chip.key}
+                      onClose={chip.onClose}
+                      variant="flat"
+                      color="default"
+                      size="sm"
+                    >
+                      {chip.label}
+                    </Chip>
+                  ))}
+                </div>
+              )}
+
+              {/* Filter Panel */}
+              {isFilterPanelOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0}}
+                  exit={{ opacity: 0, y: -10}}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-full">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-medium font-semibold">
+                        {t("navigation.taskManagement.filterSettings.title" as any)}
+                      </h4>
+                      <Button
+                        size="sm"
+                        variant="light"
+                        onPress={clearAllFilters}
+                      >
+                        {t("navigation.taskManagement.filterSettings.clearAll" as any)}
+                      </Button>
+                    </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* Task Type Filter */}
+                    <div>
+                      <Select
+                        placeholder={t("navigation.taskManagement.filters.taskType" as any)}
+                        className="w-full"
+                        selectedKeys={filter.taskType ? [filter.taskType] : []}
+                        onSelectionChange={(keys) => {
+                          const taskType = Array.from(keys)[0] as TaskType;
+                          handleFilterChange("taskType", taskType || undefined);
+                        }}
+                      >
+                        <SelectItem key="all">
+                          {t("navigation.taskManagement.filters.taskTypes.all" as any)}
+                        </SelectItem>
+                        {Object.entries(taskTypeConfig).map(([key]) => (
+                          <SelectItem key={key}>
+                            {t(`navigation.taskManagement.filters.taskTypes.${key}` as any)}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                    </div>
+
+                    {/* Status Filter with Multiple Selection */}
+                    <div>
+                      <Select
+                        placeholder={t("navigation.taskManagement.filters.status" as any)}
+                        className="w-full"
+                        selectionMode="multiple"
+                        selectedKeys={filter.status ? filter.status : []}
+                        onSelectionChange={(keys) => {
+                          const keyArray = Array.from(keys);
+
+                          // Handle Toggle Select All
+                          if (keyArray.includes("toggle-select-all")) {
+                            const allStatusKeys = Object.keys(statusConfig) as TaskStatus[];
+                            const currentlySelected = filter.status || [];
+
+                            // If all are selected, deselect all. Otherwise, select all.
+                            if (currentlySelected.length === allStatusKeys.length) {
+                              handleFilterChange("status", undefined);
+                            } else {
+                              handleFilterChange("status", allStatusKeys);
+                            }
+                            return;
+                          }
+
+                          // Normal selection
+                          const statuses = keyArray.filter(key => key !== "toggle-select-all") as TaskStatus[];
+                          handleFilterChange("status", statuses.length ? statuses : undefined);
+                        }}
+                      >
+                        {/* Toggle Select All Option */}
+                        {(() => {
+                          const allStatusKeys = Object.keys(statusConfig) as TaskStatus[];
+                          const currentlySelected = filter.status || [];
+                          const isAllSelected = currentlySelected.length === allStatusKeys.length;
+
+                          return (
+                            <SelectItem
+                              key="toggle-select-all"
+                              className={`font-medium ${isAllSelected ? 'text-danger' : 'text-primary'}`}
+                            >
+                              {isAllSelected ? '✗' : '✓'} {isAllSelected
+                                ? t("navigation.taskManagement.filters.deselectAll" as any)
+                                : t("navigation.taskManagement.filters.selectAll" as any)
+                              }
+                            </SelectItem>
+                          );
+                        })()}
+
+                        {/* Divider */}
+                        <SelectItem key="divider" isDisabled className="h-px p-0 m-0">
+                          <div className="w-full border-t border-divider"></div>
+                        </SelectItem>
+
+                        {/* Status Options */}
+                        {Object.entries(statusConfig).map(([key, config]) => (
+                          <SelectItem key={key}>
+                            {t(`navigation.taskManagement.filters.statuses.${key}` as any) || config.label}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                    </div>
+
+                    {/* Priority Filter */}
+                    <div>
+                      <Select
+                        placeholder={t("navigation.taskManagement.filters.priority" as any)}
+                        className="w-full"
+                        selectionMode="multiple"
+                        onSelectionChange={(keys) => {
+                          const priorities = Array.from(keys) as TaskPriority[];
+                          handleFilterChange("priority", priorities.length ? priorities : undefined);
+                        }}
+                      >
+                        {Object.entries(priorityConfig).map(([key, config]) => {
+                          const PriorityIcon = config.icon;
+                          return (
+                            <SelectItem
+                              key={key}
+                              startContent={<PriorityIcon size={14} className={config.iconColor} />}
+                            >
+                              {t(`navigation.taskManagement.filters.priorities.${key}` as any)}
+                            </SelectItem>
+                          );
+                        })}
+                      </Select>
+                    </div>
+
+                    {/* Deadline Status Filter */}
+                    <div>
+                      <Select
+                        placeholder={t("navigation.taskManagement.filters.deadlineStatus" as any)}
+                        className="w-full"
+                        selectedKeys={filter.deadlineStatus ? [filter.deadlineStatus] : []}
+                        onSelectionChange={(keys) => {
+                          const deadlineStatus = Array.from(keys)[0] as DeadlineStatus;
+                          handleFilterChange("deadlineStatus", deadlineStatus || undefined);
+                        }}
+                      >
+                        {Object.entries(deadlineStatusConfig).map(([key]) => (
+                          <SelectItem key={key}>
+                            {t(`navigation.taskManagement.filters.deadlineStatuses.${key}` as any)}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                    </div>
+                  </div>
+                  </div>
+                </motion.div>
+              )}
             </CardBody>
           </Card>
         </motion.div>

@@ -317,6 +317,35 @@
         },
         "selectAll": "Chọn tất cả",
         "deselectAll": "Bỏ chọn tất cả"
+      },
+      "columns": {
+        "title": "Tiêu đề",
+        "status": "Trạng thái",
+        "priority": "Độ ưu tiên",
+        "assignee": "Người thực hiện",
+        "dueDate": "Hạn hoàn thành",
+        "taskType": "Loại công việc",
+        "unit": "Đơn vị",
+        "importanceLevel": "Mức độ quan trọng",
+        "assignmentDate": "Ngày giao việc",
+        "expectedEndDate": "Dự kiến hoàn thành",
+        "executingUnit": "Đơn vị thực hiện",
+        "actions": "Thao tác"
+      },
+      "columnSettings": {
+        "title": "Cài đặt cột",
+        "showHideColumns": "Hiện/Ẩn cột",
+        "resetToDefault": "Đặt lại mặc định"
+      },
+      "filterSettings": {
+        "title": "Bộ lọc",
+        "clearAll": "Xóa tất cả bộ lọc",
+        "applyFilters": "Áp dụng bộ lọc"
+      },
+      "importanceLevels": {
+        "normal": "Bình thường",
+        "important": "Quan trọng",
+        "very-important": "Rất quan trọng"
       }
     },
     "timeManagement": {

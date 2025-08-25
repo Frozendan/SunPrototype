@@ -125,7 +125,7 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
                 />
               </div>
               <span className="font-bold text-lg text-gray-800 dark:text-gray-200 group-hover:text-white transition-colors duration-300">
-                Create
+                Tạo mới
               </span>
             </div>
             <Icon
@@ -141,7 +141,7 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
         className="w-72"
         onAction={handleAction}
       >
-        <DropdownSection title="Create New">
+        <DropdownSection title="Tạo mới">
           <DropdownItem
             key="create-task"
             className="h-14"
@@ -156,8 +156,7 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
             }
           >
             <div className="flex flex-col">
-              <span className="font-semibold text-base">Create new task</span>
-              <span className="text-small text-default-500">Add new task</span>
+              <span className="font-semibold text-md">Tạo công việc mới</span>
             </div>
           </DropdownItem>
           <DropdownItem
@@ -174,8 +173,7 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
             }
           >
             <div className="flex flex-col">
-              <span className="font-semibold text-base">Create new document</span>
-              <span className="text-small text-default-500">Add new document</span>
+              <span className="font-semibold text-md">Tạo hồ sơ mới</span>
             </div>
           </DropdownItem>
         </DropdownSection>

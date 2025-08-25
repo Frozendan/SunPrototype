@@ -211,10 +211,13 @@ export function RecurringTaskSection({ formData, errors, updateField }: Recurrin
             </div>
 
             {/* Recurring End Date */}
-            <div className="flex items-center">
+            <div className="flex flex-col items-start">
               <label className="text-sm font-medium text-default-700">
                 Ngày kết thúc định kỳ
               </label>
+            <p className="text-xs text-default-500 mt-1">
+                Để trống nếu muốn lặp vô thời hạn
+            </p>
             </div>
             <div className="relative">
               {editingField === 'recurringEndDate' ? (
@@ -243,11 +246,7 @@ export function RecurringTaskSection({ formData, errors, updateField }: Recurrin
                   <Icon icon="solar:pen-bold" width={14} className="ml-auto text-default-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </motion.div>
               )}
-              {!editingField && !formData.recurringEndDate && (
-                <p className="text-xs text-default-500 mt-1">
-                  Để trống nếu muốn lặp vô thời hạn
-                </p>
-              )}
+             
             </div>
           </div>
         </div>

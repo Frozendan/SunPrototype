@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { useTranslation } from "@/lib/i18n-context";
 import type { AttachmentFile } from "@/types/task-form";
+import {Plus} from "lucide-react";
 
 interface FileUploadProps {
   files: AttachmentFile[];
@@ -108,16 +109,16 @@ export function FileUpload({
             </span>
           )}
         </div>
-        <Button
-          isIconOnly
-          size="sm"
-          variant="light"
-          onPress={handleFileSelect}
-          color="primary"
-          aria-label={t("navigation.taskManagement.uploadFiles")}
-        >
-          <Icon icon="solar:add-square-bold" width={20} />
-        </Button>
+          <Button
+              size="sm"
+              color="primary"
+              variant="flat"
+              startContent={<Plus size={16} />}
+              onPress={handleFileSelect}
+              className="h-8"
+          >
+              Thêm tệp đính kèm
+          </Button>
       </div>
 
       {/* Hidden file input */}

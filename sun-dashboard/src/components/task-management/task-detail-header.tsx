@@ -100,47 +100,49 @@ export function TaskDetailHeader({
 
   return (
     <motion.div
-      className="flex flex-col gap-4 p-6 bg-background border-b border-divider"
+      className="sticky top-0 z-20 bg-content1 backdrop-blur-md border-b border-divider px-6 py-4"
       variants={itemVariants}
       initial="hidden"
       animate="visible"
     >
-      {/* Header Content */}
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-2xl font-bold text-foreground">{title}</h1>
-            {/* Task Status */}
-            {isAdmin && onStatusChange ? (
-              <Select
-                size="sm"
-                variant="bordered"
-                selectedKeys={[taskStatus]}
-                onSelectionChange={(keys) => {
-                  const selectedStatus = Array.from(keys)[0] as TaskStatus;
-                  onStatusChange(selectedStatus);
-                }}
-                className="w-32"
-                aria-label="Task Status"
-              >
-                {statusOptions.map((option) => (
-                  <SelectItem key={option.key} value={option.key}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </Select>
-            ) : (
-              <div className={`px-3 py-1 rounded-full text-xs font-medium bg-${getStatusColor(taskStatus)}-100 text-${getStatusColor(taskStatus)}-700 dark:bg-${getStatusColor(taskStatus)}-900/30 dark:text-${getStatusColor(taskStatus)}-300`}>
-                {getStatusLabel(taskStatus)}
-              </div>
-            )}
+      <div className="flex items-center justify-between">
+        {/* Left side - Title and status */}
+        <div className="flex items-center gap-3">
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+              {/* Task Status */}
+              {isAdmin && onStatusChange ? (
+                <Select
+                  size="sm"
+                  variant="bordered"
+                  selectedKeys={[taskStatus]}
+                  onSelectionChange={(keys) => {
+                    const selectedStatus = Array.from(keys)[0] as TaskStatus;
+                    onStatusChange(selectedStatus);
+                  }}
+                  className="w-32"
+                  aria-label="Task Status"
+                >
+                  {statusOptions.map((option) => (
+                    <SelectItem key={option.key} value={option.key}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </Select>
+              ) : (
+                <div className={`px-3 py-1 rounded-full text-xs font-medium bg-${getStatusColor(taskStatus)}-100 text-${getStatusColor(taskStatus)}-700 dark:bg-${getStatusColor(taskStatus)}-900/30 dark:text-${getStatusColor(taskStatus)}-300`}>
+                  {getStatusLabel(taskStatus)}
+                </div>
+              )}
+            </div>
+            <p className="text-default-500">
+              {description || `Mã công việc: ${taskId}`}
+            </p>
           </div>
-          <p className="text-default-600 text-sm">
-            {description || `Mã công việc: ${taskId}`}
-          </p>
         </div>
 
-        {/* Action Buttons - Same design as create page */}
+        {/* Right side - Action buttons */}
         <div className="flex items-center bg-content2 p-2 rounded-full gap-2">
           {/* Desktop: Show all actions */}
           <div className="hidden lg:flex items-center gap-2">

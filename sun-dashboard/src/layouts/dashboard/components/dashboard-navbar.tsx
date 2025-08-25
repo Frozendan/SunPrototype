@@ -56,29 +56,51 @@ export default function DashboardNavbar({
     navigate("/login");
   };
 
-  // Generate breadcrumbs based on current path
-  const generateBreadcrumbs = () => {
-    const pathSegments = location.pathname.split("/").filter(Boolean);
-    const breadcrumbs = [
-      { key: "dashboard", label: t('common.dashboard'), href: "/dashboard" }
-    ];
-
-    // Add additional breadcrumbs based on path
-    pathSegments.forEach((segment, index) => {
-      if (segment !== "dashboard" && index > 0) {
-        const href = "/" + pathSegments.slice(0, index + 1).join("/");
-        breadcrumbs.push({
-          key: segment,
-          label: segment.charAt(0).toUpperCase() + segment.slice(1),
-          href
-        });
-      }
-    });
-
-    return breadcrumbs;
+  // Check if we're on a task detail page
+  const isTaskDetailPage = () => {
+    return location.pathname.match(/^\/task-management\/task\/(.+)$/);
   };
 
-  const breadcrumbs = generateBreadcrumbs();
+  // Generate task breadcrumbs for task detail pages
+  const generateTaskBreadcrumbs = () => {
+    const match = location.pathname.match(/^\/task-management\/task\/(.+)$/);
+    if (!match) return null;
+
+    const taskId = match[1];
+
+    // Check if this is a subtask (starts with ST.)
+    const isSubtask = taskId.startsWith('ST.');
+
+    if (isSubtask) {
+      // For subtasks, we need to determine the parent task ID
+      // In a real app, this would come from the task data
+      // For now, we'll use a simple mapping based on our mock data
+      const getParentTaskId = (subtaskId: string) => {
+        // This is a simplified mapping - in real app, this would come from API
+        if (subtaskId.startsWith('ST.25.')) {
+          return 'GV.25.000146';
+        }
+        return null;
+      };
+
+      const parentTaskId = getParentTaskId(taskId);
+
+      if (parentTaskId) {
+        return {
+          isSubtask: true,
+          parentTaskId,
+          currentTaskId: taskId
+        };
+      }
+    }
+
+    return {
+      isSubtask: false,
+      currentTaskId: taskId
+    };
+  };
+
+  const taskBreadcrumbData = generateTaskBreadcrumbs();
 
   return (
     <Navbar
@@ -153,29 +175,43 @@ export default function DashboardNavbar({
             </NavbarItem>
           </>
         )}
-        
-        {/*<NavbarItem className="hidden sm:flex">*/}
-        {/*  <Breadcrumbs*/}
-        {/*    classNames={{*/}
-        {/*      list: "gap-2",*/}
-        {/*    }}*/}
-        {/*    itemClasses={{*/}
-        {/*      item: "text-small",*/}
-        {/*      separator: "text-default-400",*/}
-        {/*    }}*/}
-        {/*    variant="solid"*/}
-        {/*  >*/}
-        {/*    {breadcrumbs.map((breadcrumb, index) => (*/}
-        {/*      <BreadcrumbItem*/}
-        {/*        key={breadcrumb.key}*/}
-        {/*        isCurrent={index === breadcrumbs.length - 1}*/}
-        {/*        onPress={() => navigate(breadcrumb.href)}*/}
-        {/*      >*/}
-        {/*        {breadcrumb.label}*/}
-        {/*      </BreadcrumbItem>*/}
-        {/*    ))}*/}
-        {/*  </Breadcrumbs>*/}
-        {/*</NavbarItem>*/}
+
+        {/* Task Breadcrumbs - Show only on task detail pages */}
+        {taskBreadcrumbData && (
+          <NavbarItem className="hidden sm:flex">
+            <Breadcrumbs
+              size="sm"
+              variant="solid"
+              classNames={{
+                list: "gap-2",
+              }}
+              itemClasses={{
+                item: "text-small text-default-600 hover:text-primary-600",
+                separator: "text-default-400",
+              }}
+            >
+              <BreadcrumbItem
+                onPress={() => navigate('/task-management/dashboard')}
+                className="cursor-pointer"
+              >
+                Quản lý công việc
+              </BreadcrumbItem>
+
+              {taskBreadcrumbData.isSubtask && taskBreadcrumbData.parentTaskId && (
+                <BreadcrumbItem
+                  onPress={() => navigate(`/task-management/task/${taskBreadcrumbData.parentTaskId}`)}
+                  className="cursor-pointer"
+                >
+                  {taskBreadcrumbData.parentTaskId}
+                </BreadcrumbItem>
+              )}
+
+              <BreadcrumbItem isCurrent>
+                {taskBreadcrumbData.currentTaskId}
+              </BreadcrumbItem>
+            </Breadcrumbs>
+          </NavbarItem>
+        )}
       </NavbarContent>
 
       {/* Center - Search (optional, can be added later) */}

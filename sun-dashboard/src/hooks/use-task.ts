@@ -279,6 +279,7 @@ export function useTaskForm(initialData?: Partial<Task>) {
     isRecurring: false,
     recurringType: '',
     recurringInterval: 1,
+    recurringStartDate: '',
     recurringEndDate: '',
     isLeadershipDirection: false,
     // General Information fields
@@ -341,6 +342,7 @@ export function useTaskForm(initialData?: Partial<Task>) {
       isRecurring: false,
       recurringType: '',
       recurringInterval: 1,
+      recurringStartDate: '',
       recurringEndDate: '',
       isLeadershipDirection: false,
       functionalGroupId: '',

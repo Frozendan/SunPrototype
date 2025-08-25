@@ -34,6 +34,7 @@ export interface TaskFormData {
   isRecurring: boolean;
   recurringType: string;
   recurringInterval: number;
+  recurringStartDate: string;
   recurringEndDate: string;
   isLeadershipDirection: boolean;
   // General Information fields
@@ -59,6 +60,7 @@ export interface TaskFormErrors {
   requiredDeadline?: string;
   recurringType?: string;
   recurringInterval?: string;
+  recurringStartDate?: string;
   recurringEndDate?: string;
   // General Information errors
   functionalGroupId?: string;

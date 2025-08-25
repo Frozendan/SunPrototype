@@ -33,29 +33,113 @@ const containerVariants = {
 };
 
 // Mock task data for demonstration
-const mockTaskData: TaskFormData = {
-  title: "Phát triển tính năng đăng nhập SSO",
-  description: "Triển khai hệ thống đăng nhập Single Sign-On (SSO) để tích hợp với các hệ thống hiện có của công ty. Cần đảm bảo tương thích với LDAP và OAuth 2.0.",
-  expectedResults: "Hệ thống SSO hoạt động ổn định, người dùng có thể đăng nhập một lần và truy cập tất cả các ứng dụng được phép. Tài liệu hướng dẫn sử dụng và triển khai hoàn chỉnh.",
-  attachments: [],
-  priority: "high",
-  assigneeId: "emp-001",
-  labelIds: ["label-1", "label-2"],
-  unitId: "unit-1",
-  collaboratingUnitId: "unit-2",
-  assignmentReferenceId: "ref-1",
-  importanceLevel: "very-important",
-  assignmentDate: "2025-08-25",
-  expectedEndDate: "2025-09-15",
-  requiredDeadline: "2025-09-30",
-  isRecurring: false,
-  recurringType: "",
-  recurringInterval: 1,
-  recurringEndDate: "",
-  isLeadershipDirection: true,
-  functionalGroupId: "1",
-  topicId: "1",
-  taskTypeId: "1"
+const mockTasksData: Record<string, TaskFormData & { parentTaskId?: string; parentTaskTitle?: string }> = {
+  "GV.25.000146": {
+    title: "Phát triển tính năng đăng nhập SSO",
+    description: "Triển khai hệ thống đăng nhập Single Sign-On (SSO) để tích hợp với các hệ thống hiện có của công ty. Cần đảm bảo tương thích với LDAP và OAuth 2.0.",
+    expectedResults: "Hệ thống SSO hoạt động ổn định, người dùng có thể đăng nhập một lần và truy cập tất cả các ứng dụng được phép. Tài liệu hướng dẫn sử dụng và triển khai hoàn chỉnh.",
+    attachments: [],
+    priority: "high",
+    assigneeId: "emp-001",
+    labelIds: ["label-1", "label-2"],
+    unitId: "unit-1",
+    collaboratingUnitId: "unit-2",
+    assignmentReferenceId: "ref-1",
+    importanceLevel: "very-important",
+    assignmentDate: "2025-08-25",
+    expectedEndDate: "2025-09-15",
+    requiredDeadline: "2025-09-30",
+    isRecurring: false,
+    recurringType: "",
+    recurringInterval: 1,
+    recurringStartDate: "",
+    recurringEndDate: "",
+    isLeadershipDirection: true,
+    functionalGroupId: "1",
+    topicId: "1",
+    taskTypeId: "1"
+  },
+  "ST.25.000001": {
+    title: "Thiết kế giao diện người dùng",
+    description: "Thiết kế giao diện đăng nhập SSO với UX/UI thân thiện và dễ sử dụng. Đảm bảo tương thích với các thiết bị di động và desktop.",
+    expectedResults: "Mockup và prototype hoàn chỉnh cho giao diện đăng nhập SSO, được phê duyệt bởi team UX và stakeholders.",
+    attachments: [],
+    priority: "high",
+    assigneeId: "emp-002",
+    labelIds: ["label-1"],
+    unitId: "unit-1",
+    collaboratingUnitId: "",
+    assignmentReferenceId: "ref-1",
+    importanceLevel: "important",
+    assignmentDate: "2025-08-25",
+    expectedEndDate: "2025-08-30",
+    requiredDeadline: "2025-09-02",
+    isRecurring: false,
+    recurringType: "",
+    recurringInterval: 1,
+    recurringStartDate: "",
+    recurringEndDate: "",
+    isLeadershipDirection: false,
+    functionalGroupId: "1",
+    topicId: "1",
+    taskTypeId: "1",
+    parentTaskId: "GV.25.000146",
+    parentTaskTitle: "Phát triển tính năng đăng nhập SSO"
+  },
+  "ST.25.000002": {
+    title: "Phát triển API backend",
+    description: "Xây dựng API backend cho hệ thống SSO, tích hợp với LDAP và OAuth 2.0. Đảm bảo bảo mật và hiệu suất cao.",
+    expectedResults: "API backend hoàn chỉnh với documentation, unit tests và integration tests. Hỗ trợ đầy đủ các flow authentication.",
+    attachments: [],
+    priority: "urgent",
+    assigneeId: "emp-003",
+    labelIds: ["label-2"],
+    unitId: "unit-1",
+    collaboratingUnitId: "",
+    assignmentReferenceId: "ref-1",
+    importanceLevel: "very-important",
+    assignmentDate: "2025-08-25",
+    expectedEndDate: "2025-09-05",
+    requiredDeadline: "2025-09-10",
+    isRecurring: false,
+    recurringType: "",
+    recurringInterval: 1,
+    recurringStartDate: "",
+    recurringEndDate: "",
+    isLeadershipDirection: true,
+    functionalGroupId: "1",
+    topicId: "1",
+    taskTypeId: "1",
+    parentTaskId: "GV.25.000146",
+    parentTaskTitle: "Phát triển tính năng đăng nhập SSO"
+  },
+  "ST.25.000003": {
+    title: "Viết unit tests",
+    description: "Viết unit tests và integration tests cho toàn bộ hệ thống SSO. Đảm bảo coverage tối thiểu 80%.",
+    expectedResults: "Test suite hoàn chỉnh với coverage report, automated testing pipeline và documentation.",
+    attachments: [],
+    priority: "medium",
+    assigneeId: "emp-004",
+    labelIds: ["label-3"],
+    unitId: "unit-1",
+    collaboratingUnitId: "",
+    assignmentReferenceId: "ref-1",
+    importanceLevel: "normal",
+    assignmentDate: "2025-08-25",
+    expectedEndDate: "2025-09-10",
+    requiredDeadline: "2025-09-15",
+    isRecurring: false,
+    recurringType: "",
+    recurringInterval: 1,
+    recurringStartDate: "",
+    recurringEndDate: "",
+    isLeadershipDirection: false,
+    functionalGroupId: "1",
+    topicId: "1",
+    taskTypeId: "1",
+    parentTaskId: "GV.25.000146",
+    parentTaskTitle: "Phát triển tính năng đăng nhập SSO"
+  }
 };
 
 export default function TaskDetailPage() {
@@ -72,6 +156,7 @@ export default function TaskDetailPage() {
   const [pendingImportData, setPendingImportData] = useState<ImportedTaskData[]>([]);
   const [taskStatus, setTaskStatus] = useState<TaskStatus>("inProgress");
   const [isLoading, setIsLoading] = useState(true);
+  const [currentTask, setCurrentTask] = useState<(TaskFormData & { parentTaskId?: string; parentTaskTitle?: string }) | null>(null);
 
   // Load task data on component mount
   useEffect(() => {
@@ -86,8 +171,16 @@ export default function TaskDetailPage() {
         // In a real app, you would fetch the task data from an API
         // For now, we'll use mock data
         await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
-        
-        setFormData(mockTaskData);
+
+        const taskData = mockTasksData[id];
+        if (!taskData) {
+          toast.error('Task not found');
+          navigate('/task-management');
+          return;
+        }
+
+        setCurrentTask(taskData);
+        setFormData(taskData);
         setTaskStatus("inProgress"); // This would come from the API
       } catch (error) {
         console.error('Failed to load task:', error);
@@ -201,11 +294,21 @@ export default function TaskDetailPage() {
           initial="hidden"
           animate="visible"
         >
+
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 h-full">
             <TaskMainContent
               formData={formData}
               errors={errors}
               updateField={updateField}
+              taskId={id as string}
+              showSubtasks={true}
+              mockUnits={mockUnits}
+              mockAssignees={mockAssignees}
+              mockAssignmentReferences={mockAssignmentReferences}
+              mockFunctionalGroups={mockFunctionalGroups}
+              mockTopics={mockTopics}
+              mockTaskTypes={mockTaskTypes}
             />
 
             <div>

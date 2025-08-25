@@ -176,7 +176,28 @@
         "basicInformation": "Basic Information",
         "priorityImportance": "Priority & Importance",
         "scheduleTiming": "Schedule & Timing",
-        "removeGeneralInformation": "Remove General Information"
+        "removeGeneralInformation": "Remove General Information",
+        "subtasks": "Subtasks"
+      },
+      "subtasks": {
+        "title": "Subtasks",
+        "addSubtask": "Add Subtask",
+        "createSubtask": "Create Subtask",
+        "noSubtasks": "No subtasks yet",
+        "noSubtasksDescription": "Add subtasks to break down this task",
+        "subtaskOf": "Subtask of",
+        "status": {
+          "todo": "To Do",
+          "inProgress": "In Progress",
+          "done": "Done",
+          "cancelled": "Cancelled"
+        },
+        "priority": {
+          "low": "Low",
+          "medium": "Normal",
+          "high": "Important",
+          "urgent": "Urgent"
+        }
       },
       "generalInfo": {
         "functionalGroup": "Functional Group",

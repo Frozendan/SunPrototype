@@ -218,6 +218,8 @@ export function TaskDetailsSidebar({
                       />
                     </div>
                   </div>
+
+
                 </div>
               </CardBody>
             </motion.div>

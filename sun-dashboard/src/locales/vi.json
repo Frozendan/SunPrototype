@@ -176,7 +176,28 @@
         "basicInformation": "Thông tin cơ bản",
         "priorityImportance": "Mức độ ưu tiên",
         "scheduleTiming": "Lịch trình & Thời gian",
-        "removeGeneralInformation": "Xóa thông tin chung"
+        "removeGeneralInformation": "Xóa thông tin chung",
+        "subtasks": "Công việc con"
+      },
+      "subtasks": {
+        "title": "Công việc con",
+        "addSubtask": "Thêm công việc con",
+        "createSubtask": "Tạo công việc con",
+        "noSubtasks": "Chưa có công việc con nào",
+        "noSubtasksDescription": "Thêm công việc con để chia nhỏ công việc này",
+        "subtaskOf": "Công việc con của",
+        "status": {
+          "todo": "Chờ thực hiện",
+          "inProgress": "Đang thực hiện",
+          "done": "Hoàn thành",
+          "cancelled": "Đã hủy"
+        },
+        "priority": {
+          "low": "Thấp",
+          "medium": "Bình thường",
+          "high": "Quan trọng",
+          "urgent": "Khẩn cấp"
+        }
       },
       "generalInfo": {
         "functionalGroup": "Nhóm chức năng",

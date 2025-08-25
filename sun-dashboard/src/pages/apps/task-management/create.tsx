@@ -11,6 +11,8 @@ import { useTasks } from "@/hooks/use-tasks";
 import { useTaskForm } from "@/hooks/use-task";
 import { useAuth } from "@/hooks/use-auth";
 import { useTaskDraft, useDraftRestoration } from "@/hooks/use-task-draft";
+import { useTaskFormStore } from "@/stores/task-form-store";
+import { useTaskFormIntegration } from "@/hooks/use-task-form-integration";
 import { CreateTaskHeader } from "@/components/task-management/create-task-header";
 import { TaskMainContent } from "@/components/task-management/task-main-content";
 import { TaskDetailsSidebar } from "@/components/task-management/task-details-sidebar";
@@ -26,7 +28,10 @@ export default function CreateTaskPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { createTask } = useTasks();
-  const { formData, errors, updateField, validateForm, resetForm } = useTaskForm();
+
+  // Use integrated form hook that handles both local and store data
+  const { formData, errors, updateField, validateForm, resetForm, prepareNavigationToFullPage, shouldNavigateToFullPage } = useTaskFormIntegration();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [isImporting, setIsImporting] = useState(false);
@@ -64,6 +69,8 @@ export default function CreateTaskPage() {
   useEffect(() => {
     checkForDraft();
   }, [checkForDraft]);
+
+  // Navigation data restoration is now handled by useTaskFormIntegration hook
 
   const handleSubmit = async () => {
     if (!validateForm()) {

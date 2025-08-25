@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import IndexPage from "@/pages/index";
@@ -55,6 +55,11 @@ function App() {
       />
 
       {/* Task Management App Routes */}
+      {/* Redirect /task-management to /task-management/dashboard */}
+      <Route
+        path="/task-management"
+        element={<Navigate to="/task-management/dashboard" replace />}
+      />
       <Route
         element={
           <ProtectedRoute>

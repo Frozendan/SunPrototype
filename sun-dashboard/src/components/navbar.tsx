@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { LanguageSwitcher } from "@/components/language-switcher";
+
 import { useTranslation } from "@/lib/i18n-context";
 import { useAuth } from "@/hooks/use-auth";
 import {
@@ -159,6 +160,7 @@ export const Navbar = () => {
         </Link>
         <ThemeSwitch />
         <LanguageSwitcher />
+        {isAuthenticated && <NotificationDropdown />}
         <NavbarMenuToggle />
       </NavbarContent>
 

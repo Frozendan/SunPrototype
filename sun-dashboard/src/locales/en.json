@@ -12,6 +12,7 @@
     "calendar": "Calendar",
     "settings": "Settings",
     "help": "Help & Feedback",
+    "helpfeedback": "Help & Feedback",
     "logout": "Logout",
     "search": "Search",
     "sponsor": "Sponsor",
@@ -78,6 +79,24 @@
       "createNew": "Create New",
       "createTask": "Create new task",
       "createDocument": "Create new document"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "markAllAsRead": "Mark all as read",
+      "noNotifications": "No notifications yet",
+      "noNotificationsDescription": "You'll see notifications here when there's new activity",
+      "viewAll": "View all",
+      "settings": "Settings",
+      "archiveAll": "Archive all",
+      "tabs": {
+        "all": "All",
+        "unread": "Unread",
+        "archive": "Archive"
+      },
+      "actions": {
+        "accept": "Accept",
+        "decline": "Decline"
+      }
     }
   },
   "auth": {

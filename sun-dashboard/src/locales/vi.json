@@ -12,6 +12,7 @@
     "calendar": "Lịch",
     "settings": "Cài đặt",
     "help": "Trợ giúp & Phản hồi",
+    "helpfeedback": "Trợ giúp & Phản hồi",
     "logout": "Đăng xuất",
     "search": "Tìm kiếm",
     "sponsor": "Tài trợ",
@@ -78,6 +79,24 @@
       "createNew": "Tạo mới",
       "createTask": "Tạo công việc mới",
       "createDocument": "Tạo tài liệu mới"
+    },
+    "notifications": {
+      "title": "Thông báo",
+      "markAllAsRead": "Đánh dấu tất cả đã đọc",
+      "noNotifications": "Chưa có thông báo nào",
+      "noNotificationsDescription": "Bạn sẽ thấy thông báo ở đây khi có hoạt động mới",
+      "viewAll": "Xem tất cả",
+      "settings": "Cài đặt",
+      "archiveAll": "Lưu trữ tất cả",
+      "tabs": {
+        "all": "Tất cả",
+        "unread": "Chưa đọc",
+        "archive": "Lưu trữ"
+      },
+      "actions": {
+        "accept": "Chấp nhận",
+        "decline": "Từ chối"
+      }
     }
   },
   "auth": {

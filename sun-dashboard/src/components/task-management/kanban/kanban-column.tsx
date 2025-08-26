@@ -72,7 +72,7 @@ export function KanbanColumn({
 
   return (
     <Card
-      className={`w-96 flex-shrink-0 h-full max-h-[calc(100vh-200px)] ${
+      className={`w-96 shadow flex-shrink-0 h-full max-h-[calc(100vh-200px)] ${
         isDropTarget ? 'ring-2 ring-primary-500 ring-opacity-50' : ''
       }`}
       onDragOver={handleDragOver}

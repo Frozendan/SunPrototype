@@ -354,6 +354,43 @@
         "normal": "Bình thường",
         "important": "Quan trọng",
         "very-important": "Rất quan trọng"
+      },
+      "recentTasks": {
+        "title": "Công việc gần đây",
+        "newTask": "Công việc mới",
+        "viewAll": "Xem tất cả công việc",
+        "noTasks": "Chưa có công việc gần đây",
+        "noTasksDescription": "Tạo công việc đầu tiên để bắt đầu",
+        "myTasks": "Công việc của tôi",
+        "departmentTasks": "Công việc phòng ban",
+        "noMyTasks": "Bạn chưa có công việc nào",
+        "noMyTasksDescription": "Hiện tại bạn chưa được giao công việc nào",
+        "noDepartmentTasks": "Chưa có công việc phòng ban",
+        "noDepartmentTasksDescription": "Chưa có công việc từ các thành viên khác",
+        "due": "Hạn",
+        "overdue": "Quá hạn",
+        "type": "Loại",
+        "assignedTo": "Được giao cho",
+        "unassigned": "Chưa giao",
+        "today": "Hôm nay",
+        "tomorrow": "Ngày mai",
+        "yesterday": "Hôm qua"
+      },
+      "stats": {
+        "totalTasks": "Tổng công việc",
+        "inProgress": "Đang thực hiện",
+        "completed": "Hoàn thành",
+        "overdue": "Quá hạn"
+      },
+      "analytics": {
+        "departmentAnalytics": "Phân tích theo phòng ban",
+        "viewDetails": "Xem chi tiết",
+        "noDepartmentData": "Chưa có dữ liệu phòng ban",
+        "assignTasksToDepartments": "Giao công việc cho phòng ban để xem phân tích",
+        "tasksCompleted": "công việc hoàn thành",
+        "members": "thành viên",
+        "inProgress": "đang thực hiện",
+        "overdue": "quá hạn"
       }
     },
     "timeManagement": {

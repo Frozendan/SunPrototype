@@ -47,7 +47,7 @@ import {
   Filter,
   AlertCircle
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 
@@ -108,12 +108,60 @@ const deadlineStatusConfig = {
 export default function TaskListPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
 
   const [filter, setFilter] = useState<TaskFilter>({});
   const [sort, setSort] = useState<TaskSort>({ field: "createdAt", direction: "desc" });
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<"table" | "cards">("table");
+
+  // Handle URL parameters for filtering
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const newFilter: TaskFilter = {};
+
+    // Handle status filter (can be multiple)
+    const statusParams = searchParams.getAll('status');
+    if (statusParams.length > 0) {
+      newFilter.status = statusParams as TaskStatus[];
+    }
+
+    // Handle deadline status filter
+    const deadlineStatus = searchParams.get('deadlineStatus');
+    if (deadlineStatus) {
+      newFilter.deadlineStatus = deadlineStatus as DeadlineStatus;
+    }
+
+    // Handle priority filter (can be multiple)
+    const priorityParams = searchParams.getAll('priority');
+    if (priorityParams.length > 0) {
+      newFilter.priority = priorityParams as TaskPriority[];
+    }
+
+    // Handle task type filter
+    const taskType = searchParams.get('taskType');
+    if (taskType) {
+      newFilter.taskType = taskType as TaskType;
+    }
+
+    // Handle search filter
+    const search = searchParams.get('search');
+    if (search) {
+      newFilter.search = search;
+    }
+
+    // Handle unit filter
+    const unitId = searchParams.get('unitId');
+    if (unitId) {
+      newFilter.unitId = unitId;
+    }
+
+    // Only update filter if there are URL parameters
+    if (Object.keys(newFilter).length > 0) {
+      setFilter(newFilter);
+    }
+  }, [location.search]);
   const [selectedTaskForDelete, setSelectedTaskForDelete] = useState<string | null>(null);
   const [selectedTaskForApprove, setSelectedTaskForApprove] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);

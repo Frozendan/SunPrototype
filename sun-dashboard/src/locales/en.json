@@ -354,6 +354,43 @@
         "normal": "Normal",
         "important": "Important",
         "very-important": "Very Important"
+      },
+      "recentTasks": {
+        "title": "Recent Tasks",
+        "newTask": "New Task",
+        "viewAll": "View All Tasks",
+        "noTasks": "No recent tasks",
+        "noTasksDescription": "Create your first task to get started",
+        "myTasks": "My Tasks",
+        "departmentTasks": "Department Tasks",
+        "noMyTasks": "No tasks assigned to you",
+        "noMyTasksDescription": "You don't have any tasks assigned currently",
+        "noDepartmentTasks": "No department tasks",
+        "noDepartmentTasksDescription": "No tasks from other team members",
+        "due": "Due",
+        "overdue": "Overdue",
+        "type": "Type",
+        "assignedTo": "Assigned to",
+        "unassigned": "Unassigned",
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "yesterday": "Yesterday"
+      },
+      "stats": {
+        "totalTasks": "Total Tasks",
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "overdue": "Overdue"
+      },
+      "analytics": {
+        "departmentAnalytics": "Department Analytics",
+        "viewDetails": "View Details",
+        "noDepartmentData": "No department data available",
+        "assignTasksToDepartments": "Assign tasks to departments to see analytics",
+        "tasksCompleted": "tasks completed",
+        "members": "members",
+        "inProgress": "in progress",
+        "overdue": "overdue"
       }
     },
     "timeManagement": {

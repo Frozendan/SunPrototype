@@ -104,7 +104,102 @@
     "or": "HOẶC"
   },
   "dashboard": {
-    "appShortcuts": "Lối tắt ứng dụng"
+    "appShortcuts": "Lối tắt ứng dụng",
+    "timeOff": {
+      "title": "Tóm tắt nghỉ phép",
+      "annualLeave": "Nghỉ phép năm",
+      "sickLeave": "Nghỉ ốm",
+      "remaining": "còn lại",
+      "total": "tổng cộng",
+      "days": "ngày",
+      "requestTimeOff": "Xin nghỉ phép",
+      "calculateTimeOff": "Tính toán nghỉ phép",
+      "availableDays": "Ngày có sẵn"
+    },
+    "timeOffRequests": {
+      "title": "Yêu cầu nghỉ phép",
+      "noPendingRequests": "Không có yêu cầu đang chờ",
+      "status": {
+        "pending": "Đang chờ",
+        "approved": "Đã duyệt",
+        "rejected": "Đã từ chối"
+      },
+      "type": {
+        "annual": "Nghỉ phép năm",
+        "sick": "Nghỉ ốm",
+        "personal": "Nghỉ cá nhân",
+        "maternity": "Nghỉ thai sản",
+        "paternity": "Nghỉ chăm con"
+      },
+      "viewAll": "Xem tất cả yêu cầu"
+    },
+    "calendar": {
+      "title": "Lịch của tôi",
+      "today": "Hôm nay",
+      "upcoming": "Sắp tới",
+      "noEvents": "Không có sự kiện nào",
+      "viewFullCalendar": "Xem lịch đầy đủ",
+      "time": "Thời gian",
+      "location": "Địa điểm",
+      "allDay": "Cả ngày"
+    },
+    "tasks": {
+      "title": "Công việc của tôi",
+      "activeTasks": "Công việc đang thực hiện",
+      "pendingTasks": "Công việc đang chờ",
+      "noTasks": "Không có công việc nào",
+      "viewAllTasks": "Xem tất cả công việc",
+      "markComplete": "Đánh dấu hoàn thành",
+      "viewDetails": "Xem chi tiết",
+      "priority": {
+        "high": "Cao",
+        "medium": "Trung bình",
+        "low": "Thấp"
+      },
+      "status": {
+        "todo": "Cần làm",
+        "inProgress": "Đang thực hiện",
+        "review": "Đang xem xét",
+        "done": "Hoàn thành"
+      }
+    },
+    "news": {
+      "title": "Tin tức công ty",
+      "latestNews": "Tin tức mới nhất",
+      "noNews": "Không có tin tức",
+      "readMore": "Đọc thêm",
+      "viewAllNews": "Xem tất cả tin tức",
+      "publishedOn": "Đăng vào"
+    },
+    "celebrations": {
+      "title": "Chúc mừng",
+      "birthdays": "Sinh nhật",
+      "workAnniversaries": "Kỷ niệm công tác",
+      "achievements": "Thành tích",
+      "noCelebrations": "Không có gì để chúc mừng hôm nay",
+      "today": "Hôm nay",
+      "thisWeek": "Tuần này",
+      "birthday": "Sinh nhật",
+      "anniversary": "Kỷ niệm công tác",
+      "achievement": "Thành tích",
+      "years": "năm"
+    },
+    "whosOut": {
+      "title": "Ai đang nghỉ",
+      "onLeave": "Đang nghỉ phép",
+      "noOneOut": "Mọi người đều có mặt",
+      "today": "Hôm nay",
+      "tomorrow": "Ngày mai",
+      "returnsOn": "Trở lại vào"
+    },
+    "welcome": {
+      "title": "Chào mừng đến Sun Group",
+      "newTeamMembers": "Thành viên mới",
+      "joinedOn": "Gia nhập vào",
+      "department": "Phòng ban",
+      "position": "Vị trí",
+      "noNewMembers": "Không có thành viên mới tháng này"
+    }
   },
   "apps": {
     "myDashboard": {

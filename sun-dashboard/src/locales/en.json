@@ -104,7 +104,102 @@
     "or": "OR"
   },
   "dashboard": {
-    "appShortcuts": "App Shortcuts"
+    "appShortcuts": "App Shortcuts",
+    "timeOff": {
+      "title": "Time Off Summary",
+      "annualLeave": "Annual Leave",
+      "sickLeave": "Sick Leave",
+      "remaining": "remaining",
+      "total": "total",
+      "days": "days",
+      "requestTimeOff": "Request Time Off",
+      "calculateTimeOff": "Calculate Time Off",
+      "availableDays": "Available Days"
+    },
+    "timeOffRequests": {
+      "title": "Time Off Requests",
+      "noPendingRequests": "No pending requests",
+      "status": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "type": {
+        "annual": "Annual Leave",
+        "sick": "Sick Leave",
+        "personal": "Personal Leave",
+        "maternity": "Maternity Leave",
+        "paternity": "Paternity Leave"
+      },
+      "viewAll": "View All Requests"
+    },
+    "calendar": {
+      "title": "My Calendar",
+      "today": "Today",
+      "upcoming": "Upcoming",
+      "noEvents": "No events scheduled",
+      "viewFullCalendar": "View Full Calendar",
+      "time": "Time",
+      "location": "Location",
+      "allDay": "All day"
+    },
+    "tasks": {
+      "title": "My Tasks",
+      "activeTasks": "Active Tasks",
+      "pendingTasks": "Pending Tasks",
+      "noTasks": "No tasks assigned",
+      "viewAllTasks": "View All Tasks",
+      "markComplete": "Mark Complete",
+      "viewDetails": "View Details",
+      "priority": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "status": {
+        "todo": "To Do",
+        "inProgress": "In Progress",
+        "review": "Review",
+        "done": "Done"
+      }
+    },
+    "news": {
+      "title": "Corporation News",
+      "latestNews": "Latest News",
+      "noNews": "No news available",
+      "readMore": "Read More",
+      "viewAllNews": "View All News",
+      "publishedOn": "Published on"
+    },
+    "celebrations": {
+      "title": "Celebrations",
+      "birthdays": "Birthdays",
+      "workAnniversaries": "Work Anniversaries",
+      "achievements": "Achievements",
+      "noCelebrations": "No celebrations today",
+      "today": "Today",
+      "thisWeek": "This Week",
+      "birthday": "Birthday",
+      "anniversary": "Work Anniversary",
+      "achievement": "Achievement",
+      "years": "years"
+    },
+    "whosOut": {
+      "title": "Who's Out",
+      "onLeave": "On Leave",
+      "noOneOut": "Everyone is in the office",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "returnsOn": "Returns on"
+    },
+    "welcome": {
+      "title": "Welcome to Sun Group",
+      "newTeamMembers": "New Team Members",
+      "joinedOn": "Joined on",
+      "department": "Department",
+      "position": "Position",
+      "noNewMembers": "No new team members this month"
+    }
   },
   "apps": {
     "myDashboard": {

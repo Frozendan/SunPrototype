@@ -140,7 +140,7 @@ export function RecentTasksCard({
       <Card className="w-full h-fit">
         <CardHeader className="flex flex-col gap-4 pb-2">
           <div className="flex justify-between items-center w-full">
-            <h3 className="text-lg font-semibold">{t('navigation.taskManagement.recentTasks.title' as any)}</h3>
+            <h3 className="text-small text-default-500 font-medium">{t('navigation.taskManagement.recentTasks.title' as any)}</h3>
             <div className="flex items-center gap-2">
               {filteredTasks.length > 0 && (
                 <Button
@@ -231,7 +231,7 @@ export function RecentTasksCard({
                                     })}
                                 </div>
                             </Tooltip>
-                          <h4 className="font-semibold text-default-900 mb-1 line-clamp-2 group-hover:text-primary transition-colors">
+                          <h4 className="font-semibold text-sm text-default-900 mb-1 line-clamp-2 group-hover:text-primary transition-colors">
                             {task.title}
                           </h4>
                             
@@ -255,7 +255,7 @@ export function RecentTasksCard({
                               size="sm" 
                               className="w-6 h-6"
                             />
-                            <span className="text-small text-default-600">{task.assignee.name}</span>
+                            <span className="text-xs text-default-600">{task.assignee.name}</span>
                           </div>
                         ) : (
                           <span className="text-small text-default-400">{t('navigation.taskManagement.recentTasks.unassigned' as any)}</span>
@@ -263,8 +263,8 @@ export function RecentTasksCard({
                           {task.dueDate && (
                               <span className={`${
                                   isOverdue(task.dueDate, task.status)
-                                      ? 'text-danger text-sm font-medium'
-                                      : 'text-sm text-default-500'
+                                      ? 'text-danger text-xs font-medium'
+                                      : 'text-xs text-default-500'
                               }`}>
                                 {isOverdue(task.dueDate, task.status)
                                     ? t('navigation.taskManagement.recentTasks.overdue' as any)

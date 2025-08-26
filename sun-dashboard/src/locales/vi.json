@@ -391,6 +391,15 @@
         "members": "thành viên",
         "inProgress": "đang thực hiện",
         "overdue": "quá hạn"
+      },
+      "statusChart": {
+        "title": "Phân bố trạng thái công việc",
+        "unit": "Công việc",
+        "activeWork": "Đang thực hiện",
+        "completed": "Hoàn thành",
+        "pending": "Chờ xử lý",
+        "problems": "Có vấn đề",
+        "draft": "Nháp"
       }
     },
     "timeManagement": {

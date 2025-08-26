@@ -114,7 +114,7 @@ export function DepartmentAnalyticsCard({ tasks, itemVariants }: DepartmentAnaly
     <motion.div variants={itemVariants}>
       <Card className="w-full h-fit">
         <CardHeader className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold">{t('navigation.taskManagement.analytics.departmentAnalytics' as any)}</h3>
+          <h3 className="text-small text-default-500 font-medium">{t('navigation.taskManagement.analytics.departmentAnalytics' as any)}</h3>
           <Button
             variant="light"
             color="primary"

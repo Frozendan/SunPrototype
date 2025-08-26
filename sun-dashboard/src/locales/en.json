@@ -391,6 +391,15 @@
         "members": "members",
         "inProgress": "in progress",
         "overdue": "overdue"
+      },
+      "statusChart": {
+        "title": "Task Status Distribution",
+        "unit": "Tasks",
+        "activeWork": "Active Work",
+        "completed": "Completed",
+        "pending": "Pending",
+        "problems": "Problems",
+        "draft": "Draft"
       }
     },
     "timeManagement": {

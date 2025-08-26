@@ -11,6 +11,7 @@ import {
   RecentTasksCard,
   DepartmentAnalyticsCard,
   QuickActionsCard,
+  TaskStatusChartCard,
   type QuickAction
 } from "@/components/tasks/dashboard";
 
@@ -169,7 +170,7 @@ export default function TasksDashboardPage() {
       title: "Viết tài liệu API",
       description: "Tạo tài liệu chi tiết cho các API endpoints, bao gồm examples và error codes.",
       priority: "low",
-      status: "todo",
+      status: "draft",
       taskType: "document",
       assignee: {
         id: "emp-004",
@@ -204,7 +205,7 @@ export default function TasksDashboardPage() {
       title: "Cập nhật hệ thống bảo mật",
       description: "Nâng cấp các biện pháp bảo mật và cập nhật firewall.",
       priority: "high",
-      status: "done",
+      status: "completed",
       taskType: "assignment",
       assignee: {
         id: "1",
@@ -271,7 +272,7 @@ export default function TasksDashboardPage() {
       title: "Code review cho dự án mobile",
       description: "Review code và đưa ra feedback cho team phát triển mobile app.",
       priority: "high",
-      status: "todo",
+      status: "pendingConfirmation",
       taskType: "assignment",
       assignee: {
         id: "current-user",
@@ -372,7 +373,7 @@ export default function TasksDashboardPage() {
       title: "Đánh giá hiệu suất nhân viên Q3",
       description: "Thực hiện đánh giá hiệu suất quý 3 cho toàn bộ nhân viên.",
       priority: "medium",
-      status: "todo",
+      status: "paused",
       taskType: "assignment",
       assignee: {
         id: "2",
@@ -440,7 +441,7 @@ export default function TasksDashboardPage() {
       title: "Kiểm tra thuế VAT",
       description: "Rà soát và kiểm tra các khoản thuế VAT cần nộp.",
       priority: "medium",
-      status: "done",
+      status: "approved",
       taskType: "assignment",
       assignee: {
         id: "emp-006",
@@ -476,7 +477,7 @@ export default function TasksDashboardPage() {
       title: "Chiến dịch quảng cáo Q4",
       description: "Lên kế hoạch và triển khai chiến dịch marketing cho quý 4.",
       priority: "high",
-      status: "todo",
+      status: "redo",
       taskType: "assignment",
       assignee: {
         id: "3",
@@ -544,7 +545,7 @@ export default function TasksDashboardPage() {
       title: "Báo cáo doanh số tháng 8",
       description: "Tổng hợp và phân tích doanh số bán hàng tháng 8.",
       priority: "medium",
-      status: "done",
+      status: "archiveRecord",
       taskType: "document",
       assignee: {
         id: "4",
@@ -569,6 +570,72 @@ export default function TasksDashboardPage() {
       importanceLevel: "normal",
       assignmentDate: new Date(2025, 7, 20),
       unitId: "5", // Sales Department
+      comments: [],
+      attachments: [],
+      watchers: []
+    },
+    {
+      id: "GV.25.000159",
+      title: "Đánh giá và từ chối đề xuất",
+      description: "Đánh giá đề xuất thay đổi quy trình và đưa ra quyết định từ chối.",
+      priority: "low",
+      status: "rejected",
+      taskType: "document",
+      assignee: {
+        id: "emp-007",
+        name: "Nguyễn Văn H",
+        email: "h.nguyen@company.com",
+        avatar: "https://i.pravatar.cc/150?u=emp007",
+        role: "Manager"
+      },
+      reporter: {
+        id: "manager-001",
+        name: "Trần Thị B",
+        email: "b.tran@company.com",
+        avatar: "https://i.pravatar.cc/150?u=manager001"
+      },
+      labels: [
+        { id: "17", name: "Review", color: "red" }
+      ],
+      dueDate: new Date(2025, 7, 20),
+      createdAt: new Date(2025, 7, 15),
+      updatedAt: new Date(2025, 7, 20),
+      importanceLevel: "normal",
+      assignmentDate: new Date(2025, 7, 15),
+      unitId: "2", // HR Department
+      comments: [],
+      attachments: [],
+      watchers: []
+    },
+    {
+      id: "GV.25.000160",
+      title: "Chờ xác nhận từ khách hàng",
+      description: "Đang chờ khách hàng xác nhận yêu cầu thay đổi trong dự án.",
+      priority: "medium",
+      status: "pendingReceipt",
+      taskType: "assignment",
+      assignee: {
+        id: "emp-008",
+        name: "Lê Thị K",
+        email: "k.le@company.com",
+        avatar: "https://i.pravatar.cc/150?u=emp008",
+        role: "Project Manager"
+      },
+      reporter: {
+        id: "manager-004",
+        name: "Trần Văn J",
+        email: "j.tran@company.com",
+        avatar: "https://i.pravatar.cc/150?u=manager004"
+      },
+      labels: [
+        { id: "18", name: "Customer", color: "blue" }
+      ],
+      dueDate: new Date(2025, 8, 3),
+      createdAt: new Date(2025, 7, 25),
+      updatedAt: new Date(2025, 7, 26),
+      importanceLevel: "important",
+      assignmentDate: new Date(2025, 7, 25),
+      unitId: "4", // Marketing Department
       comments: [],
       attachments: [],
       watchers: []
@@ -648,6 +715,11 @@ export default function TasksDashboardPage() {
                       itemVariants={itemVariants}
                   />
 
+                  {/* Task Status Chart */}
+                  <TaskStatusChartCard
+                      tasks={recentTasks}
+                      itemVariants={itemVariants}
+                  />
               </div>
           </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

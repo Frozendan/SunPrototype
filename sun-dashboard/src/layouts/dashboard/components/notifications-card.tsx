@@ -17,7 +17,17 @@ import {
 import { Icon } from "@iconify/react";
 
 import NotificationItem from "./notification-item";
-import type { NotificationItem as NotificationItemType } from "../types";
+import { useTranslation } from "@/lib/i18n-context";
+
+type Notification = {
+  id: string;
+  isRead?: boolean;
+  avatar: string;
+  description: string;
+  name: string;
+  time: string;
+  type?: "default" | "request" | "file";
+};
 
 enum NotificationTabs {
   All = "all",
@@ -25,13 +35,13 @@ enum NotificationTabs {
   Archive = "archive",
 }
 
-const notifications: Record<NotificationTabs, NotificationItemType[]> = {
+const notifications: Record<NotificationTabs, Notification[]> = {
   all: [
     {
       id: "1",
       isRead: false,
       avatar: "https://i.pravatar.cc/150?u=a04258114e29026708c",
-      description: "requested to join your organization.",
+      description: "requested to join your Acme organization.",
       name: "Tony Reichert",
       time: "2 hours ago",
       type: "request",
@@ -83,7 +93,7 @@ const notifications: Record<NotificationTabs, NotificationItemType[]> = {
       id: "1",
       isRead: false,
       avatar: "https://i.pravatar.cc/150?u=a04258114e29026708c",
-      description: "requested to join your organization.",
+      description: "requested to join your Acme organization.",
       name: "Tony Reichert",
       time: "2 hours ago",
       type: "request",
@@ -114,6 +124,7 @@ interface NotificationsCardProps extends CardProps {
 }
 
 export default function NotificationsCard(props: NotificationsCardProps) {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = React.useState<NotificationTabs>(NotificationTabs.All);
 
   const activeNotifications = notifications[activeTab];
@@ -123,17 +134,19 @@ export default function NotificationsCard(props: NotificationsCardProps) {
       <CardHeader className="flex flex-col px-0 pb-0">
         <div className="flex w-full items-center justify-between px-5 py-2">
           <div className="inline-flex items-center gap-1">
-            <h4 className="text-large inline-block align-middle font-medium">Notifications</h4>
+            <h4 className="text-large inline-block align-middle font-medium">
+              {t('components.notifications.title')}
+            </h4>
             <Chip size="sm" variant="flat">
               12
             </Chip>
           </div>
           <Button className="h-8 px-3" color="primary" radius="full" variant="light">
-            Mark all as read
+            {t('components.notifications.markAllAsRead')}
           </Button>
         </div>
         <Tabs
-          aria-label="Notifications"
+          aria-label={t('components.notifications.title')}
           classNames={{
             base: "w-full",
             tabList: "gap-6 px-6 py-0 w-full relative rounded-none border-b border-divider",
@@ -149,7 +162,7 @@ export default function NotificationsCard(props: NotificationsCardProps) {
             key="all"
             title={
               <div className="flex items-center space-x-2">
-                <span>All</span>
+                <span>{t('components.notifications.tabs.all')}</span>
                 <Chip size="sm" variant="flat">
                   9
                 </Chip>
@@ -160,14 +173,14 @@ export default function NotificationsCard(props: NotificationsCardProps) {
             key="unread"
             title={
               <div className="flex items-center space-x-2">
-                <span>Unread</span>
+                <span>{t('components.notifications.tabs.unread')}</span>
                 <Chip size="sm" variant="flat">
                   3
                 </Chip>
               </div>
             }
           />
-          <Tab key="archive" title="Archive" />
+          <Tab key="archive" title={t('components.notifications.tabs.archive')} />
         </Tabs>
       </CardHeader>
       <CardBody className="w-full gap-0 p-0">
@@ -179,16 +192,20 @@ export default function NotificationsCard(props: NotificationsCardProps) {
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center gap-2">
               <Icon className="text-default-400" icon="solar:bell-off-linear" width={40} />
-              <p className="text-small text-default-400">No notifications yet.</p>
+              <p className="text-small text-default-400">
+                {t('components.notifications.noNotifications')}
+              </p>
             </div>
           )}
         </ScrollShadow>
       </CardBody>
       <CardFooter className="justify-end gap-2 px-4">
         <Button variant={activeTab === NotificationTabs.Archive ? "flat" : "light"}>
-          Settings
+          {t('common.settings')}
         </Button>
-        {activeTab !== NotificationTabs.Archive && <Button variant="flat">Archive All</Button>}
+        {activeTab !== NotificationTabs.Archive && (
+          <Button variant="flat">{t('components.notifications.archiveAll')}</Button>
+        )}
       </CardFooter>
     </Card>
   );

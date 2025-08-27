@@ -29,6 +29,7 @@ import {
   SearchIcon,
 } from "@/components/icons";
 import { SunGroupIcon } from "@/components/icons";
+import { NotificationDropdown } from "@/components/notifications";
 
 export const Navbar = () => {
   const { t } = useTranslation();

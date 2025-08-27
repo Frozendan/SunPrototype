@@ -33,7 +33,21 @@
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No",
-    "active": "Active"
+    "active": "Active",
+    "new": "New"
+  },
+  "commandMenu": {
+    "placeholder": "Search for pages, actions, and more...",
+    "noResults": "No results for \"{{query}}\"",
+    "tryDifferent": "Try searching for something else.",
+    "recent": "Recent",
+    "categories": {
+      "title": "Categories",
+      "dashboard": "Dashboard",
+      "news": "News",
+      "tasks": "Tasks",
+      "time": "Time"
+    }
   },
   "pages": {
     "home": {

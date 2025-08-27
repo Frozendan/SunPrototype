@@ -33,7 +33,21 @@
     "confirm": "Xác nhận",
     "yes": "Có",
     "no": "Không",
-    "active": "Hoạt động"
+    "active": "Hoạt động",
+    "new": "Mới"
+  },
+  "commandMenu": {
+    "placeholder": "Tìm kiếm trang, hành động và nhiều hơn nữa...",
+    "noResults": "Không có kết quả cho \"{{query}}\"",
+    "tryDifferent": "Thử tìm kiếm thứ khác.",
+    "recent": "Gần đây",
+    "categories": {
+      "title": "Danh mục",
+      "dashboard": "Bảng điều khiển",
+      "news": "Tin tức",
+      "tasks": "Công việc",
+      "time": "Thời gian"
+    }
   },
   "pages": {
     "home": {

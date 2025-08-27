@@ -15,6 +15,9 @@ import {
   Badge,
   Breadcrumbs,
   BreadcrumbItem,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -25,10 +28,9 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SunIcon } from "@/components/sun-logo";
 import AppSwitcher from "./app-switcher";
+import NotificationsCard from "./notifications-card";
 import type { AppType } from "../types";
-import {Input} from "@heroui/input";
-import {Kbd} from "@heroui/kbd";
-import {SearchIcon} from "@/components/icons.tsx";
+import { CommandMenuTrigger } from "@/components/command-menu";
 
 interface DashboardNavbarProps {
   onMenuToggle?: () => void;
@@ -103,26 +105,7 @@ export default function DashboardNavbar({
     };
   };
 
-    const searchInput = (
-        <Input
-            aria-label={t('components.navbar.searchPlaceholder')}
-            classNames={{
-                inputWrapper: "bg-default-100",
-                input: "text-sm",
-            }}
-            endContent={
-                <Kbd className="hidden lg:inline-block" keys={["command"]}>
-                    K
-                </Kbd>
-            }
-            labelPlacement="outside"
-            placeholder={t('components.navbar.searchPlaceholder')}
-            startContent={
-                <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-            }
-            type="search"
-        />
-    );
+    const searchInput = <CommandMenuTrigger />;
 
   const taskBreadcrumbData = generateTaskBreadcrumbs();
 
@@ -256,79 +239,25 @@ export default function DashboardNavbar({
         </NavbarItem>
 
         <NavbarItem>
-          <Dropdown placement="bottom-end">
-            <DropdownTrigger>
+          <Popover offset={12} placement="bottom-start">
+            <PopoverTrigger>
               <Button
+                disableRipple
                 isIconOnly
-                size="sm"
+                className="overflow-visible"
+                radius="full"
                 variant="light"
-                aria-label="Notifications"
+                aria-label={t('components.notifications.title')}
               >
-                <Badge color="danger" content="3" showOutline={false} size="sm">
-                  <Icon className="text-default-500" icon="solar:bell-linear" width={20} />
+                <Badge color="danger" content="5" showOutline={false} size="md">
+                  <Icon className="text-default-500" icon="solar:bell-linear" width={22} />
                 </Badge>
               </Button>
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Notifications" variant="flat" className="w-80 p-0">
-              <DropdownItem key="header" className="h-14 gap-2 opacity-100" textValue="Notifications">
-                <div className="flex items-center justify-between w-full px-2">
-                  <h4 className="text-large font-medium">Notifications</h4>
-                  <Badge size="sm" variant="flat">3</Badge>
-                </div>
-              </DropdownItem>
-              <DropdownItem key="notification1" className="h-auto py-3 opacity-100" textValue="Tony Reichert requested to join">
-                <div className="flex items-start gap-3 p-3 rounded-lg bg-default-50 mx-2">
-                  <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
-                    <Icon icon="solar:user-plus-linear" className="text-primary-600" width={16} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm">
-                      <strong>Tony Reichert</strong> requested to join your organization.
-                    </p>
-                    <p className="text-xs text-default-500 mt-1">2 hours ago</p>
-                  </div>
-                </div>
-              </DropdownItem>
-              <DropdownItem key="notification2" className="h-auto py-3 opacity-100" textValue="Ben Berman modified file">
-                <div className="flex items-start gap-3 p-3 rounded-lg bg-default-50 mx-2">
-                  <div className="w-8 h-8 rounded-full bg-warning-100 flex items-center justify-center flex-shrink-0">
-                    <Icon icon="solar:file-linear" className="text-warning-600" width={16} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm">
-                      <strong>Ben Berman</strong> modified the Brand logo file.
-                    </p>
-                    <p className="text-xs text-default-500 mt-1">7 hours ago</p>
-                  </div>
-                </div>
-              </DropdownItem>
-              <DropdownItem key="notification3" className="h-auto py-3 opacity-100" textValue="Jane Doe liked your post">
-                <div className="flex items-start gap-3 p-3 rounded-lg mx-2">
-                  <div className="w-8 h-8 rounded-full bg-success-100 flex items-center justify-center flex-shrink-0">
-                    <Icon icon="solar:heart-linear" className="text-success-600" width={16} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm">
-                      <strong>Jane Doe</strong> liked your post.
-                    </p>
-                    <p className="text-xs text-default-500 mt-1">Yesterday</p>
-                  </div>
-                </div>
-              </DropdownItem>
-              <DropdownItem key="viewall" className="h-auto py-3 opacity-100" textValue="View All">
-                <div className="mx-2 pt-3 border-t border-divider">
-                  <Button
-                    color="primary"
-                    variant="flat"
-                    size="sm"
-                    className="w-full"
-                  >
-                    View All Notifications
-                  </Button>
-                </div>
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+            </PopoverTrigger>
+            <PopoverContent className="max-w-[90vw] p-0 sm:max-w-[380px]">
+              <NotificationsCard className="w-full shadow-none" />
+            </PopoverContent>
+          </Popover>
         </NavbarItem>
 
         <NavbarItem>

@@ -5,12 +5,26 @@ import { Avatar, Badge, Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { cn } from "@heroui/react";
 
-import type { NotificationType, NotificationItem as NotificationItemType } from "../types";
+import { useTranslation } from "@/lib/i18n-context";
 
-export type NotificationItemProps = React.HTMLAttributes<HTMLDivElement> & NotificationItemType;
+export type NotificationType = "default" | "request" | "file";
+
+export type NotificationItem = {
+  id: string;
+  isRead?: boolean;
+  avatar: string;
+  description: string;
+  name: string;
+  time: string;
+  type?: NotificationType;
+};
+
+export type NotificationItemProps = React.HTMLAttributes<HTMLDivElement> & NotificationItem;
 
 const NotificationItem = React.forwardRef<HTMLDivElement, NotificationItemProps>(
   ({ children, avatar, name, description, type, time, isRead, className, ...props }, ref) => {
+    const { t } = useTranslation();
+
     /**
      * Defines the content for different types of notifications.
      */
@@ -19,10 +33,10 @@ const NotificationItem = React.forwardRef<HTMLDivElement, NotificationItemProps>
       request: (
         <div className="flex gap-2 pt-2">
           <Button color="primary" size="sm">
-            Accept
+            {t('components.notifications.actions.accept')}
           </Button>
           <Button size="sm" variant="flat">
-            Decline
+            {t('components.notifications.actions.decline')}
           </Button>
         </div>
       ),
@@ -43,7 +57,7 @@ const NotificationItem = React.forwardRef<HTMLDivElement, NotificationItemProps>
         className={cn(
           "border-divider flex gap-3 border-b px-6 py-4",
           {
-            "bg-primary-50/50": !isRead,
+            "bg-primary-50/50 dark:bg-primary-900/20": !isRead,
           },
           className,
         )}

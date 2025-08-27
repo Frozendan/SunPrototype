@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button, Kbd } from "@heroui/react";
 import { isAppleDevice } from "@react-aria/utils";
 import { Icon } from "@iconify/react";

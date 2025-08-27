@@ -83,12 +83,7 @@ export default function CalendarCard({
     return today.toDateString() === eventDate.toDateString();
   };
 
-  const isTomorrow = (dateString: string) => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const eventDate = new Date(dateString);
-    return tomorrow.toDateString() === eventDate.toDateString();
-  };
+
 
   if (state.isLoading) {
     return (

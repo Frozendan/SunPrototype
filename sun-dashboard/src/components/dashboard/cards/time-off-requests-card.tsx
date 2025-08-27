@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardBody, CardHeader, Button, Chip, Skeleton, ScrollShadow } from "@heroui/react";
+import { Card, CardBody, CardHeader, Button, Skeleton, ScrollShadow } from "@heroui/react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 
@@ -24,17 +24,17 @@ const itemVariants = {
   }
 };
 
-const getStatusColor = (status: TimeOffRequest['status']) => {
-  switch (status) {
-    case 'approved':
-      return 'success';
-    case 'rejected':
-      return 'danger';
-    case 'pending':
-    default:
-      return 'warning';
-  }
-};
+// const getStatusColor = (status: TimeOffRequest['status']) => {
+//   switch (status) {
+//     case 'approved':
+//       return 'success';
+//     case 'rejected':
+//       return 'danger';
+//     case 'pending':
+//     default:
+//       return 'warning';
+//   }
+// };
 
 const getTypeIcon = (type: TimeOffRequest['type']) => {
   switch (type) {
@@ -115,7 +115,7 @@ export default function TimeOffRequestsCard({
     );
   }
 
-  const pendingRequests = data.filter(request => request.status === 'pending');
+  // const pendingRequests = data.filter(request => request.status === 'pending');
   const recentRequests = data.slice(0, 3); // Show only first 3 requests
 
   return (

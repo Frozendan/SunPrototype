@@ -34,6 +34,7 @@
     "yes": "Yes",
     "no": "No",
     "active": "Active",
+    "new": "New",
     "new": "New"
   },
   "commandMenu": {
@@ -271,272 +272,86 @@
       "team": "Team",
       "calendar": "Calendar",
       "reports": "Reports",
-      "settings": "Task Settings",
-      "createTask": "Create Task",
-      "createDocument": "Create Document",
-      "taskList": "Task List",
-      "newTask": "New Task",
-      "taskDetails": "Task Details",
-      "taskTitle": "Task Title",
-      "taskDescription": "Task Description",
-      "actionBar": {
-        "importFromFile": "Import from Excel/CSV",
-        "downloadExample": "Download Example File",
-        "saveToDraft": "Save to Draft",
-        "actions": "Actions",
-        "importTooltip": "Import task data from spreadsheet file",
-        "downloadTooltip": "Download template file with sample data",
-        "draftTooltip": "Save current progress as draft",
-        "draftSaving": "Saving draft...",
-        "draftSaved": "Draft saved successfully",
-        "draftLoaded": "Draft loaded successfully",
-        "importSuccess": "Tasks imported successfully",
-        "importError": "Failed to import file",
-        "invalidFileFormat": "Invalid file format. Please use CSV or Excel files.",
-        "fileParseError": "Error parsing file. Please check the format.",
-        "confirmImport": "This will replace current form data. Continue?",
-        "confirmCancel": "You have unsaved changes. Are you sure you want to leave?",
-        "confirmClearDraft": "Remove saved draft?",
-        "exampleFileName": "task-import-template.csv"
-      },
-      "sections": {
-        "generalInformation": "General Information",
-        "basicInformation": "Basic Information",
-        "priorityImportance": "Priority & Importance",
-        "scheduleTiming": "Schedule & Timing",
-        "removeGeneralInformation": "Remove General Information",
-        "subtasks": "Subtasks"
-      },
-      "subtasks": {
-        "title": "Subtasks",
-        "addSubtask": "Add Subtask",
-        "createSubtask": "Create Subtask",
-        "noSubtasks": "No subtasks yet",
-        "noSubtasksDescription": "Add subtasks to break down this task",
-        "subtaskOf": "Subtask of",
-        "status": {
-          "todo": "To Do",
-          "inProgress": "In Progress",
-          "done": "Done",
-          "cancelled": "Cancelled"
-        },
-        "priority": {
-          "low": "Low",
-          "medium": "Normal",
-          "high": "Important",
-          "urgent": "Urgent"
-        }
-      },
-      "generalInfo": {
-        "functionalGroup": "Functional Group",
-        "topic": "Topic",
-        "taskType": "Task Type",
-        "topicRequired": "Topic is required",
-        "selectFunctionalGroup": "Select functional group",
-        "selectTopic": "Select topic",
-        "selectTaskType": "Select task type"
-      },
-      "messages": {
-        "taskUpdated": "Task updated successfully",
-        "updateFailed": "Failed to update task"
-      },
-      "validation": {
-        "pleaseFillRequired": "Please fill in all required fields"
-      },
-      "expectedResults": "Expected Results",
-      "attachments": "Attachments",
-      "noAttachmentsYet": "No attachments yet",
-      "uploadFiles": "Upload files",
-      "clickToUpload": "Click here or use the + button to upload files",
-      "attachmentCount": "files",
-      "enterTaskTitle": "Enter task title",
-      "describeTask": "Describe what needs to be done...",
-      "describeExpectedResults": "Describe the expected outcomes and deliverables...",
-      "priority": "Priority",
-      "assignee": "Assignee",
-      "dueDate": "Due Date",
-      "labels": "Labels",
-      "status": "Status",
-      "high": "High",
-      "medium": "Medium",
-      "low": "Low",
-      "urgent": "Urgent",
-      "todo": "To Do",
-      "inProgress": "In Progress",
-      "done": "Done",
-      "cancelled": "Cancelled",
-      "unit": "Unit",
-      "selectUnit": "Select unit",
-      "assignedPerson": "Assigned Person",
-      "selectAssignedPerson": "Select assigned person",
-      "collaboratingUnit": "Collaborating Unit",
-      "selectCollaboratingUnit": "Select collaborating unit",
-      "assignmentReference": "Assignment Reference",
-      "selectAssignmentReference": "Select assignment reference",
-      "priorityLevel": "Priority Level",
-      "normal": "Normal",
-      "urgent": "Urgent",
-      "importanceLevel": "Importance Level",
-      "normalImportance": "Normal",
-      "important": "Important",
-      "veryImportant": "Very Important",
-      "assignmentDate": "Assignment Date",
-      "expectedEndDate": "Expected End Date",
-      "requiredDeadline": "Required Deadline",
-      "deadlineRequired": "Deadline required",
-      "createRecurringTask": "Create Recurring Task",
-      "assignToMe": "Assign to me",
-      "recurringType": "Recurring Type",
-      "daily": "Daily",
-      "weekly": "Weekly",
-      "monthly": "Monthly",
-      "recurringStartDate": "Recurring Start Date",
-      "recurringEndDate": "Recurring End Date",
-      "leadershipDirective": "Leadership Directive",
-      "taskId": "Task ID",
-      "deleteTask": "Delete Task",
-      "approveTask": "Approve Task",
-      "confirmDeleteTask": "Are you sure you want to delete this task?",
-      "confirmApproveTask": "Are you sure you want to approve this task?",
-      "taskDeleted": "Task deleted successfully",
-      "taskApproved": "Task approved successfully",
-      "deleteTaskFailed": "Failed to delete task",
-      "approveTaskFailed": "Failed to approve task",
-      "unassigned": "Unassigned",
-      "filters": {
-        "taskType": "Task Type",
-        "status": "Status",
-        "priority": "Priority",
-        "deadlineStatus": "Deadline Status",
-        "statusGroups": {
-          "draft": "Draft",
-          "inProgress": "In Progress",
-          "pending": "Pending",
-          "completed": "Completed",
-          "cancelled": "Cancelled"
-        },
-        "taskTypes": {
-          "all": "All Types",
-          "assignment": "Assignment",
-          "supportService": "Support Service",
-          "document": "Document/Record"
-        },
-        "statuses": {
-          "all": "All",
-          "todo": "To Do",
-          "inProgress": "In Progress",
-          "done": "Done",
-          "cancelled": "Cancelled",
-          "pendingReceipt": "Pending Receipt",
-          "redo": "Redo",
-          "pendingConfirmation": "Pending Confirmation",
-          "completed": "Completed",
-          "approved": "Approved",
-          "archiveRecord": "Archive Record",
-          "rejected": "Rejected",
-          "notApproved": "Not Approved",
-          "cancelledAfterApproval": "Cancelled After Approval",
-          "paused": "Paused",
-          "terminated": "Terminated",
-          "draft": "Draft"
-        },
-        "deadlineStatuses": {
-          "all": "All",
-          "overdue": "Overdue",
-          "notOverdue": "Not Overdue"
-        },
-        "priorities": {
-          "low": "Low",
-          "medium": "Medium",
-          "high": "High",
-          "urgent": "Urgent"
-        },
-        "selectAll": "Select All",
-        "deselectAll": "Deselect All"
-      },
-      "columns": {
-        "title": "Title",
-        "status": "Status",
-        "priority": "Priority",
-        "assignee": "Assignee",
-        "dueDate": "Due Date",
-        "taskType": "Task Type",
-        "unit": "Unit",
-        "importanceLevel": "Importance",
-        "assignmentDate": "Assignment Date",
-        "expectedEndDate": "Expected End",
-        "executingUnit": "Executing Unit",
-        "actions": "Actions"
-      },
-      "columnSettings": {
-        "title": "Column Settings",
-        "showHideColumns": "Show/Hide Columns",
-        "resetToDefault": "Reset to Default"
-      },
-      "filterSettings": {
-        "title": "Filters",
-        "clearAll": "Clear All",
-        "applyFilters": "Apply Filters"
-      },
-      "importanceLevels": {
-        "normal": "Normal",
-        "important": "Important",
-        "very-important": "Very Important"
-      },
-      "recentTasks": {
-        "title": "Recent Tasks",
-        "newTask": "New Task",
-        "viewAll": "View All Tasks",
-        "noTasks": "No recent tasks",
-        "noTasksDescription": "Create your first task to get started",
-        "myTasks": "My Tasks",
-        "departmentTasks": "Department Tasks",
-        "noMyTasks": "No tasks assigned to you",
-        "noMyTasksDescription": "You don't have any tasks assigned currently",
-        "noDepartmentTasks": "No department tasks",
-        "noDepartmentTasksDescription": "No tasks from other team members",
-        "due": "Due",
-        "overdue": "Overdue",
-        "type": "Type",
-        "assignedTo": "Assigned to",
-        "unassigned": "Unassigned",
-        "today": "Today",
-        "tomorrow": "Tomorrow",
-        "yesterday": "Yesterday"
-      },
-      "stats": {
-        "totalTasks": "Total Tasks",
-        "inProgress": "In Progress",
-        "completed": "Completed",
-        "overdue": "Overdue"
-      },
-      "analytics": {
-        "departmentAnalytics": "Department Analytics",
-        "viewDetails": "View Details",
-        "noDepartmentData": "No department data available",
-        "assignTasksToDepartments": "Assign tasks to departments to see analytics",
-        "tasksCompleted": "tasks completed",
-        "members": "members",
-        "inProgress": "in progress",
-        "overdue": "overdue"
-      },
-      "statusChart": {
-        "title": "Task Status Distribution",
-        "unit": "Tasks",
-        "activeWork": "Active Work",
-        "completed": "Completed",
-        "pending": "Pending",
-        "problems": "Problems",
-        "draft": "Draft"
-      }
+      "settings": "Task Settings"
     },
     "timeManagement": {
       "dashboard": "Time Dashboard",
       "tracker": "Time Tracker",
       "reports": "Time Reports",
-      "projects": "Projects",
+      "projects": "Time Projects",
       "analytics": "Analytics",
       "settings": "Time Settings"
+    }
+  },
+  "commandMenu": {
+    "placeholder": "Search for commands...",
+    "noResults": "No results found",
+    "tryDifferent": "Try a different search term",
+    "recent": "Recent",
+    "categories": {
+      "title": "Categories",
+      "dashboard": "Dashboard",
+      "news": "News",
+      "tasks": "Tasks",
+      "time": "Time"
+    }
+  },
+  "createButton": {
+    "buttonText": "Create New",
+    "taskManagement": {
+      "sectionTitle": "Create New",
+      "createTask": "Create new task",
+      "createTaskDesc": "Add new task",
+      "createDocument": "Create new document",
+      "createDocumentDesc": "Add new document"
+    },
+    "timeManagement": {
+      "sectionTitle": "Request",
+      "requestTimeOff": "Request Time Off",
+      "requestTimeOffDesc": "Submit time off request",
+      "requestScheduleChange": "Request Work Schedule Change",
+      "requestScheduleChangeDesc": "Change work schedule",
+      "requestLateArrival": "Request Late Arrival/Early Departure",
+      "requestLateArrivalDesc": "Request schedule adjustment",
+      "requestOvertime": "Request Overtime",
+      "requestOvertimeDesc": "Submit overtime request"
+    }
+  },
+  "timeOff": {
+    "pageTitle": "Request Time Off",
+    "pageDescription": "Submit your time off request",
+    "submitRequest": "Submit Request",
+    "discardChanges": "Discard Changes",
+    "balances": {
+      "title": "Time Off Balances",
+      "description": "Your current time off balances",
+      "annual_leave": "Annual Leave",
+      "unpaid_leave": "Unpaid Leave",
+      "sick_leave": "Sick Leave",
+      "vacation": "Vacation",
+      "funeral_leave": "Funeral Leave",
+      "business_leave": "Business Leave",
+      "training_leave": "Training Leave",
+      "remaining": "remaining",
+      "days": "days",
+      "hours": "hours"
+    },
+    "form": {
+      "title": "Request Details",
+      "placeholder": "Complete the form to submit your request"
+    },
+    "guidelines": {
+      "title": "Guidelines",
+      "placeholder": "Review the time off policies and guidelines"
+    },
+    "validation": {
+      "requiredFields": "Please fill in all required fields"
+    },
+    "success": {
+      "requestSubmitted": "Time off request submitted successfully"
+    },
+    "error": {
+      "submitFailed": "Failed to submit time off request"
     }
   },
   "stores": {
@@ -546,7 +361,6 @@
       "email": "Email",
       "role": "Role",
       "status": "Status",
-      "createdAt": "Created At",
       "actions": "Actions",
       "addUser": "Add User",
       "editUser": "Edit User",
@@ -558,10 +372,9 @@
     },
     "products": {
       "title": "Products",
-      "name": "Product Name",
-      "price": "Price",
+      "name": "Name",
       "category": "Category",
-      "stock": "Stock",
+      "price": "Price",
       "description": "Description",
       "actions": "Actions",
       "addProduct": "Add Product",

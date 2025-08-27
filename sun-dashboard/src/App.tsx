@@ -22,6 +22,9 @@ import TaskDetailPage from "@/pages/apps/task-management/task-detail";
 import TaskListPage from "@/pages/apps/task-management/tasks";
 import CreateDocumentPage from "@/pages/apps/document-management/create";
 
+// Time Management pages
+import RequestTimeOffPage from "@/pages/apps/time-management/request-time-off";
+
 function App() {
   return (
     <>
@@ -102,6 +105,11 @@ function App() {
       />
 
       {/* Time Management App Routes */}
+      {/* Redirect /time-management to /time-management/dashboard */}
+      <Route
+        path="/time-management"
+        element={<Navigate to="/time-management/dashboard" replace />}
+      />
       <Route
         element={
           <ProtectedRoute>
@@ -109,6 +117,14 @@ function App() {
           </ProtectedRoute>
         }
         path="/time-management/dashboard"
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <RequestTimeOffPage />
+          </ProtectedRoute>
+        }
+        path="/time-management/request-time-off"
       />
     </Routes>
     </>

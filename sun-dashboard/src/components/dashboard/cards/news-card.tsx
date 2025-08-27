@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardBody, CardHeader, Button, Skeleton, Image } from "@heroui/react";
+import { Card, CardBody, CardHeader, Skeleton, Image } from "@heroui/react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 
@@ -27,7 +27,7 @@ const itemVariants = {
 export default function NewsCard({ 
   data, 
   state, 
-  onViewAllNews,
+  // onViewAllNews,
   onReadMore,
   className 
 }: NewsCardProps) {
@@ -41,10 +41,10 @@ export default function NewsCard({
     });
   };
 
-  const formatReadTime = (minutes?: number) => {
-    if (!minutes) return '';
-    return `${minutes} min read`;
-  };
+  // const formatReadTime = (minutes?: number) => {
+  //   if (!minutes) return '';
+  //   return `${minutes} min read`;
+  // };
 
   if (state.isLoading) {
     return (

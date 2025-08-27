@@ -122,7 +122,7 @@ export function useDashboard(): UseDashboardReturn {
   // Action handlers
   const onRequestTimeOff = useCallback(() => {
     // Navigate to time off request page
-    navigate('/time-management/request');
+    navigate('/time-management/request-time-off');
   }, [navigate]);
 
   const onCalculateTimeOff = useCallback(() => {

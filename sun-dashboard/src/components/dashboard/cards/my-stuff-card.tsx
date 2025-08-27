@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader, Skeleton, ScrollShadow } from "@heroui/reac
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 
-import { useTranslation } from "@/lib/i18n-context";
+// import { useTranslation } from "@/lib/i18n-context";
 import type { DashboardCardState } from "@/types/dashboard";
 
 interface MyStuffCardProps {
@@ -34,7 +34,7 @@ export default function MyStuffCard({
   state,
   className 
 }: MyStuffCardProps) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   if (state.isLoading) {
     return (

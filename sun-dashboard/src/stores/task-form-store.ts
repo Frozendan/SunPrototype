@@ -40,7 +40,7 @@ const defaultFormData: TaskFormData = {
   description: '',
   expectedResults: '',
   attachments: [],
-  priority: 'normal',
+  priority: 'medium',
   assigneeId: '',
   labelIds: [],
   unitId: '',

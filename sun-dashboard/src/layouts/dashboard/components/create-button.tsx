@@ -10,10 +10,11 @@ import {
   DropdownSection,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useTranslation } from "@/lib/i18n-context";
+import type { AppType } from "../types";
 
 interface CreateButtonProps {
   isCompact?: boolean;
@@ -23,7 +24,21 @@ interface CreateButtonProps {
 export default function CreateButton({ isCompact = false, className }: CreateButtonProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // Determine current app based on URL
+  const getCurrentApp = (): AppType => {
+    const path = location.pathname;
+    if (path === '/dashboard') return 'myDashboard';
+    if (path.startsWith('/news')) return 'news';
+    if (path.startsWith('/task-management')) return 'taskManagement';
+    if (path.startsWith('/time-management')) return 'timeManagement';
+    return 'myDashboard';
+  };
+
+  const currentApp = getCurrentApp();
+
+  // Task Management handlers
   const handleCreateTask = () => {
     console.log("Navigating to create task page...");
     navigate("/task-management/create-task");
@@ -34,12 +49,46 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
     navigate("/task-management/create-document");
   };
 
+  // Time Management handlers
+  const handleRequestTimeOff = () => {
+    console.log("Navigating to request time off page...");
+    navigate("/time-management/request-time-off");
+  };
+
+  const handleRequestScheduleChange = () => {
+    console.log("Navigating to request schedule change page...");
+    navigate("/time-management/request-schedule-change");
+  };
+
+  const handleRequestLateArrival = () => {
+    console.log("Navigating to request late arrival page...");
+    navigate("/time-management/request-late-arrival");
+  };
+
+  const handleRequestOvertime = () => {
+    console.log("Navigating to request overtime page...");
+    navigate("/time-management/request-overtime");
+  };
+
   const handleAction = (key: React.Key) => {
     console.log("Action triggered:", key);
+
+    // Task Management actions
     if (key === "create-task") {
       handleCreateTask();
     } else if (key === "create-document") {
       handleCreateDocument();
+    }
+
+    // Time Management actions
+    else if (key === "request-time-off") {
+      handleRequestTimeOff();
+    } else if (key === "request-schedule-change") {
+      handleRequestScheduleChange();
+    } else if (key === "request-late-arrival") {
+      handleRequestLateArrival();
+    } else if (key === "request-overtime") {
+      handleRequestOvertime();
     }
   };
 
@@ -65,44 +114,123 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
           className="w-64"
           onAction={handleAction}
         >
-          <DropdownSection title="Create New">
-            <DropdownItem
-              key="create-task"
-              className="h-12"
-              startContent={
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
-                  <Icon
-                    className="text-green-600 dark:text-green-400"
-                    icon="solar:checklist-minimalistic-bold"
-                    width={18}
-                  />
+          {currentApp === 'taskManagement' && (
+            <DropdownSection title={t('createButton.taskManagement.sectionTitle')}>
+              <DropdownItem
+                key="create-task"
+                className="h-12"
+                startContent={
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
+                    <Icon
+                      className="text-green-600 dark:text-green-400"
+                      icon="solar:checklist-minimalistic-bold"
+                      width={18}
+                    />
+                  </div>
+                }
+              >
+                <div className="flex flex-col">
+                  <span className="font-medium">{t('createButton.taskManagement.createTask')}</span>
+                  <span className="text-small text-default-500">{t('createButton.taskManagement.createTaskDesc')}</span>
                 </div>
-              }
-            >
-              <div className="flex flex-col">
-                <span className="font-medium">Create new task</span>
-                <span className="text-small text-default-500">Add new task</span>
-              </div>
-            </DropdownItem>
-            <DropdownItem
-              key="create-document"
-              className="h-12"
-              startContent={
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30">
-                  <Icon
-                    className="text-blue-600 dark:text-blue-400"
-                    icon="solar:document-add-bold"
-                    width={18}
-                  />
+              </DropdownItem>
+              <DropdownItem
+                key="create-document"
+                className="h-12"
+                startContent={
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30">
+                    <Icon
+                      className="text-blue-600 dark:text-blue-400"
+                      icon="solar:document-add-bold"
+                      width={18}
+                    />
+                  </div>
+                }
+              >
+                <div className="flex flex-col">
+                  <span className="font-medium">{t('createButton.taskManagement.createDocument')}</span>
+                  <span className="text-small text-default-500">{t('createButton.taskManagement.createDocumentDesc')}</span>
                 </div>
-              }
-            >
-              <div className="flex flex-col">
-                <span className="font-medium">Create new document</span>
-                <span className="text-small text-default-500">Add new document</span>
-              </div>
-            </DropdownItem>
-          </DropdownSection>
+              </DropdownItem>
+            </DropdownSection>
+          )}
+
+          {currentApp === 'timeManagement' && (
+            <DropdownSection title={t('createButton.timeManagement.sectionTitle')}>
+              <DropdownItem
+                key="request-time-off"
+                className="h-12"
+                startContent={
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/30">
+                    <Icon
+                      className="text-orange-600 dark:text-orange-400"
+                      icon="solar:calendar-mark-bold"
+                      width={18}
+                    />
+                  </div>
+                }
+              >
+                <div className="flex flex-col">
+                  <span className="font-medium">{t('createButton.timeManagement.requestTimeOff')}</span>
+                  <span className="text-small text-default-500">{t('createButton.timeManagement.requestTimeOffDesc')}</span>
+                </div>
+              </DropdownItem>
+              <DropdownItem
+                key="request-schedule-change"
+                className="h-12"
+                startContent={
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/30">
+                    <Icon
+                      className="text-purple-600 dark:text-purple-400"
+                      icon="solar:calendar-search-bold"
+                      width={18}
+                    />
+                  </div>
+                }
+              >
+                <div className="flex flex-col">
+                  <span className="font-medium">{t('createButton.timeManagement.requestScheduleChange')}</span>
+                  <span className="text-small text-default-500">{t('createButton.timeManagement.requestScheduleChangeDesc')}</span>
+                </div>
+              </DropdownItem>
+              <DropdownItem
+                key="request-late-arrival"
+                className="h-12"
+                startContent={
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-yellow-100 dark:bg-yellow-900/30">
+                    <Icon
+                      className="text-yellow-600 dark:text-yellow-400"
+                      icon="solar:clock-circle-bold"
+                      width={18}
+                    />
+                  </div>
+                }
+              >
+                <div className="flex flex-col">
+                  <span className="font-medium">{t('createButton.timeManagement.requestLateArrival')}</span>
+                  <span className="text-small text-default-500">{t('createButton.timeManagement.requestLateArrivalDesc')}</span>
+                </div>
+              </DropdownItem>
+              <DropdownItem
+                key="request-overtime"
+                className="h-12"
+                startContent={
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/30">
+                    <Icon
+                      className="text-red-600 dark:text-red-400"
+                      icon="solar:clock-square-bold"
+                      width={18}
+                    />
+                  </div>
+                }
+              >
+                <div className="flex flex-col">
+                  <span className="font-medium">{t('createButton.timeManagement.requestOvertime')}</span>
+                  <span className="text-small text-default-500">{t('createButton.timeManagement.requestOvertimeDesc')}</span>
+                </div>
+              </DropdownItem>
+            </DropdownSection>
+          )}
         </DropdownMenu>
       </Dropdown>
     );
@@ -125,7 +253,7 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
                 />
               </div>
               <span className="font-bold text-lg text-gray-800 dark:text-gray-200 group-hover:text-white transition-colors duration-300">
-                Tạo mới
+                {t('createButton.buttonText')}
               </span>
             </div>
             <Icon
@@ -141,42 +269,117 @@ export default function CreateButton({ isCompact = false, className }: CreateBut
         className="w-72"
         onAction={handleAction}
       >
-        <DropdownSection title="Tạo mới">
-          <DropdownItem
-            key="create-task"
-            className="h-14"
-            startContent={
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-100 dark:bg-green-900/30">
-                <Icon
-                  className="text-green-600 dark:text-green-400"
-                  icon="solar:checklist-minimalistic-bold"
-                  width={20}
-                />
+        {currentApp === 'taskManagement' && (
+          <DropdownSection title={t('createButton.taskManagement.sectionTitle')}>
+            <DropdownItem
+              key="create-task"
+              className="h-14"
+              startContent={
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-100 dark:bg-green-900/30">
+                  <Icon
+                    className="text-green-600 dark:text-green-400"
+                    icon="solar:checklist-minimalistic-bold"
+                    width={20}
+                  />
+                </div>
+              }
+            >
+              <div className="flex flex-col">
+                <span className="font-semibold text-md">{t('createButton.taskManagement.createTask')}</span>
               </div>
-            }
-          >
-            <div className="flex flex-col">
-              <span className="font-semibold text-md">Tạo công việc mới</span>
-            </div>
-          </DropdownItem>
-          <DropdownItem
-            key="create-document"
-            className="h-14"
-            startContent={
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/30">
-                <Icon
-                  className="text-blue-600 dark:text-blue-400"
-                  icon="solar:document-add-bold"
-                  width={20}
-                />
+            </DropdownItem>
+            <DropdownItem
+              key="create-document"
+              className="h-14"
+              startContent={
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/30">
+                  <Icon
+                    className="text-blue-600 dark:text-blue-400"
+                    icon="solar:document-add-bold"
+                    width={20}
+                  />
+                </div>
+              }
+            >
+              <div className="flex flex-col">
+                <span className="font-semibold text-md">{t('createButton.taskManagement.createDocument')}</span>
               </div>
-            }
-          >
-            <div className="flex flex-col">
-              <span className="font-semibold text-md">Tạo hồ sơ mới</span>
-            </div>
-          </DropdownItem>
-        </DropdownSection>
+            </DropdownItem>
+          </DropdownSection>
+        )}
+
+        {currentApp === 'timeManagement' && (
+          <DropdownSection title={t('createButton.timeManagement.sectionTitle')}>
+            <DropdownItem
+              key="request-time-off"
+              className="h-14"
+              startContent={
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100 dark:bg-orange-900/30">
+                  <Icon
+                    className="text-orange-600 dark:text-orange-400"
+                    icon="solar:calendar-mark-bold"
+                    width={20}
+                  />
+                </div>
+              }
+            >
+              <div className="flex flex-col">
+                <span className="font-semibold text-md">{t('createButton.timeManagement.requestTimeOff')}</span>
+              </div>
+            </DropdownItem>
+            <DropdownItem
+              key="request-schedule-change"
+              className="h-14"
+              startContent={
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-900/30">
+                  <Icon
+                    className="text-purple-600 dark:text-purple-400"
+                    icon="solar:calendar-search-bold"
+                    width={20}
+                  />
+                </div>
+              }
+            >
+              <div className="flex flex-col">
+                <span className="font-semibold text-md">{t('createButton.timeManagement.requestScheduleChange')}</span>
+              </div>
+            </DropdownItem>
+            <DropdownItem
+              key="request-late-arrival"
+              className="h-14"
+              startContent={
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-100 dark:bg-yellow-900/30">
+                  <Icon
+                    className="text-yellow-600 dark:text-yellow-400"
+                    icon="solar:clock-circle-bold"
+                    width={20}
+                  />
+                </div>
+              }
+            >
+              <div className="flex flex-col">
+                <span className="font-semibold text-md">{t('createButton.timeManagement.requestLateArrival')}</span>
+              </div>
+            </DropdownItem>
+            <DropdownItem
+              key="request-overtime"
+              className="h-14"
+              startContent={
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 dark:bg-red-900/30">
+                  <Icon
+                    className="text-red-600 dark:text-red-400"
+                    icon="solar:clock-square-bold"
+                    width={20}
+                  />
+                </div>
+              }
+            >
+              <div className="flex flex-col">
+                <span className="font-semibold text-md">{t('createButton.timeManagement.requestOvertime')}</span>
+              </div>
+            </DropdownItem>
+          </DropdownSection>
+        )}
       </DropdownMenu>
     </Dropdown>
   );

@@ -18,7 +18,7 @@ import { Command } from "cmdk";
 import { matchSorter } from "match-sorter";
 import { useLocalStorage, useMediaQuery } from "usehooks-ts";
 import { isAppleDevice, isWebKit } from "@react-aria/utils";
-import { capitalize, intersectionBy, isEmpty } from "lodash";
+import { intersectionBy, isEmpty } from "lodash";
 import MultiRef from "react-multi-ref";
 import scrollIntoView from "scroll-into-view-if-needed";
 import { Icon } from "@iconify/react";
@@ -191,7 +191,7 @@ export default function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
   const groupedData = useMemo(() => groupedSearchData(flattenedData), [flattenedData]);
   const eventRef = useRef<"mouse" | "keyboard">();
   const listRef = useRef<HTMLDivElement>(null);
-  const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
+  const [, setCommandKey] = useState<"ctrl" | "command">("command");
 
   const isMobile = useMediaQuery("(max-width: 650px)");
 
@@ -455,7 +455,7 @@ export default function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
                   <Command.Empty>
                     <div className={slots.emptyWrapper()}>
                       <div>
-                        <p>{t('commandMenu.noResults', { query })}</p>
+                        <p>{t('commandMenu.noResults')}</p>
                         <p className="text-default-400">{t('commandMenu.tryDifferent')}</p>
                       </div>
                     </div>

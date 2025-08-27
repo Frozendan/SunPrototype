@@ -34,6 +34,7 @@
     "yes": "Có",
     "no": "Không",
     "active": "Hoạt động",
+    "new": "Mới",
     "new": "Mới"
   },
   "commandMenu": {
@@ -271,272 +272,86 @@
       "team": "Nhóm",
       "calendar": "Lịch",
       "reports": "Báo cáo",
-      "settings": "Cài đặt công việc",
-      "createTask": "Tạo công việc",
-      "createDocument": "Tạo tài liệu",
-      "taskList": "Danh sách công việc",
-      "newTask": "Thêm công việc mới",
-      "taskDetails": "Chi tiết công việc",
-      "taskTitle": "Tiêu đề công việc",
-      "taskDescription": "Mô tả công việc",
-      "actionBar": {
-        "importFromFile": "Nhập từ Excel/CSV",
-        "downloadExample": "Tải file mẫu",
-        "saveToDraft": "Lưu nháp",
-        "actions": "Thao tác",
-        "importTooltip": "Nhập dữ liệu công việc từ file bảng tính",
-        "downloadTooltip": "Tải file mẫu với dữ liệu ví dụ",
-        "draftTooltip": "Lưu tiến trình hiện tại làm bản nháp",
-        "draftSaving": "Đang lưu nháp...",
-        "draftSaved": "Đã lưu nháp thành công",
-        "draftLoaded": "Đã tải nháp thành công",
-        "importSuccess": "Nhập công việc thành công",
-        "importError": "Không thể nhập file",
-        "invalidFileFormat": "Định dạng file không hợp lệ. Vui lòng sử dụng file CSV hoặc Excel.",
-        "fileParseError": "Lỗi phân tích file. Vui lòng kiểm tra định dạng.",
-        "confirmImport": "Thao tác này sẽ thay thế dữ liệu hiện tại. Tiếp tục?",
-        "confirmCancel": "Bạn có thay đổi chưa được lưu. Bạn có chắc muốn rời khỏi?",
-        "confirmClearDraft": "Xóa bản nháp đã lưu?",
-        "exampleFileName": "mau-nhap-cong-viec.csv"
-      },
-      "sections": {
-        "generalInformation": "Thông tin chung",
-        "basicInformation": "Thông tin cơ bản",
-        "priorityImportance": "Mức độ ưu tiên",
-        "scheduleTiming": "Lịch trình & Thời gian",
-        "removeGeneralInformation": "Xóa thông tin chung",
-        "subtasks": "Công việc con"
-      },
-      "subtasks": {
-        "title": "Công việc con",
-        "addSubtask": "Thêm công việc con",
-        "createSubtask": "Tạo công việc con",
-        "noSubtasks": "Chưa có công việc con nào",
-        "noSubtasksDescription": "Thêm công việc con để chia nhỏ công việc này",
-        "subtaskOf": "Công việc con của",
-        "status": {
-          "todo": "Chờ thực hiện",
-          "inProgress": "Đang thực hiện",
-          "done": "Hoàn thành",
-          "cancelled": "Đã hủy"
-        },
-        "priority": {
-          "low": "Thấp",
-          "medium": "Bình thường",
-          "high": "Quan trọng",
-          "urgent": "Khẩn cấp"
-        }
-      },
-      "generalInfo": {
-        "functionalGroup": "Nhóm chức năng",
-        "topic": "Chủ đề",
-        "taskType": "Loại công việc",
-        "topicRequired": "Chủ đề là bắt buộc",
-        "selectFunctionalGroup": "Chọn nhóm chức năng",
-        "selectTopic": "Chọn chủ đề",
-        "selectTaskType": "Chọn loại công việc"
-      },
-      "messages": {
-        "taskUpdated": "Cập nhật công việc thành công",
-        "updateFailed": "Cập nhật công việc thất bại"
-      },
-      "validation": {
-        "pleaseFillRequired": "Vui lòng điền đầy đủ các trường bắt buộc"
-      },
-      "expectedResults": "Kết quả cần đạt được",
-      "attachments": "Tệp đính kèm",
-      "noAttachmentsYet": "Chưa có tệp đính kèm",
-      "uploadFiles": "Tải lên tệp",
-      "clickToUpload": "Nhấp vào đây hoặc sử dụng nút + để tải lên tệp",
-      "attachmentCount": "tệp",
-      "enterTaskTitle": "Nhập tiêu đề công việc",
-      "describeTask": "Mô tả những gì cần được thực hiện...",
-      "describeExpectedResults": "Mô tả kết quả mong đợi và sản phẩm bàn giao...",
-      "priority": "Độ ưu tiên",
-      "assignee": "Người được giao",
-      "dueDate": "Hạn hoàn thành",
-      "labels": "Nhãn",
-      "status": "Trạng thái",
-      "high": "Cao",
-      "medium": "Trung bình",
-      "low": "Thấp",
-      "urgent": "Khẩn cấp",
-      "todo": "Cần làm",
-      "inProgress": "Đang thực hiện",
-      "done": "Hoàn thành",
-      "cancelled": "Đã hủy",
-      "unit": "Đơn vị",
-      "selectUnit": "Chọn đơn vị",
-      "assignedPerson": "Người thực hiện",
-      "selectAssignedPerson": "Chọn người thực hiện",
-      "collaboratingUnit": "Đơn vị phối hợp",
-      "selectCollaboratingUnit": "Chọn đơn vị phối hợp",
-      "assignmentReference": "Căn cứ giao việc",
-      "selectAssignmentReference": "Chọn căn cứ giao việc",
-      "priorityLevel": "Mức độ ưu tiên",
-      "normal": "Bình thường",
-      "urgent": "Khẩn cấp",
-      "importanceLevel": "Mức độ quan trọng",
-      "normalImportance": "Thông thường",
-      "important": "Quan trọng",
-      "veryImportant": "Rất quan trọng",
-      "assignmentDate": "Ngày giao việc",
-      "expectedEndDate": "Chọn ngày dự kiến kết thúc",
-      "requiredDeadline": "Chọn deadline yêu cầu",
-      "deadlineRequired": "Deadline yêu cầu",
-      "createRecurringTask": "Tạo công việc định kỳ",
-      "assignToMe": "Giao cho tôi",
-      "recurringType": "Loại lặp lại",
-      "daily": "Hàng ngày",
-      "weekly": "Hàng tuần",
-      "monthly": "Hàng tháng",
-      "recurringStartDate": "Ngày bắt đầu lặp",
-      "recurringEndDate": "Ngày kết thúc lặp",
-      "leadershipDirective": "Chỉ đạo của LĐTĐ",
-      "taskId": "Mã công việc",
-      "deleteTask": "Xóa công việc",
-      "approveTask": "Phê duyệt công việc",
-      "confirmDeleteTask": "Bạn có chắc chắn muốn xóa công việc này?",
-      "confirmApproveTask": "Bạn có chắc chắn muốn phê duyệt công việc này?",
-      "taskDeleted": "Xóa công việc thành công",
-      "taskApproved": "Phê duyệt công việc thành công",
-      "deleteTaskFailed": "Xóa công việc thất bại",
-      "approveTaskFailed": "Phê duyệt công việc thất bại",
-      "unassigned": "Chưa phân công",
-      "filters": {
-        "taskType": "Loại công việc",
-        "status": "Trạng thái",
-        "priority": "Độ ưu tiên",
-        "deadlineStatus": "Tình trạng",
-        "statusGroups": {
-          "draft": "Bản nháp",
-          "inProgress": "Đang thực hiện",
-          "pending": "Chờ xử lý",
-          "completed": "Hoàn thành",
-          "cancelled": "Đã hủy"
-        },
-        "taskTypes": {
-          "all": "Tất cả loại",
-          "assignment": "Giao việc",
-          "supportService": "Dịch vụ hỗ trợ",
-          "document": "Hồ sơ"
-        },
-        "statuses": {
-          "all": "Tất cả",
-          "todo": "Cần làm",
-          "inProgress": "Đang thực hiện",
-          "done": "Hoàn thành",
-          "cancelled": "Hủy",
-          "pendingReceipt": "Chờ tiếp nhận",
-          "redo": "Thực hiện lại",
-          "pendingConfirmation": "Chờ xác nhận",
-          "completed": "Đã hoàn thành",
-          "approved": "Đã duyệt",
-          "archiveRecord": "Lưu trữ hồ sơ",
-          "rejected": "Từ chối",
-          "notApproved": "Không duyệt",
-          "cancelledAfterApproval": "Hủy sau duyệt",
-          "paused": "Tạm dừng",
-          "terminated": "Chấm dứt công việc",
-          "draft": "Bản nháp"
-        },
-        "deadlineStatuses": {
-          "all": "Tất cả",
-          "overdue": "Quá hạn",
-          "notOverdue": "Chưa quá hạn"
-        },
-        "priorities": {
-          "low": "Thấp",
-          "medium": "Trung bình",
-          "high": "Cao",
-          "urgent": "Khẩn cấp"
-        },
-        "selectAll": "Chọn tất cả",
-        "deselectAll": "Bỏ chọn tất cả"
-      },
-      "columns": {
-        "title": "Tiêu đề",
-        "status": "Trạng thái",
-        "priority": "Độ ưu tiên",
-        "assignee": "Người thực hiện",
-        "dueDate": "Hạn hoàn thành",
-        "taskType": "Loại công việc",
-        "unit": "Đơn vị",
-        "importanceLevel": "Mức độ quan trọng",
-        "assignmentDate": "Ngày giao việc",
-        "expectedEndDate": "Dự kiến hoàn thành",
-        "executingUnit": "Đơn vị thực hiện",
-        "actions": "Thao tác"
-      },
-      "columnSettings": {
-        "title": "Cài đặt cột",
-        "showHideColumns": "Hiện/Ẩn cột",
-        "resetToDefault": "Đặt lại mặc định"
-      },
-      "filterSettings": {
-        "title": "Bộ lọc",
-        "clearAll": "Xóa tất cả bộ lọc",
-        "applyFilters": "Áp dụng bộ lọc"
-      },
-      "importanceLevels": {
-        "normal": "Bình thường",
-        "important": "Quan trọng",
-        "very-important": "Rất quan trọng"
-      },
-      "recentTasks": {
-        "title": "Công việc gần đây",
-        "newTask": "Công việc mới",
-        "viewAll": "Xem tất cả công việc",
-        "noTasks": "Chưa có công việc gần đây",
-        "noTasksDescription": "Tạo công việc đầu tiên để bắt đầu",
-        "myTasks": "Công việc của tôi",
-        "departmentTasks": "Công việc phòng ban",
-        "noMyTasks": "Bạn chưa có công việc nào",
-        "noMyTasksDescription": "Hiện tại bạn chưa được giao công việc nào",
-        "noDepartmentTasks": "Chưa có công việc phòng ban",
-        "noDepartmentTasksDescription": "Chưa có công việc từ các thành viên khác",
-        "due": "Hạn",
-        "overdue": "Quá hạn",
-        "type": "Loại",
-        "assignedTo": "Được giao cho",
-        "unassigned": "Chưa giao",
-        "today": "Hôm nay",
-        "tomorrow": "Ngày mai",
-        "yesterday": "Hôm qua"
-      },
-      "stats": {
-        "totalTasks": "Tổng công việc",
-        "inProgress": "Đang thực hiện",
-        "completed": "Hoàn thành",
-        "overdue": "Quá hạn"
-      },
-      "analytics": {
-        "departmentAnalytics": "Phân tích theo phòng ban",
-        "viewDetails": "Xem chi tiết",
-        "noDepartmentData": "Chưa có dữ liệu phòng ban",
-        "assignTasksToDepartments": "Giao công việc cho phòng ban để xem phân tích",
-        "tasksCompleted": "công việc hoàn thành",
-        "members": "thành viên",
-        "inProgress": "đang thực hiện",
-        "overdue": "quá hạn"
-      },
-      "statusChart": {
-        "title": "Phân bố trạng thái công việc",
-        "unit": "Công việc",
-        "activeWork": "Đang thực hiện",
-        "completed": "Hoàn thành",
-        "pending": "Chờ xử lý",
-        "problems": "Có vấn đề",
-        "draft": "Nháp"
-      }
+      "settings": "Cài đặt công việc"
     },
     "timeManagement": {
       "dashboard": "Bảng thời gian",
       "tracker": "Theo dõi thời gian",
       "reports": "Báo cáo thời gian",
-      "projects": "Dự án",
+      "projects": "Dự án thời gian",
       "analytics": "Phân tích",
       "settings": "Cài đặt thời gian"
+    }
+  },
+  "commandMenu": {
+    "placeholder": "Tìm kiếm lệnh...",
+    "noResults": "Không tìm thấy kết quả",
+    "tryDifferent": "Thử từ khóa khác",
+    "recent": "Gần đây",
+    "categories": {
+      "title": "Danh mục",
+      "dashboard": "Bảng điều khiển",
+      "news": "Tin tức",
+      "tasks": "Công việc",
+      "time": "Thời gian"
+    }
+  },
+  "createButton": {
+    "buttonText": "Tạo mới",
+    "taskManagement": {
+      "sectionTitle": "Tạo mới",
+      "createTask": "Tạo công việc mới",
+      "createTaskDesc": "Thêm công việc mới",
+      "createDocument": "Tạo tài liệu mới",
+      "createDocumentDesc": "Thêm tài liệu mới"
+    },
+    "timeManagement": {
+      "sectionTitle": "Yêu cầu",
+      "requestTimeOff": "Yêu cầu nghỉ phép",
+      "requestTimeOffDesc": "Gửi yêu cầu nghỉ phép",
+      "requestScheduleChange": "Yêu cầu thay đổi lịch làm việc",
+      "requestScheduleChangeDesc": "Thay đổi lịch làm việc",
+      "requestLateArrival": "Yêu cầu đến muộn/về sớm",
+      "requestLateArrivalDesc": "Yêu cầu điều chỉnh lịch",
+      "requestOvertime": "Yêu cầu làm thêm giờ",
+      "requestOvertimeDesc": "Gửi yêu cầu làm thêm giờ"
+    }
+  },
+  "timeOff": {
+    "pageTitle": "Yêu cầu nghỉ phép",
+    "pageDescription": "Gửi yêu cầu nghỉ phép mới",
+    "submitRequest": "Gửi yêu cầu",
+    "discardChanges": "Hủy thay đổi",
+    "balances": {
+      "title": "Số dư nghỉ phép",
+      "description": "Số dư nghỉ phép hiện tại của bạn",
+      "annual_leave": "Nghỉ phép năm",
+      "unpaid_leave": "Nghỉ không lương",
+      "sick_leave": "Nghỉ ốm",
+      "vacation": "Nghỉ dưỡng",
+      "funeral_leave": "Nghỉ tang",
+      "business_leave": "Nghỉ công tác",
+      "training_leave": "Nghỉ đào tạo",
+      "remaining": "còn lại",
+      "days": "ngày",
+      "hours": "giờ"
+    },
+    "form": {
+      "title": "Chi tiết yêu cầu",
+      "placeholder": "Các thành phần form sẽ được triển khai ở đây"
+    },
+    "guidelines": {
+      "title": "Hướng dẫn yêu cầu",
+      "placeholder": "Hướng dẫn và chính sách sẽ được hiển thị ở đây"
+    },
+    "validation": {
+      "requiredFields": "Vui lòng điền đầy đủ các trường bắt buộc"
+    },
+    "success": {
+      "requestSubmitted": "Yêu cầu nghỉ phép đã được gửi thành công"
+    },
+    "error": {
+      "submitFailed": "Không thể gửi yêu cầu nghỉ phép"
     }
   },
   "stores": {
@@ -546,31 +361,29 @@
       "email": "Email",
       "role": "Vai trò",
       "status": "Trạng thái",
-      "createdAt": "Ngày tạo",
-      "actions": "Hành động",
+      "actions": "Thao tác",
       "addUser": "Thêm người dùng",
-      "editUser": "Chỉnh sửa người dùng",
+      "editUser": "Sửa người dùng",
       "deleteUser": "Xóa người dùng",
-      "confirmDelete": "Bạn có chắc chắn muốn xóa người dùng này?",
-      "userCreated": "Người dùng đã được tạo thành công",
-      "userUpdated": "Người dùng đã được cập nhật thành công",
-      "userDeleted": "Người dùng đã được xóa thành công"
+      "confirmDelete": "Bạn có chắc muốn xóa người dùng này?",
+      "userCreated": "Tạo người dùng thành công",
+      "userUpdated": "Cập nhật người dùng thành công",
+      "userDeleted": "Xóa người dùng thành công"
     },
     "products": {
       "title": "Sản phẩm",
       "name": "Tên sản phẩm",
-      "price": "Giá",
       "category": "Danh mục",
-      "stock": "Tồn kho",
+      "price": "Giá",
       "description": "Mô tả",
-      "actions": "Hành động",
+      "actions": "Thao tác",
       "addProduct": "Thêm sản phẩm",
-      "editProduct": "Chỉnh sửa sản phẩm",
+      "editProduct": "Sửa sản phẩm",
       "deleteProduct": "Xóa sản phẩm",
-      "confirmDelete": "Bạn có chắc chắn muốn xóa sản phẩm này?",
-      "productCreated": "Sản phẩm đã được tạo thành công",
-      "productUpdated": "Sản phẩm đã được cập nhật thành công",
-      "productDeleted": "Sản phẩm đã được xóa thành công"
+      "confirmDelete": "Bạn có chắc muốn xóa sản phẩm này?",
+      "productCreated": "Tạo sản phẩm thành công",
+      "productUpdated": "Cập nhật sản phẩm thành công",
+      "productDeleted": "Xóa sản phẩm thành công"
     }
   }
 }

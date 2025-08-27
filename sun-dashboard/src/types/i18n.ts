@@ -36,6 +36,7 @@ export interface TranslationKeys {
     yes: string;
     no: string;
     active: string;
+    new: string;
   };
   pages: {
     home: {
@@ -232,6 +233,130 @@ export interface TranslationKeys {
       productDeleted: string;
     };
   };
+  apps: {
+    news: {
+      name: string;
+      shortName: string;
+      description: string;
+    };
+    taskManagement: {
+      name: string;
+      shortName: string;
+      description: string;
+    };
+    timeManagement: {
+      name: string;
+      shortName: string;
+      description: string;
+    };
+  };
+  navigation: {
+    taskManagement: {
+      createTask: string;
+      actionBar: {
+        invalidFileFormat: string;
+        exampleFileName: string;
+        importFromFile: string;
+        downloadExample: string;
+        saveToDraft: string;
+        importTooltip: string;
+        downloadTooltip: string;
+        draftTooltip: string;
+        actions: string;
+      };
+      columns: {
+        title: string;
+        status: string;
+        taskType: string;
+        assignmentDate: string;
+        dueDate: string;
+        executingUnit: string;
+        priority: string;
+        importanceLevel: string;
+        assignee: string;
+        actions: string;
+      };
+      filters: {
+        statuses: {
+          [key: string]: string;
+        };
+      };
+    };
+    timeManagement: {
+      dashboard: string;
+    };
+  };
+  commandMenu: {
+    placeholder: string;
+    noResults: string;
+    tryDifferent: string;
+    recent: string;
+    categories: {
+      title: string;
+      dashboard: string;
+      news: string;
+      tasks: string;
+      time: string;
+    };
+  };
+  createButton: {
+    buttonText: string;
+    taskManagement: {
+      sectionTitle: string;
+      createTask: string;
+      createTaskDesc: string;
+      createDocument: string;
+      createDocumentDesc: string;
+    };
+    timeManagement: {
+      sectionTitle: string;
+      requestTimeOff: string;
+      requestTimeOffDesc: string;
+      requestScheduleChange: string;
+      requestScheduleChangeDesc: string;
+      requestLateArrival: string;
+      requestLateArrivalDesc: string;
+      requestOvertime: string;
+      requestOvertimeDesc: string;
+    };
+  };
+  timeOff: {
+    pageTitle: string;
+    pageDescription: string;
+    submitRequest: string;
+    discardChanges: string;
+    balances: {
+      title: string;
+      description: string;
+      annual_leave: string;
+      unpaid_leave: string;
+      sick_leave: string;
+      vacation: string;
+      funeral_leave: string;
+      business_leave: string;
+      training_leave: string;
+      remaining: string;
+      days: string;
+      hours: string;
+    };
+    form: {
+      title: string;
+      placeholder: string;
+    };
+    guidelines: {
+      title: string;
+      placeholder: string;
+    };
+    validation: {
+      requiredFields: string;
+    };
+    success: {
+      requestSubmitted: string;
+    };
+    error: {
+      submitFailed: string;
+    };
+  };
 }
 
 // Helper type for nested key paths
@@ -260,7 +385,26 @@ export type TranslationKeyPath =
   | `dashboard.whosOut.${keyof TranslationKeys['dashboard']['whosOut']}`
   | `dashboard.welcome.${keyof TranslationKeys['dashboard']['welcome']}`
   | `stores.users.${keyof TranslationKeys['stores']['users']}`
-  | `stores.products.${keyof TranslationKeys['stores']['products']}`;
+  | `stores.products.${keyof TranslationKeys['stores']['products']}`
+  | `apps.news.${keyof TranslationKeys['apps']['news']}`
+  | `apps.taskManagement.${keyof TranslationKeys['apps']['taskManagement']}`
+  | `apps.timeManagement.${keyof TranslationKeys['apps']['timeManagement']}`
+  | `navigation.taskManagement.${keyof TranslationKeys['navigation']['taskManagement']}`
+  | `navigation.taskManagement.actionBar.${keyof TranslationKeys['navigation']['taskManagement']['actionBar']}`
+  | `navigation.taskManagement.columns.${keyof TranslationKeys['navigation']['taskManagement']['columns']}`
+  | `navigation.timeManagement.${keyof TranslationKeys['navigation']['timeManagement']}`
+  | `commandMenu.${keyof TranslationKeys['commandMenu']}`
+  | `commandMenu.categories.${keyof TranslationKeys['commandMenu']['categories']}`
+  | `createButton.${keyof TranslationKeys['createButton']}`
+  | `createButton.taskManagement.${keyof TranslationKeys['createButton']['taskManagement']}`
+  | `createButton.timeManagement.${keyof TranslationKeys['createButton']['timeManagement']}`
+  | `timeOff.${keyof TranslationKeys['timeOff']}`
+  | `timeOff.balances.${keyof TranslationKeys['timeOff']['balances']}`
+  | `timeOff.form.${keyof TranslationKeys['timeOff']['form']}`
+  | `timeOff.guidelines.${keyof TranslationKeys['timeOff']['guidelines']}`
+  | `timeOff.validation.${keyof TranslationKeys['timeOff']['validation']}`
+  | `timeOff.success.${keyof TranslationKeys['timeOff']['success']}`
+  | `timeOff.error.${keyof TranslationKeys['timeOff']['error']}`;
 
 export interface I18nContextType {
   language: Language;
